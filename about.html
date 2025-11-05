@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | LEARN AI/ML</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5fff5;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+
+    header {
+      background-color: #2e7d32;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .menu-icon {
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #1b5e20;
+      overflow-x: hidden;
+      transition: 0.4s;
+      padding-top: 60px;
+      z-index: 2000;
+    }
+
+    .sidebar a {
+      padding: 12px 25px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #f5fff5;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #388e3c;
+    }
+
+    .sidebar .closebtn {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      font-size: 30px;
+      cursor: pointer;
+      color: white;
+    }
+
+    /* Content */
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #2e7d32;
+      font-size: 26px;
+      margin-top: 0;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      margin-left: 20px;
+    }
+
+    /* Floating WhatsApp Button */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 25px;
+      right: 25px;
+      background-color: #25D366;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 24px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      cursor: pointer;
+    }
+
+    .whatsapp-float:hover {
+      background-color: #20b358;
+    }
+
+    .whatsapp-float i {
+      line-height: 60px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span class="menu-icon" onclick="openNav()">&#9776;</span>
+    <h1>About LEARN AI</h1>
+  </header>
+
+  <!-- Sidebar -->
+  <div id="mySidebar" class="sidebar">
+    <span class="closebtn" onclick="closeNav()">&times;</span>
+    <a href="dashboard.html"> Dashboard</a>
+    <a href="notes.html">Notes</a>
+    <a href="join_meet.html">Join Meet</a>
+    <a href="about.html">About</a>
+    <a href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20TeachThem%20AI/ML%20program." target="_blank">💬 WhatsApp Me</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <h2>About LEARN AI</h2>
+    <p><strong>LEARN AI</strong> is an interactive learning platform focused on empowering students with Artificial Intelligence (AI), Machine Learning (ML), and Deep Learning (DL) knowledge — from beginner to advanced levels.</p>
+
+    <p>Our mission is to make AI education accessible, practical, and enjoyable for everyone through modern web tools, video tutorials, and study notes.</p>
+
+    <h3>What We Offer</h3>
+    <ul>
+      <li> Guided video tutorials on AI, ML, and DL</li>
+      <li>Downloadable study notes (PDF format)</li>
+      <li>Live Google Meet sessions for Q&A</li>
+      <li>Hands-on projects to strengthen learning</li>
+    </ul>
+
+    <h3>Our Vision</h3>
+    <p>To build the next generation of problem-solvers who can leverage Artificial Intelligence to create sustainable solutions in Africa and beyond.</p>
+
+    <h3>Contact Us</h3>
+    <p>If you have questions or would like to collaborate, reach out directly via WhatsApp or email:</p>
+    <ul>
+      <li><a href="https://wa.me/254707605751" target="_blank">+254 707 605 751</a></li>
+      <li> delstarfordisaiah@gmail.com</li>
+    </ul>
+  </div>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20TeachThem%20AI/ML%20program." 
+     class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <i>💬</i>
+  </a>
+
+  <footer>
+    © 2025 LEARN AI Learning Platform. All rights reserved.
+  </footer>
+
+  <script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+    }
+  </script>
+
+</body>
+</html>

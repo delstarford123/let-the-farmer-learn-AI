@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Notes — Dashboard</title>
+  <style>
+    :root{
+      --accent: #2f8f4a;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --bg: #f5fff5;
+      --glass: rgba(255,255,255,0.7);
+      --radius: 12px;
+      --max-width: 1200px;
+    }
+    html,body{height:100%;}
+    body{
+      font-family: Arial, sans-serif;
+      background-color: var(--bg);
+      margin: 0;
+      padding: 0;
+      color: #111827;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .app{max-width:var(--max-width);margin:28px auto;padding:24px;}
+    header{display:flex;gap:20px;align-items:center;justify-content:space-between;margin-bottom:18px;}
+    .brand{display:flex;align-items:center;gap:12px;}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#46b86b);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px;box-shadow:0 6px 18px rgba(47,143,74,0.12)}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:0;color:var(--muted);font-size:14px}
+    .actions{display:flex;gap:12px;align-items:center}
+    .search{display:flex;align-items:center;background:var(--card);padding:8px 12px;border-radius:999px;box-shadow:0 1px 4px rgba(16,24,40,0.04);}
+    .search input{border:0;outline:none;background:transparent;font-size:14px}
+    .btn{background:var(--accent);color:white;padding:10px 14px;border-radius:8px;border:0;font-weight:600;cursor:pointer;}
+    .btn.secondary{background:transparent;color:var(--accent);border:1px solid rgba(47,143,74,0.14)}
+    .layout{display:grid;grid-template-columns:260px 1fr;gap:20px}
+    aside{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.04)}
+    .side-title{font-weight:700;margin-bottom:8px}
+    .categories{display:flex;flex-direction:column;gap:8px}
+    .category{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;cursor:pointer}
+    .category:hover{background:var(--glass)}
+    main{min-height:60vh}
+    .upload-area{display:flex;justify-content:space-between;align-items:center;padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.85));border:1px solid rgba(15,23,42,0.03);}
+    .upload-left{display:flex;gap:12px;align-items:center}
+    .upload-drop{padding:12px;border-radius:10px;border:2px dashed rgba(47,143,74,0.18);min-width:240px;text-align:center;cursor:pointer}
+    .muted{color:var(--muted);font-size:13px}
+    .note-grid{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+    .card{background:var(--card);padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(15,23,42,0.04);display:flex;flex-direction:column;gap:10px}
+    .card .meta{display:flex;justify-content:space-between;align-items:center}
+    .card .title{font-weight:700}
+    .card .small{font-size:13px;color:var(--muted)}
+    .icon-btn{border:0;background:transparent;padding:8px;border-radius:8px;cursor:pointer}
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(2,6,23,0.6);z-index:60}
+    .modal.open{display:flex}
+    .modal .viewer{width:90%;max-width:1000px;height:80%;background:white;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+    .viewer .toolbar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid #eef2e9}
+    .viewer iframe{flex:1;border:0}
+    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center}
+    @media (max-width:880px){ .layout{grid-template-columns:1fr} aside{order:2} .brand .logo{width:48px;height:48px} }
+    /* sidebar & whatsapp (kept outside main style for clarity) */
+    header.topbar{background:#2e7d32;color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between}
+    .menu-icon{font-size:22px;cursor:pointer}
+    .sidebar{height:100%;width:0;position:fixed;top:0;left:0;background:#1b5e20;overflow-x:hidden;transition:0.4s;padding-top:60px;z-index:999}
+    .sidebar a{display:block;color:#fff;padding:12px 22px;text-decoration:none}
+    .sidebar .closebtn{position:absolute;top:12px;right:18px;font-size:26px;cursor:pointer;color:#fff}
+    .whatsapp-float{position:fixed;width:60px;height:60px;bottom:25px;right:25px;background:#25D366;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 6px 20px rgba(0,0,0,0.12);z-index:1000}
+  </style>
+</head>
+<body>
+  <!-- topbar + sidebar -->
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="menu-icon" onclick="openNav()">☰</span>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#46b86b);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">ST</div>
+        <div>
+          <div style="font-weight:700">TeachThem</div>
+          <div style="font-size:12px;color:#e6f4ea">AI/ML for Agriculture</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center">
+      <div style="color:#fff;font-weight:600">Notes</div>
+    </div>
+  </header>
+
+  <div id="mySidebar" class="sidebar" aria-hidden="true">
+    <span class="closebtn" onclick="closeNav()">×</span>
+    <a href="dashboard.html">🏠 Dashboard</a>
+    <a href="notes.html">📘 Notes</a>
+    <a href="join_meet.html">🎥 Join Meet</a>
+    <a href="about.html">👨‍🏫 About</a>
+    <a href="https://wa.me/254707605751" target="_blank">💬 WhatsApp</a>
+  </div>
+
+  <div class="app" role="main" aria-live="polite">
+    <header>
+      <div class="brand">
+        <div class="logo">ST</div>
+        <div>
+          <h1>Student Notes</h1>
+          <p class="lead">Upload, preview and organise your course notes (PDF)</p>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="search" title="Search notes">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden style="margin-right:8px"><path d="M21 21l-4.35-4.35" stroke="#6b7280" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <input id="search" placeholder="Search title, subject or tag..." />
+        </div>
+        <button class="btn" id="uploadBtn">Upload PDF</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside>
+        <div class="side-title">Filters</div>
+        <div class="categories">
+          <div class="category" data-cat="all"><div>All notes</div><div class="small" id="countAll">0</div></div>
+          <div class="category" data-cat="intro"><div>Introduction</div><div class="small" id="countIntro">0</div></div>
+          <div class="category" data-cat="intermediate"><div>Intermediate</div><div class="small" id="countInter">0</div></div>
+          <div class="category" data-cat="advanced"><div>Advanced</div><div class="small" id="countAdv">0</div></div>
+        </div>
+        <hr style="margin:14px 0;border:none;border-top:1px solid rgba(15,23,42,0.04)" />
+        <div class="muted">Tip: Drag & drop PDF files onto the dashed area, or click Upload.</div>
+      </aside>
+
+      <main>
+        <div class="upload-area">
+          <div class="upload-left">
+            <div class="upload-drop" id="dropzone" tabindex="0">Drop PDF here or click to select</div>
+            <div>
+              <div class="small" style="font-weight:700">Selected for upload</div>
+              <div id="fileList" class="muted">No files selected</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:10px;align-items:center">
+            <label for="fileInput" class="btn secondary" style="cursor:pointer;padding:10px 12px">Choose files</label>
+            <input type="file" id="fileInput" accept="application/pdf" multiple style="display:none" />
+            <button class="btn" id="doUpload">Save to Library</button>
+          </div>
+        </div>
+
+        <div class="note-grid" id="notesGrid">Loading notes...</div>
+
+        <footer>Built for students — organised, searchable and fast.</footer>
+      </main>
+    </div>
+  </div>
+
+  <a class="whatsapp-float" href="https://wa.me/254707605751" target="_blank" title="Chat on WhatsApp">💬</a>
+
+  <!-- viewer modal -->
+  <div class="modal" id="viewerModal" role="dialog" aria-modal="true">
+    <div class="viewer">
+      <div class="toolbar">
+        <div style="display:flex;gap:10px;align-items:center">
+          <button id="closeViewer" class="icon-btn" title="Close">✕</button>
+          <div id="viewerTitle" style="font-weight:700"></div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a id="downloadCurrent" class="btn" download>Download</a>
+        </div>
+      </div>
+      <iframe id="pdfFrame" title="PDF viewer"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // Sidebar controls
+    function openNav(){ document.getElementById('mySidebar').style.width = '250px'; }
+    function closeNav(){ document.getElementById('mySidebar').style.width = '0'; }
+
+    // Elements
+    const fileInput = document.getElementById('fileInput');
+    const dropzone = document.getElementById('dropzone');
+    const fileListEl = document.getElementById('fileList');
+    const notesGrid = document.getElementById('notesGrid');
+    const doUpload = document.getElementById('doUpload');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const searchInput = document.getElementById('search');
+    const viewerModal = document.getElementById('viewerModal');
+    const pdfFrame = document.getElementById('pdfFrame');
+    const viewerTitle = document.getElementById('viewerTitle');
+    const downloadCurrent = document.getElementById('downloadCurrent');
+    const closeViewer = document.getElementById('closeViewer');
+
+    // Staging
+    let stagedFiles = [];
+
+    // Library (will hold server-hosted notes)
+    let library = []; // fetched from /api/list on load
+
+    // Helper
+    function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c])); }
+
+    // Fetch published blobs list from server
+    async function fetchPublishedNotes(){
+      notesGrid.innerHTML = 'Loading notes...';
+      try{
+        const res = await fetch('/api/list');
+        if(!res.ok) throw new Error('Failed to list notes');
+        const data = await res.json();
+        // data.blobs is expected from Vercel /v2/blobs
+        const blobs = (data && data.blobs) ? data.blobs : [];
+        library = blobs.map(b => ({
+          id: b.pathname || b.url,
+          title: b.pathname ? b.pathname.split('/').pop() : (b.url||'note.pdf'),
+          url: b.url,
+          uploadedAt: b.uploadedAt || b.createdAt || null
+        }));
+        renderNotes();
+      }catch(err){
+        console.error(err);
+        notesGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:24px">Unable to load notes.</div>`;
+      }
+    }
+
+    function renderNotes(){
+      if(!library || library.length===0){
+        notesGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px">No notes uploaded yet.</div>`;
+        return;
+      }
+      notesGrid.innerHTML = '';
+      library.forEach(item=>{
+        const card = document.createElement('article');
+        card.className='card';
+        card.innerHTML = `
+          <div class="meta">
+            <div>
+              <div class="title">${escapeHtml(item.title)}</div>
+              <div class="small">${item.uploadedAt ? new Date(item.uploadedAt).toLocaleString() : ''}</div>
+            </div>
+            <div class="controls">
+              <button class="icon-btn" data-url="${item.url}" title="View">👁️</button>
+              <a class="icon-btn" href="${item.url}" download title="Download">⬇️</a>
+            </div>
+          </div>
+        `;
+        notesGrid.appendChild(card);
+        card.querySelector('[data-url]')?.addEventListener('click', e=>{
+          openViewer(e.currentTarget.getAttribute('data-url'), item.title);
+        });
+      });
+    }
+
+    // Viewer
+    function openViewer(url, title='Document'){
+      viewerTitle.textContent = title;
+      pdfFrame.src = url;
+      downloadCurrent.href = url;
+      downloadCurrent.download = title;
+      viewerModal.classList.add('open');
+    }
+    closeViewer.addEventListener('click', ()=>{ viewerModal.classList.remove('open'); pdfFrame.src=''; });
+    viewerModal.addEventListener('click', e=>{ if(e.target===viewerModal){ viewerModal.classList.remove('open'); pdfFrame.src=''; } });
+
+    // Drag & drop + file select
+    dropzone.addEventListener('click', ()=> fileInput.click());
+    dropzone.addEventListener('dragover', e=>{ e.preventDefault(); dropzone.style.borderColor='rgba(47,143,74,0.5)'; });
+    dropzone.addEventListener('dragleave', e=>{ e.preventDefault(); dropzone.style.borderColor='rgba(47,143,74,0.18)'; });
+    dropzone.addEventListener('drop', e=>{ e.preventDefault(); dropzone.style.borderColor='rgba(47,143,74,0.18)'; handleFiles(Array.from(e.dataTransfer.files)); });
+    fileInput.addEventListener('change', e=> handleFiles(Array.from(e.target.files)));
+
+    function handleFiles(files){
+      const pdfs = files.filter(f=>f.type === 'application/pdf');
+      if(pdfs.length===0){ alert('Only PDF files are supported.'); return; }
+      stagedFiles = stagedFiles.concat(pdfs.map(f=>({file:f, title: f.name.replace(/\.pdf$/i,'') })));
+      renderStaged();
+    }
+
+    function renderStaged(){
+      if(stagedFiles.length===0){ fileListEl.textContent = 'No files selected'; return; }
+      fileListEl.innerHTML = stagedFiles.map(s=>`<div>${escapeHtml(s.title)} <span style="color:var(--muted);font-size:13px">(${(s.file.size/1024/1024).toFixed(2)} MB)</span></div>`).join('');
+    }
+
+    // Upload staged files to /api/upload
+    async function uploadStaged(){
+      if(stagedFiles.length===0) return alert('Choose at least one PDF to upload.');
+      doUpload.disabled = true;
+      doUpload.textContent = 'Uploading...';
+      try{
+        for(const entry of stagedFiles){
+          const file = entry.file;
+          // POST the file bytes to /api/upload
+          const resp = await fetch('/api/upload', {
+            method: 'POST',
+            headers: {
+              'Content-Type': file.type,
+              'x-filename': file.name // optional: server will use this to name the blob
+            },
+            body: file // raw file body
+          });
+          if(!resp.ok){
+            const err = await resp.json().catch(()=> ({}));
+            throw new Error(err.error || 'Upload failed');
+          }
+          // success response includes { url }
+          await resp.json();
+        }
+        // clear staged and refresh published list
+        stagedFiles = [];
+        renderStaged();
+        await fetchPublishedNotes();
+        alert('Upload complete — files are now available to everyone.');
+      }catch(err){
+        console.error(err);
+        alert('Upload error: ' + err.message);
+      }finally{
+        doUpload.disabled = false;
+        doUpload.textContent = 'Save to Library';
+      }
+    }
+
+    doUpload.addEventListener('click', uploadStaged);
+    uploadBtn.addEventListener('click', ()=> fileInput.click());
+
+    // Search & filters (simple)
+    let activeCategory = 'all';
+    document.querySelectorAll('.category').forEach(el=>{
+      el.addEventListener('click', ()=>{
+        activeCategory = el.getAttribute('data-cat');
+        document.querySelectorAll('.category').forEach(c=>c.style.background='transparent');
+        el.style.background='var(--glass)';
+        // we don't have category metadata for server blobs; this is UI-ready if you store metadata
+      });
+    });
+
+    searchInput.addEventListener('input', ()=>{
+      // basic search over title
+      const term = searchInput.value.trim().toLowerCase();
+      if(!term) { renderNotes(); return; }
+      const filtered = library.filter(i => i.title.toLowerCase().includes(term));
+      notesGrid.innerHTML = '';
+      filtered.forEach(item=>{
+        const card = document.createElement('article');
+        card.className='card';
+        card.innerHTML = `
+          <div class="meta">
+            <div>
+              <div class="title">${escapeHtml(item.title)}</div>
+              <div class="small">${item.uploadedAt ? new Date(item.uploadedAt).toLocaleString() : ''}</div>
+            </div>
+            <div class="controls">
+              <button class="icon-btn" data-url="${item.url}" title="View">👁️</button>
+              <a class="icon-btn" href="${item.url}" download title="Download">⬇️</a>
+            </div>
+          </div>
+        `;
+        notesGrid.appendChild(card);
+        card.querySelector('[data-url]')?.addEventListener('click', e=>{
+          openViewer(e.currentTarget.getAttribute('data-url'), item.title);
+        });
+      });
+    });
+
+    // init
+    fetchPublishedNotes();
+  </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEARN AI Registration</title>
+
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+
+      const form = event.target;
+
+      // Collect all form data
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        school: form.school.value,
+        reg_no: form.reg_no.value,
+        course: form.course.value,
+        reason: form.reason.value,
+        ai_in_agriculture: form.ai_in_agriculture.value,
+        coding_experience: form.coding_experience.value,
+        languages: form.languages.value,
+        ml_tools: form.ml_tools.value,
+        understanding_level: form.understanding_level.value,
+        agriculture_field: form.agriculture_field.value,
+        agricultural_problem: form.agricultural_problem.value,
+        has_computer: form.has_computer.value,
+        internet_access: form.internet_access.value,
+        willing: form.willing.value,
+        source: form.source.value,
+        comments: form.comments.value
+      };
+
+      // Build email content
+      const subject = encodeURIComponent("LEARN AI Registration - " + data.name);
+      const body = encodeURIComponent(
+        `Full Name: ${data.name}\n` +
+        `Email: ${data.email}\n` +
+        `Phone: ${data.phone}\n` +
+        `School / Institution: ${data.school}\n` +
+        `Registration Number: ${data.reg_no}\n` +
+        `Course / Program: ${data.course}\n\n` +
+        `Why AI/ML: ${data.reason}\n` +
+        `AI in Agriculture: ${data.ai_in_agriculture}\n\n` +
+        `Coding Experience: ${data.coding_experience}\n` +
+        `Languages Known: ${data.languages}\n` +
+        `Used ML Tools: ${data.ml_tools}\n` +
+        `Understanding Level: ${data.understanding_level}\n\n` +
+        `Agriculture Field: ${data.agriculture_field}\n` +
+        `Problem to Solve: ${data.agricultural_problem}\n` +
+        `Computer Access: ${data.has_computer}\n` +
+        `Internet Access: ${data.internet_access}\n` +
+        `Willing to Commit: ${data.willing}\n` +
+        `Source: ${data.source}\n\n` +
+        `Additional Comments: ${data.comments}`
+      );
+
+      // Open email client with the message pre-filled
+      window.location.href = `mailto:delstarfordisaiah@gmail.com?subject=${subject}&body=${body}`;
+
+      // After 4 seconds, show success and redirect
+      setTimeout(() => {
+        window.location.href = "success.html";
+      }, 4000);
+    }
+  </script>
+</head>
+
+<body style="font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 30px;">
+
+  <div style="max-width: 600px; margin: auto; background: white; padding: 25px 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <h2 style="text-align: center; color: #1a73e8;">TeachThem Registration Form</h2>
+    <p style="text-align: center; color: #555;">For Agricultural Students Interested in Machine Learning & AI</p>
+
+    <!-- Registration Form -->
+    <form onsubmit="handleSubmit(event)">
+
+      <!-- Basic Info -->
+      <label style="display:block; margin-top:15px;">Full Name:</label>
+      <input type="text" name="name" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+
+      <label style="display:block; margin-top:15px;">Email Address:</label>
+      <input type="email" name="email" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+
+      <label style="display:block; margin-top:15px;">Phone Number:</label>
+      <input type="tel" name="phone" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+
+      <label style="display:block; margin-top:15px;">School / Institution:</label>
+      <input type="text" name="school" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+
+      <label style="display:block; margin-top:15px;">Registration Number (MMUST or Other):</label>
+      <input type="text" name="reg_no" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+
+      <label style="display:block; margin-top:15px;">Course / Program:</label>
+      <input type="text" name="course" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+
+      <!-- Motivation -->
+      <label style="display:block; margin-top:15px;">Why do you want to venture into Artificial Intelligence / Machine Learning?</label>
+      <textarea name="reason" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;" rows="4"></textarea>
+
+      <label style="display:block; margin-top:15px;">How do you think AI/ML can transform agriculture?</label>
+      <textarea name="ai_in_agriculture" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;" rows="4"></textarea>
+
+      <!-- Technical Background -->
+      <label style="display:block; margin-top:15px;">Have you ever worked with any programming language before?</label>
+      <select name="coding_experience" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+        <option value="" disabled selected>Select an option</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+
+      <label style="display:block; margin-top:15px;">If yes, which programming languages are you familiar with?</label>
+      <input type="text" name="languages" placeholder="e.g., Python, R, C++, JavaScript" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+
+      <label style="display:block; margin-top:15px;">Have you used tools like TensorFlow, PyTorch, or Scikit-learn before?</label>
+      <select name="ml_tools" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+        <option value="" disabled selected>Select an option</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+
+      <label style="display:block; margin-top:15px;">Rate your current understanding of AI/ML (1 = beginner, 5 = advanced):</label>
+      <select name="understanding_level" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+        <option value="" disabled selected>Select your level</option>
+        <option>1 - Beginner</option>
+        <option>2 - Basic</option>
+        <option>3 - Intermediate</option>
+        <option>4 - Experienced</option>
+        <option>5 - Advanced</option>
+      </select>
+
+      <!-- Agricultural Context -->
+      <label style="display:block; margin-top:15px;">What agricultural field do you specialize or are interested in?</label>
+      <select name="agriculture_field" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+        <option value="" disabled selected>Select your field</option>
+        <option>Crop Science</option>
+        <option>Animal Science / Livestock</option>
+        <option>Soil Science</option>
+        <option>Agro-economics</option>
+        <option>Agroforestry</option>
+        <option>Agri-Business / Management</option>
+        <option>Other</option>
+      </select>
+
+      <label style="display:block; margin-top:15px;">What agricultural challenge would you like to solve using AI/ML?</label>
+      <textarea name="agricultural_problem" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;" rows="4"></textarea>
+
+      <!-- Commitment & Access -->
+      <label style="display:block; margin-top:15px;">Do you have access to a computer or laptop for practice?</label>
+      <select name="has_computer" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+        <option value="" disabled selected>Select an option</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+
+      <label style="display:block; margin-top:15px;">Internet access level:</label>
+      <select name="internet_access" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+        <option value="" disabled selected>Select</option>
+        <option>Strong (Daily Access)</option>
+        <option>Moderate (Sometimes)</option>
+        <option>Limited (Rarely)</option>
+      </select>
+
+      <label style="display:block; margin-top:15px;">Are you willing to dedicate 1 hour daily to the TeachThem AI/ML program?</label>
+      <select name="willing" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+        <option value="" disabled selected>Select an option</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+
+      <label style="display:block; margin-top:15px;">How did you hear about the TeachThem initiative?</label>
+      <select name="source" required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
+        <option value="" disabled selected>Select</option>
+        <option>Friend / Classmate</option>
+        <option>Lecturer</option>
+        <option>Social Media</option>
+        <option>School Noticeboard</option>
+        <option>Other</option>
+      </select>
+
+      <label style="display:block; margin-top:15px;">Any additional comments or expectations?</label>
+      <textarea name="comments" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;" rows="3"></textarea>
+
+      <button type="submit" style="margin-top:20px; width:100%; background-color:#1a73e8; color:white; border:none; padding:12px; border-radius:5px; cursor:pointer; font-size:16px;">
+        Submit Registration
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>
