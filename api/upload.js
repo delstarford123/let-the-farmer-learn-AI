@@ -1,48 +1,42 @@
-// /api/upload.js
-export const config = { api: { bodyParser: false } }; // we will read the raw stream
+import { put } from '@vercel/blob';
+import formidable from 'formidable';
+import fs from 'fs';
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Method not allowed' });
-    return;
+    return res.status(405).json({ message: 'Method not allowed' });
   }
 
-  const token = process.env.BLOB_READ_WRITE_TOKEN;
-  if (!token) {
-    res.status(500).json({ error: 'Blob token not configured' });
-    return;
-  }
+  const form = formidable({ multiples: false });
 
-  try {
-    // read incoming request body into a Buffer
-    const chunks = [];
-    for await (const chunk of req) chunks.push(chunk);
-    const buffer = Buffer.concat(chunks);
-
-    // optional filename header from client; fallback to timestamp
-    const clientFilename = req.headers['x-filename'] || `note-${Date.now()}.pdf`;
-
-    const resp = await fetch('https://api.vercel.com/v2/blob', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': req.headers['content-type'] || 'application/pdf',
-        'x-filename': `notes/${clientFilename}` // store under notes/
-      },
-      body: buffer
-    });
-
-    const data = await resp.json();
-    if (!resp.ok) {
-      console.error('Vercel Blob error', data);
-      res.status(resp.status).json({ error: data });
-      return;
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      console.error('Form parse error:', err);
+      return res.status(500).json({ message: 'Form parsing failed' });
     }
 
-    // data.url contains the public blob URL
-    res.status(200).json({ url: data.url, meta: data });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Upload failed', details: String(err) });
-  }
+    const file = files.file;
+    if (!file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    try {
+      const data = fs.readFileSync(file.filepath);
+      const blob = await put(file.originalFilename, data, {
+        access: 'public',
+        token: process.env.BLOB_READ_WRITE_TOKEN,
+      });
+
+      res.status(200).json({ message: 'Uploaded successfully!', url: blob.url });
+    } catch (uploadError) {
+      console.error('Upload error:', uploadError);
+      res.status(500).json({ message: 'Upload failed', error: uploadError.message });
+    }
+  });
 }
