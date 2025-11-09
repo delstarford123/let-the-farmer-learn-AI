@@ -3,187 +3,234 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TeachThem | Revision & Assignments</title>
+  <title>Learn AI | Tests & Assignments</title>
   <style>
+    /* ---------- GLOBAL ---------- */
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-      color: #f5f5f5;
+      font-family: Arial, sans-serif;
+      background-color: #f5fff5;
       margin: 0;
       padding: 0;
+      color: #222;
     }
 
+    /* ---------- HEADER ---------- */
     header {
-      background: linear-gradient(90deg, #d4af37, #f1c232);
-      color: #000;
-      text-align: center;
-      padding: 20px 0;
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+      background-color: #2e7d32;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
 
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.5px;
+    }
+
+    .menu-icon {
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    /* ---------- SIDEBAR ---------- */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #1b5e20;
+      overflow-x: hidden;
+      transition: 0.4s;
+      padding-top: 60px;
+      z-index: 2000;
+    }
+
+    .sidebar a {
+      padding: 12px 25px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #f5fff5;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #388e3c;
+    }
+
+    .sidebar .closebtn {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      font-size: 30px;
+      cursor: pointer;
+      color: white;
+    }
+
+    /* ---------- MAIN CONTAINER ---------- */
     .container {
       max-width: 900px;
       margin: 40px auto;
-      background: #111;
+      background: white;
       padding: 30px;
-      border-radius: 12px;
-      border: 1px solid #d4af37;
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     }
 
     h2, h3 {
-      color: #d4af37;
+      color: #2e7d32;
       text-align: center;
-      margin-bottom: 10px;
-      font-size: 22px;
     }
 
     p {
       text-align: center;
-      color: #ccc;
-      margin-bottom: 25px;
-      font-size: 15px;
+      color: #444;
     }
 
+    /* ---------- QUESTIONS ---------- */
     .question {
       margin-bottom: 20px;
       padding: 15px;
-      background: #1e1e1e;
-      border: 1px solid #d4af37;
+      background: #f3faf3;
+      border-left: 5px solid #2e7d32;
       border-radius: 8px;
     }
 
     .question h4 {
       margin-bottom: 10px;
-      color: #f1c232;
+      color: #1b5e20;
     }
 
     label {
       display: block;
       margin: 6px 0;
       cursor: pointer;
-      font-size: 15px;
     }
 
     input[type="radio"] {
       margin-right: 8px;
-      accent-color: #d4af37;
+      accent-color: #2e7d32;
     }
 
     button {
-      background: linear-gradient(90deg, #d4af37, #f1c232);
-      color: #000;
+      background: #2e7d32;
+      color: white;
       border: none;
       padding: 12px 25px;
       border-radius: 8px;
       font-size: 16px;
-      font-weight: 600;
+      font-weight: bold;
       cursor: pointer;
-      transition: 0.3s ease;
+      transition: 0.3s;
       display: block;
       margin: 25px auto 0;
     }
 
     button:hover {
-      background: linear-gradient(90deg, #f1c232, #ffe97f);
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
-      transform: translateY(-2px);
+      background: #1b5e20;
     }
 
+    /* ---------- RESULT BOX ---------- */
     .result-box {
       display: none;
       margin-top: 30px;
-      background: #222;
+      background: #e8f5e9;
       padding: 20px;
-      border: 1px solid #d4af37;
       border-radius: 8px;
+      border-left: 5px solid #2e7d32;
       text-align: center;
     }
 
-    .result-box h3 {
-      color: #d4af37;
-      margin-bottom: 10px;
-    }
-
+    /* ---------- ASSIGNMENT SECTION ---------- */
     .assignment-section {
       margin-top: 50px;
+      border-top: 2px solid #2e7d32;
       padding-top: 30px;
-      border-top: 2px solid #d4af37;
     }
 
     .assignment-box {
-      background: #1e1e1e;
+      background: #f9fff9;
       padding: 25px;
       border-radius: 10px;
-      border: 1px solid #d4af37;
-      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+      border: 1px solid #2e7d32;
     }
 
     .assignment-box label {
+      font-weight: bold;
+      color: #1b5e20;
+      margin-bottom: 6px;
       display: block;
-      color: #f1c232;
-      font-weight: 500;
-      margin-bottom: 8px;
     }
 
     .assignment-box input[type="file"],
     .assignment-box textarea {
       width: 100%;
-      background: #222;
-      border: 1px solid #d4af37;
+      border: 1px solid #ccc;
       border-radius: 6px;
       padding: 10px;
-      color: #fff;
       margin-bottom: 15px;
-      font-size: 15px;
-    }
-
-    .assignment-box textarea {
-      resize: vertical;
+      font-size: 14px;
+      background: #fff;
     }
 
     .upload-success {
       display: none;
       text-align: center;
       margin-top: 20px;
-      color: #d4af37;
-      font-weight: 500;
-      background: #222;
+      color: #1b5e20;
+      font-weight: bold;
+      background: #e8f5e9;
       padding: 12px;
       border-radius: 8px;
-      border: 1px solid #d4af37;
     }
 
+    /* ---------- FOOTER ---------- */
     footer {
       text-align: center;
-      margin-top: 50px;
-      color: #aaa;
+      color: #555;
+      margin-top: 60px;
       font-size: 13px;
       padding-bottom: 30px;
     }
 
-    .nav-links {
+    /* ---------- WHATSAPP FLOAT ---------- */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 25px;
+      right: 25px;
+      background-color: #25D366;
+      color: white;
+      border-radius: 50%;
       text-align: center;
-      margin-top: 20px;
+      font-size: 28px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      cursor: pointer;
+      line-height: 60px;
     }
 
-    .nav-links a {
-      color: #d4af37;
-      text-decoration: none;
-      margin: 0 10px;
-      font-weight: 500;
-      transition: 0.3s;
+    .whatsapp-float:hover {
+      background-color: #20b358;
     }
 
-    .nav-links a:hover {
-      text-decoration: underline;
-    }
   </style>
 
   <script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+    }
+
     function gradeQuiz() {
       const answers = {
         q1: "b",
@@ -232,7 +279,6 @@
         return;
       }
 
-      // Simulate success (in real use, connect to Flask or Firebase)
       document.getElementById("uploadSuccess").style.display = "block";
       document.getElementById("uploadSuccess").innerHTML = `
         ✅ Assignment uploaded successfully!<br>
@@ -247,12 +293,25 @@
 
 <body>
   <header>
-    TeachThem AI/ML Revision & Assignments
+    <span class="menu-icon" onclick="openNav()">&#9776;</span>
+    <h1>Learn AI | Tests & Assignments</h1>
   </header>
 
+  <!-- Sidebar -->
+  <div id="mySidebar" class="sidebar">
+    <span class="closebtn" onclick="closeNav()">&times;</span>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="notes.html">Notes</a>
+    <a href="join_meet.html">Join Meet</a>
+    <a href="revision.html">Revision & Skill Testing</a>
+    <a href="about.html">About</a>
+    <a href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20LearnAI%20AI/ML%20program." target="_blank">WhatsApp Me</a>
+  </div>
+
+  <!-- Content -->
   <div class="container">
     <h2>Test: Introduction to Artificial Intelligence</h2>
-    <p>Attempt all questions below and click <b>Submit Answers</b> to see your score instantly.</p>
+    <p>Attempt all questions below and click <b>Submit Answers</b> to view your score.</p>
 
     <form id="quizForm">
       <div class="question">
@@ -300,10 +359,10 @@
 
     <div class="result-box" id="resultBox"></div>
 
-    <!-- Assignments Section -->
+    <!-- Assignment Upload Section -->
     <div class="assignment-section">
       <h3>Assignments Submission</h3>
-      <p>Submit your work for evaluation — accepted formats include <b>.ipynb</b>, <b>.pdf</b>, or <b>.docx</b>.</p>
+      <p>Upload your work for grading — accepted formats: <b>.ipynb, .pdf, .docx, .zip</b></p>
 
       <div class="assignment-box">
         <form onsubmit="handleAssignmentUpload(event)">
@@ -319,16 +378,12 @@
         <div class="upload-success" id="uploadSuccess"></div>
       </div>
     </div>
-
-    <div class="nav-links">
-      <a href="index.html"> Home</a> |
-      <a href="registration.html"> Register</a> |
-      <a href="revision.html">Tests</a>
-    </div>
   </div>
 
+  <a href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20LearnAI%20AI/ML%20program." class="whatsapp-float" target="_blank" title="Chat on WhatsApp">💬</a>
+
   <footer>
-    © 2025 Learn AI Initiative | Excellence in AI Education
+    © 2025 LearnAI | Empowering Future Innovators
   </footer>
 </body>
 </html>
