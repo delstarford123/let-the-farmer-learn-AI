@@ -1,20 +1,400 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Success</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registration Success | TeachThem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="color-scheme" content="light dark">
+  <style>
+    :root{
+      --bg1: #eaf9ef;
+      --bg2: #ffffff;
+      --accent: #2e8b57;
+      --gold: #d4af37;
+      --muted: #6b7280;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, #f0fff4 0%, rgba(224,255,230,0.6) 20%, var(--bg1) 45%, var(--bg2) 100%);
+      color: #0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+      box-sizing:border-box;
+    }
+
+    .card {
+      width:100%;
+      max-width:980px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.95));
+      border-radius:18px;
+      padding:30px;
+      box-shadow: 0 10px 30px rgba(19, 38, 19, 0.08), 0 2px 6px rgba(10,10,10,0.04);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .top {
+      display:flex;
+      gap:24px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:10px;
+    }
+
+    .status {
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+
+    .badge {
+      background: linear-gradient(90deg, var(--gold), #f1c232);
+      color:#000;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:700;
+      box-shadow:0 6px 18px rgba(212,175,55,0.15);
+    }
+
+    .heading {
+      flex:1;
+      text-align:left;
+    }
+
+    h1 {
+      margin:0;
+      color:var(--accent);
+      font-size:22px;
+      letter-spacing:0.2px;
+    }
+
+    p.lead {
+      margin:6px 0 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* Animated Hero area */
+    .hero {
+      display:flex;
+      gap:24px;
+      align-items:center;
+      justify-content:center;
+      padding:18px 6px 0 6px;
+    }
+
+    .svg-wrap {
+      width:520px;
+      max-width:52%;
+      min-width:320px;
+    }
+
+    .text-wrap {
+      width:42%;
+      min-width:220px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      align-items:flex-start;
+      justify-content:center;
+    }
+
+    .animated-slogan {
+      font-size:20px;
+      font-weight:700;
+      color:var(--accent);
+      line-height:1.05;
+      margin:0;
+      overflow:hidden;
+    }
+
+    .animated-slogan .word {
+      display:inline-block;
+      transform-origin:center;
+      opacity:0;
+      animation: wordEntrance 2.5s ease forwards;
+    }
+
+    .animated-slogan .word.w1 { animation-delay: 0.1s; }
+    .animated-slogan .word.w2 { animation-delay: 0.8s; }
+    .animated-slogan .word.w3 { animation-delay: 1.5s; color: #0f1724; }
+    .animated-slogan .word.w4 { animation-delay: 2.1s; color: #2563eb; }
+
+    @keyframes wordEntrance {
+      0% { transform: translateY(18px) rotate(-6deg) scale(0.95); opacity:0; filter: blur(4px); }
+      60% { transform: translateY(-6px) rotate(2deg) scale(1.02); opacity:1; filter: blur(0); }
+      100% { transform: translateY(0) rotate(0) scale(1); opacity:1; }
+    }
+
+    .sub {
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .cta {
+      margin-top:10px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    .btn {
+      background: linear-gradient(90deg,var(--gold), #f1c232);
+      padding:10px 14px;
+      border-radius:10px;
+      color:#000;
+      font-weight:700;
+      text-decoration:none;
+      box-shadow:0 8px 22px rgba(212,175,55,0.12);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .btn:hover { transform: translateY(-4px); box-shadow:0 14px 30px rgba(212,175,55,0.18); }
+
+    .muted-note {
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* SVG details & animation */
+    svg { width:100%; height:auto; display:block; }
+
+    /* Farmer & robot arm swing */
+    .arm-f { transform-origin: 140px 220px; animation: armSwing 3.2s ease-in-out infinite; }
+    .can-f { transform-origin: 156px 242px; animation: canTilt 3.2s ease-in-out infinite; }
+    .arm-r { transform-origin: 370px 220px; animation: armSwingReverse 3.2s ease-in-out infinite; }
+    .can-r { transform-origin: 384px 242px; animation: canTiltReverse 3.2s ease-in-out infinite; }
+
+    @keyframes armSwing {
+      0% { transform: rotate(0deg); }
+      30% { transform: rotate(-18deg); }
+      60% { transform: rotate(0deg); }
+      100% { transform: rotate(0deg); }
+    }
+    @keyframes canTilt {
+      0% { transform: rotate(0deg); }
+      30% { transform: rotate(-28deg); }
+      60% { transform: rotate(-10deg); }
+      100% { transform: rotate(0deg); }
+    }
+    @keyframes armSwingReverse {
+      0% { transform: rotate(0deg); }
+      30% { transform: rotate(18deg); }
+      60% { transform: rotate(0deg); }
+      100% { transform: rotate(0deg); }
+    }
+    @keyframes canTiltReverse {
+      0% { transform: rotate(0deg); }
+      30% { transform: rotate(28deg); }
+      60% { transform: rotate(10deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    /* Water streams animation */
+    .drop { opacity:0; animation: dropFall 3.2s linear infinite; }
+    .drop.d1 { animation-delay: .12s; }
+    .drop.d2 { animation-delay: .24s; }
+    .drop.d3 { animation-delay: .36s; }
+    .drop.d4 { animation-delay: .48s; }
+
+    @keyframes dropFall {
+      0% { transform: translateY(-6px) scaleY(.6); opacity: 0; }
+      10% { opacity: 1; }
+      60% { transform: translateY(36px) scaleY(1.0); opacity: 1; }
+      90% { opacity: 0.25; }
+      100% { opacity: 0; transform: translateY(56px) scaleY(1.2); }
+    }
+
+    /* Plant growth animation */
+    .plant-sprout { transform-origin: 50% 100%; animation: grow 3.6s ease-in-out forwards; }
+    @keyframes grow {
+      0% { transform: scaleY(0.05) scaleX(0.9) translateY(18px); opacity:0.0; }
+      40% { transform: scaleY(0.7) scaleX(0.98) translateY(8px); opacity:1; }
+      70% { transform: scaleY(1.05) scaleX(1.0) translateY(0); }
+      100% { transform: scaleY(1) scaleX(1) translateY(0); }
+    }
+
+    /* Robot eye blink & antenna */
+    .robot-eye { animation: blink 4s steps(1) infinite; transform-origin:center; }
+    @keyframes blink {
+      0%, 89% { transform: scaleY(1); }
+      90% { transform: scaleY(.1); }
+      100% { transform: scaleY(1); }
+    }
+    .antenna { animation: antennaWiggle 3.5s ease-in-out infinite; transform-origin:center bottom; }
+    @keyframes antennaWiggle {
+      0% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-2px) rotate(6deg); }
+      100% { transform: translateY(0) rotate(-2deg); }
+    }
+
+    /* small responsive tweaks */
+    @media (max-width:880px) {
+      .hero { flex-direction:column; gap:18px; align-items:center; }
+      .svg-wrap, .text-wrap { width:100%; min-width:unset; max-width:unset; }
+      .card { padding:20px; border-radius:14px; }
+      .animated-slogan { font-size:18px; text-align:center; }
+      .badge { display:none; }
+    }
+  </style>
+
   <script>
-    // Redirect automatically to dashboard
-    setTimeout(() => {
-      window.location.href = "dashboard.html";
-    }, 8000);
+    // Redirect automatically to dashboard after 8 sec
+    setTimeout(() => { window.location.href = "dashboard.html"; }, 8000);
   </script>
 </head>
-<body style="font-family:Arial; text-align:center; padding:50px;">
-  <h2 style="color:green;">✅ Registration email opened successfully!</h2>
-  <p>Please send the email to complete your registration.
-    Please check your Email for a prompt to send the registration form.</p>
-  <p>You’ll be redirected to your dashboard shortly...</p>
+<body>
+  <div class="card" role="main" aria-labelledby="successTitle">
+    <div class="top">
+      <div class="status" aria-hidden="true">
+        <div class="badge">TeachThem</div>
+      </div>
+
+      <div class="heading">
+        <h1 id="successTitle">Registration Success — Welcome aboard</h1>
+        <p class="lead">Your registration email has been opened. Please send it to complete onboarding. You will be redirected to your dashboard shortly.</p>
+      </div>
+
+      <div style="min-width:120px; text-align:right">
+        <div class="muted-note">Redirecting in <strong id="countdown">8</strong>s</div>
+      </div>
+    </div>
+
+    <div class="hero" aria-hidden="false">
+      <!-- SVG Scene: farmer (left) + plant (center) + robot (right) -->
+      <div class="svg-wrap" aria-hidden="false">
+        <svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cartoon farmer and robot watering a plant">
+          <!-- Ground -->
+          <rect x="0" y="250" width="560" height="30" rx="6" fill="#dff3e6"></rect>
+
+          <!-- Plant (center) -->
+          <g transform="translate(260,170)">
+            <!-- soil mound -->
+            <ellipse cx="0" cy="60" rx="42" ry="12" fill="#8b6b45" opacity="0.95"></ellipse>
+
+            <!-- sprout group -->
+            <g class="plant-sprout" transform="translate(-10,0)">
+              <path d="M12 60 q-2 -26 12 -46 q14 14 10 30 q-8 -8 -22 16" fill="none" stroke="#2e8b57" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M8 54 c-6 -10 -2 -22 8 -26" fill="#3cb371" stroke="#2e8b57" stroke-width="0.6" opacity="0.95"></path>
+              <path d="M34 36 c6 -6 20 -4 26 6" fill="#3cb371" stroke="#2e8b57" stroke-width="0.6" opacity="0.95"></path>
+              <!-- small leaves -->
+              <ellipse cx="-6" cy="40" rx="8" ry="5" fill="#4cd67a" transform="rotate(-20)"></ellipse>
+              <ellipse cx="34" cy="36" rx="10" ry="6" fill="#49c36a" transform="rotate(18)"></ellipse>
+            </g>
+          </g>
+
+          <!-- Farmer (left) -->
+          <g transform="translate(80,50)" aria-label="Farmer">
+            <!-- body -->
+            <rect x="20" y="110" width="54" height="60" rx="12" fill="#f3c27b" stroke="#e6a55a" stroke-width="1"></rect>
+            <!-- legs -->
+            <rect x="26" y="166" width="16" height="22" rx="6" fill="#3b3b3b"></rect>
+            <rect x="54" y="166" width="16" height="22" rx="6" fill="#3b3b3b"></rect>
+            <!-- head -->
+            <circle cx="47" cy="82" r="20" fill="#ffd9b3" stroke="#f0b07a" stroke-width="1"></circle>
+            <!-- hat -->
+            <path d="M30 68 q18 -18 34 0 q-18 8 -34 0" fill="#7c4b20"></path>
+            <!-- smile -->
+            <path d="M40 88 q8 8 16 0" stroke="#6b3a1f" stroke-width="2" fill="none" stroke-linecap="round"></path>
+
+            <!-- arm holding can -->
+            <g class="arm-f" transform="translate(0,0)">
+              <rect x="64" y="110" width="10" height="8" rx="3" fill="#ffd9b3" transform="rotate(8 69 114)"></rect>
+              <g class="can-f" transform="translate(0,0)">
+                <rect x="70" y="118" width="22" height="12" rx="3" fill="#b0d6ff" stroke="#79a9d9"></rect>
+                <path d="M92 122 q12 6 18 6" stroke="#79a9d9" stroke-width="4" fill="none" stroke-linecap="round"></path>
+              </g>
+
+              <!-- water drops from farmer can -->
+              <g transform="translate(84,136)" fill="#9fe0ff">
+                <circle class="drop d1" cx="2" cy="-6" r="3"></circle>
+                <circle class="drop d2" cx="8" cy="-10" r="3"></circle>
+                <circle class="drop d3" cx="-2" cy="-8" r="3"></circle>
+              </g>
+            </g>
+          </g>
+
+          <!-- Robot (right) -->
+          <g transform="translate(360,40)" aria-label="AI robot">
+            <!-- body -->
+            <rect x="26" y="86" width="86" height="64" rx="8" fill="#e7f3ff" stroke="#bcd8ff" stroke-width="1.2"></rect>
+            <!-- eye -->
+            <rect x="56" y="100" width="18" height="12" rx="4" fill="#083358"></rect>
+            <rect class="robot-eye" x="64" y="102" width="2" height="8" rx="1" fill="#fff"></rect>
+            <!-- antenna -->
+            <g transform="translate(68,78)" class="antenna">
+              <rect x="-2" y="-12" width="4" height="12" rx="2" fill="#bcd8ff"></rect>
+              <circle cx="0" cy="-14" r="5" fill="#ffd966"></circle>
+            </g>
+            <!-- wheels -->
+            <rect x="34" y="150" width="24" height="6" rx="3" fill="#d1e7ff"></rect>
+            <rect x="80" y="150" width="24" height="6" rx="3" fill="#d1e7ff"></rect>
+
+            <!-- robot arm holding can -->
+            <g class="arm-r" transform="translate(0,0)">
+              <rect x="84" y="106" width="8" height="48" rx="4" fill="#cfe9ff" transform="rotate(-6 88 110)"></rect>
+              <g class="can-r" transform="translate(0,0)">
+                <rect x="86" y="152" width="26" height="12" rx="3" fill="#c1f0d0" stroke="#86c38e"></rect>
+                <path d="M112 156 q12 6 18 6" stroke="#86c38e" stroke-width="4" fill="none" stroke-linecap="round"></path>
+              </g>
+
+              <!-- water drops from robot -->
+              <g transform="translate(112,168)" fill="#9fe0ff">
+                <circle class="drop d4" cx="3" cy="-8" r="3"></circle>
+                <circle class="drop d2" cx="-2" cy="-10" r="3"></circle>
+                <circle class="drop d3" cx="8" cy="-6" r="3"></circle>
+              </g>
+            </g>
+
+            <!-- robot smile -->
+            <path d="M50 118 q8 6 16 0" stroke="#79a9d9" stroke-width="2" fill="none" stroke-linecap="round"></path>
+          </g>
+        </svg>
+      </div>
+
+      <div class="text-wrap" aria-hidden="false">
+        <div>
+          <p class="animated-slogan" aria-live="polite">
+            <span class="word w1">🌾 THANK YOU!</span>
+            &nbsp;
+            <span class="word w2">WELCOME</span>
+            &nbsp;
+            <span class="word w3">TO THE FUTURE</span>
+            &nbsp;
+            <span class="word w4">OF AGRICULTURE</span>
+          </p>
+          <p class="sub">Your message prompt is open — please send the registration email to complete onboarding. You will be taken to your dashboard automatically.</p>
+        </div>
+
+        <div class="cta" role="region" aria-label="Actions">
+          <a class="btn" href="dashboard.html">Go to Dashboard</a>
+          <div class="muted-note">If you don't get redirected automatically, click <strong>Go to Dashboard</strong>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px; text-align:center;">
+      <p style="color:#6b7280; margin:0; font-size:13px;">TeachThem • Empowering Agricultural Students with AI & ML</p>
+    </div>
+  </div>
+
+  <script>
+    // countdown visual (8s)
+    (function(){
+      const el = document.getElementById('countdown');
+      let n = 8;
+      const t = setInterval(() => {
+        n--; if(n<=0){ clearInterval(t); el.textContent = 0; return; }
+        el.textContent = n;
+      }, 1000);
+    })();
+  </script>
 </body>
 </html>
