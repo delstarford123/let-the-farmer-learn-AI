@@ -1,3 +1,382 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Learn AI | AI & ML Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5fff5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #2e7d32;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .video-section {
+      margin-bottom: 40px;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #1b5e20;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 315px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    /* Floating WhatsApp Button */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 25px;
+      right: 25px;
+      background-color: #25D366;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 28px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+      z-index: 1000;
+      cursor: pointer;
+    }
+
+    .whatsapp-float:hover {
+      background-color: #20b358;
+    }
+
+    .whatsapp-float i {
+      margin-top: 16px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: rgb(238, 14, 14);
+      background-color: #1b5e20;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-top: 15px;
+    }
+  </style>
+  
+   
+  
+</head>
+
+<body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEARN AI Navigation</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5fff5;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Header */
+  header {
+    background-color: #2e7d32;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 22px;
+  }
+
+  /* Hamburger Icon */
+  .menu-icon {
+    font-size: 26px;
+    cursor: pointer;
+  }
+
+  /* Sidebar Styles */
+  .sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #1b5e20;
+    overflow-x: hidden;
+    transition: 0.4s;
+    padding-top: 60px;
+    z-index: 2000;
+  }
+
+  .sidebar a {
+    padding: 12px 25px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #f5fff5;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidebar a:hover {
+    background-color: #388e3c;
+  }
+
+  .sidebar .closebtn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+  }
+
+  /* Content Area */
+  .content {
+    padding: 20px;
+  }
+
+  /* Floating WhatsApp Button */
+  .whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 25px;
+    right: 25px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 24px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    cursor: pointer;
+  }
+
+  .whatsapp-float:hover {
+    background-color: #20b358;
+  }
+
+  .whatsapp-float i {
+    line-height: 60px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="menu-icon" onclick="openNav()">&#9776;</span>
+  <h1>TeachThem Dashboard</h1>
+</header>
+
+<!-- Sidebar Navigation -->
+<div id="mySidebar" class="sidebar">
+  <span class="closebtn" onclick="closeNav()">&times;</span>
+  <a href="dashboard.html"> Dashboard</a>
+  <a href="notes.html">Notes</a>
+  <a href="join_meet.html">Join Meet</a>
+  <a href="about.html">About</a>
+  <a href="revision.html">Revision and skill testing</a>
+  <a href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20TeachThem%20AI/ML%20program." target="_blank">💬 WhatsApp Me</a>
+</div>
+
+<!-- Page Content -->
+<div class="content">
+  <h2>Welcome to TeachThem AI/ML</h2>
+  <p>Use the sidebar menu to navigate between your learning resources and notes.</p>
+</div>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20TeachThem%20AI/ML%20program." class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+  <i>Message</i>
+</a>
+
+<script>
+function openNav() {
+  document.getElementById("mySidebar").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+}
+</script>
+
+</body>
+</html>
+
+  <header>
+    <h1>LEARN AI Dashboard</h1>
+    <p> Learn Artificial Intelligence, Machine Learning & Deep Learning for Agriculture</p>
+
+  </header>
+<div class="container">
+    <h1>LEARN:DASHBOARD</h1>
+    <H2>Empowering Agricultural Students with AI/ML Skills: Conducted Volunteer Training by Delstarford Isaiah</H2>
+    <p style="text-align:center;">Learn AI and ML tailored for Agriculture — completely free for students.</p>
+    <h3>Course Modules Include:</h3>
+    <ul>
+      <li>Introduction to Machine Learning in Agriculture</li>
+      <li>Deep Learning for Pest & Disease Detection</li>
+      <li>AI for Climate Smart Farming</li>
+      <li>Data Analysis with Python and Pandas</li>
+    </ul>
+   
+    <a href="join_meet.html" class="btn">Join Daily Google Meet</a>
+  </div>
+
+  <h3 style="text-align:center;">About Delstarford Isaiah</h3> 
+         <a href="https://delstarford-personal-portofolio.vercel.app" target="_blank" style="display:block; text-align:center; margin-bottom:30px;">
+           Personal Portfolio
+         </a>
+
+  <div class="container">
+
+    <!-- Introduction -->
+    <div class="video-section">
+      <h2>1. Introduction to Artificial Intelligence</h2>
+      <iframe src="https://www.youtube.com/embed/JMUxmLyrhSk" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>2. What is Machine Learning?</h2>
+      <iframe src="https://www.youtube.com/embed/GwIo3gDZCVQ" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>3. Understanding Deep Learning</h2>
+      <iframe src="https://www.youtube.com/embed/tPYj3fFJGjk" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>4. Python for Data Science</h2>
+      <iframe src="https://www.youtube.com/embed/rfscVS0vtbw" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>5. NumPy Crash Course</h2>
+      <iframe src="https://www.youtube.com/embed/8Mpc9ukltVA" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>6. Pandas for Data Analysis</h2>
+      <iframe src="https://www.youtube.com/embed/ZyhVh-qRZPA" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>7. Data Visualization with Matplotlib</h2>
+      <iframe src="https://www.youtube.com/embed/DAQNHzOcO5A" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>8. Linear Regression Explained</h2>
+      <iframe src="https://www.youtube.com/embed/nk2CQITm_eo" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>9. Logistic Regression</h2>
+      <iframe src="https://www.youtube.com/embed/yIYKR4sgzI8" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>10. Decision Trees and Random Forests</h2>
+      <iframe src="https://www.youtube.com/embed/7VeUPuFGJHk" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>11. Support Vector Machines (SVM)</h2>
+      <iframe src="https://www.youtube.com/embed/efR1C6CvhmE" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>12. K-Means Clustering</h2>
+      <iframe src="https://www.youtube.com/embed/4b5d3muPQmA" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>13. Neural Networks Explained</h2>
+      <iframe src="https://www.youtube.com/embed/aircAruvnKk" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>14. Convolutional Neural Networks (CNNs)</h2>
+      <iframe src="https://www.youtube.com/embed/YRhxdVk_sIs" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>15. Recurrent Neural Networks (RNNs)</h2>
+      <iframe src="https://www.youtube.com/embed/AsNTP8Kwu80" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>16. Transfer Learning</h2>
+      <iframe src="https://www.youtube.com/embed/xTLCYd9fM0A" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>17. AI in Agriculture: Overview</h2>
+      <iframe src="https://www.youtube.com/embed/WsxfGZV8Qqk" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>18. Using ML for Crop Disease Detection</h2>
+     <iframe width="560" height="315" src="https://www.youtube.com/embed/zcq5aw9t-Ds?si=BDuDHLbHFsDa-_tV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>19. Precision Farming with AI</h2>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/EyNLQgJopvU?si=5XzmffZST4raSAED" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-section">
+      <h2>20. The Future of AI & Deep Learning</h2>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/-sB12gk9ESA?si=SusHSLW3YZAxqtpz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+     
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/254707605751?text=Hello!%20I%27m%20interested%20in%20the%20TeachThem%20AI/ML%20program." class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <i>WhatsApp Me</i>
+  </a>
+</body>
+</html>
+=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -374,3 +753,4 @@ function closeNav() {
   </a>
 </body>
 </html>
+>>>>>>> b28197080339c7954b17447960adab3ee667491e
