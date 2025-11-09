@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TeachThem | Revision & Assignments</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+      color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: linear-gradient(90deg, #d4af37, #f1c232);
+      color: #000;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #111;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid #d4af37;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+    }
+
+    h2, h3 {
+      color: #d4af37;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    p {
+      text-align: center;
+      color: #ccc;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #1e1e1e;
+      border: 1px solid #d4af37;
+      border-radius: 8px;
+    }
+
+    .question h4 {
+      margin-bottom: 10px;
+      color: #f1c232;
+    }
+
+    label {
+      display: block;
+      margin: 6px 0;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+      accent-color: #d4af37;
+    }
+
+    button {
+      background: linear-gradient(90deg, #d4af37, #f1c232);
+      color: #000;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+      display: block;
+      margin: 25px auto 0;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #f1c232, #ffe97f);
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .result-box {
+      display: none;
+      margin-top: 30px;
+      background: #222;
+      padding: 20px;
+      border: 1px solid #d4af37;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .result-box h3 {
+      color: #d4af37;
+      margin-bottom: 10px;
+    }
+
+    .assignment-section {
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 2px solid #d4af37;
+    }
+
+    .assignment-box {
+      background: #1e1e1e;
+      padding: 25px;
+      border-radius: 10px;
+      border: 1px solid #d4af37;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    }
+
+    .assignment-box label {
+      display: block;
+      color: #f1c232;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .assignment-box input[type="file"],
+    .assignment-box textarea {
+      width: 100%;
+      background: #222;
+      border: 1px solid #d4af37;
+      border-radius: 6px;
+      padding: 10px;
+      color: #fff;
+      margin-bottom: 15px;
+      font-size: 15px;
+    }
+
+    .assignment-box textarea {
+      resize: vertical;
+    }
+
+    .upload-success {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      color: #d4af37;
+      font-weight: 500;
+      background: #222;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #d4af37;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #aaa;
+      font-size: 13px;
+      padding-bottom: 30px;
+    }
+
+    .nav-links {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .nav-links a {
+      color: #d4af37;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  <script>
+    function gradeQuiz() {
+      const answers = {
+        q1: "b",
+        q2: "a",
+        q3: "c",
+        q4: "d",
+        q5: "b"
+      };
+
+      let score = 0;
+      let total = Object.keys(answers).length;
+
+      for (let q in answers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === answers[q]) {
+          score++;
+        }
+      }
+
+      const resultBox = document.getElementById("resultBox");
+      const percent = Math.round((score / total) * 100);
+      let feedback = "";
+
+      if (percent >= 80) feedback = "Excellent work! 🌟 Keep it up!";
+      else if (percent >= 50) feedback = "Good effort! Keep revising and improving.";
+      else feedback = "Needs improvement — review the material again.";
+
+      resultBox.style.display = "block";
+      resultBox.innerHTML = `
+        <h3>Your Results</h3>
+        <p><strong>Score:</strong> ${score}/${total}</p>
+        <p><strong>Percentage:</strong> ${percent}%</p>
+        <p>${feedback}</p>
+      `;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+
+    function handleAssignmentUpload(event) {
+      event.preventDefault();
+
+      const fileInput = document.getElementById("assignmentFile");
+      const comment = document.getElementById("assignmentComment").value;
+
+      if (!fileInput.files.length) {
+        alert("Please upload your assignment file before submitting.");
+        return;
+      }
+
+      // Simulate success (in real use, connect to Flask or Firebase)
+      document.getElementById("uploadSuccess").style.display = "block";
+      document.getElementById("uploadSuccess").innerHTML = `
+        ✅ Assignment uploaded successfully!<br>
+        File: <strong>${fileInput.files[0].name}</strong><br>
+        Comment: ${comment ? comment : "No comments provided."}
+      `;
+      fileInput.value = "";
+      document.getElementById("assignmentComment").value = "";
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+    TeachThem AI/ML Revision & Assignments
+  </header>
+
+  <div class="container">
+    <h2>Test: Introduction to Artificial Intelligence</h2>
+    <p>Attempt all questions below and click <b>Submit Answers</b> to see your score instantly.</p>
+
+    <form id="quizForm">
+      <div class="question">
+        <h4>1. What is Artificial Intelligence primarily concerned with?</h4>
+        <label><input type="radio" name="q1" value="a">Building physical robots only</label>
+        <label><input type="radio" name="q1" value="b">Making machines mimic human intelligence</label>
+        <label><input type="radio" name="q1" value="c">Designing electrical circuits</label>
+        <label><input type="radio" name="q1" value="d">Creating new programming languages</label>
+      </div>
+
+      <div class="question">
+        <h4>2. Which of the following is an example of Machine Learning?</h4>
+        <label><input type="radio" name="q2" value="a">A model predicting crop yield using past data</label>
+        <label><input type="radio" name="q2" value="b">A calculator performing addition</label>
+        <label><input type="radio" name="q2" value="c">Typing in Microsoft Word</label>
+        <label><input type="radio" name="q2" value="d">A static website</label>
+      </div>
+
+      <div class="question">
+        <h4>3. In agriculture, AI can be used for:</h4>
+        <label><input type="radio" name="q3" value="a">Replacing farmers completely</label>
+        <label><input type="radio" name="q3" value="b">Playing games</label>
+        <label><input type="radio" name="q3" value="c">Monitoring crop health and predicting diseases</label>
+        <label><input type="radio" name="q3" value="d">None of the above</label>
+      </div>
+
+      <div class="question">
+        <h4>4. Which language is most popular for AI and Machine Learning?</h4>
+        <label><input type="radio" name="q4" value="a">C</label>
+        <label><input type="radio" name="q4" value="b">Java</label>
+        <label><input type="radio" name="q4" value="c">HTML</label>
+        <label><input type="radio" name="q4" value="d">Python</label>
+      </div>
+
+      <div class="question">
+        <h4>5. What is a dataset?</h4>
+        <label><input type="radio" name="q5" value="a">A mathematical formula</label>
+        <label><input type="radio" name="q5" value="b">A collection of structured data used for training models</label>
+        <label><input type="radio" name="q5" value="c">A machine learning algorithm</label>
+        <label><input type="radio" name="q5" value="d">A neural network</label>
+      </div>
+
+      <button type="button" onclick="gradeQuiz()">Submit Answers</button>
+    </form>
+
+    <div class="result-box" id="resultBox"></div>
+
+    <!-- Assignments Section -->
+    <div class="assignment-section">
+      <h3>Assignments Submission</h3>
+      <p>Submit your work for evaluation — accepted formats include <b>.ipynb</b>, <b>.pdf</b>, or <b>.docx</b>.</p>
+
+      <div class="assignment-box">
+        <form onsubmit="handleAssignmentUpload(event)">
+          <label for="assignmentFile">Upload Assignment File:</label>
+          <input type="file" id="assignmentFile" accept=".ipynb,.pdf,.docx,.zip" required>
+
+          <label for="assignmentComment">Add a Comment or Description (optional):</label>
+          <textarea id="assignmentComment" rows="3" placeholder="Briefly describe your assignment..."></textarea>
+
+          <button type="submit">📤 Submit Assignment</button>
+        </form>
+
+        <div class="upload-success" id="uploadSuccess"></div>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="index.html"> Home</a> |
+      <a href="registration.html"> Register</a> |
+      <a href="revision.html">Tests</a>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Learn AI Initiative | Excellence in AI Education
+  </footer>
+</body>
+</html>
