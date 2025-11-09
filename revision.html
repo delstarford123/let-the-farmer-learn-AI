@@ -1,315 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TeachThem | Tests & Assignments</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Learn AI | Tests & Assignments</title>
 
-  <!-- CodeMirror for Python code editor -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<!-- CodeMirror for route coding -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
 
-  <style>
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: #f9fff9;
-      margin: 0;
-      padding: 0;
-      color: #222;
-    }
-
-    header {
-      background: #2e7d32;
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-
-    h1 { margin: 0; font-size: 22px; letter-spacing: 0.4px; }
-    .menu-icon { cursor: pointer; font-size: 26px; }
-
-    .container {
-      max-width: 950px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.08);
-    }
-
-    h2, h3 { color: #2e7d32; text-align: center; }
-    p { text-align: center; color: #444; }
-
-    .question {
-      margin-bottom: 20px;
-      padding: 15px;
-      background: #f4faf4;
-      border-left: 5px solid #2e7d32;
-      border-radius: 8px;
-    }
-
-    label { display: block; margin: 5px 0; cursor: pointer; }
-    input[type="radio"] { accent-color: #2e7d32; margin-right: 6px; }
-
-    button {
-      background: #2e7d32;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 8px;
-      cursor: pointer;
-      display: block;
-      margin: 25px auto;
-      font-weight: bold;
-    }
-
-    button:hover { background: #1b5e20; }
-
-    .result-box {
-      display: none;
-      background: #e8f5e9;
-      padding: 20px;
-      margin-top: 25px;
-      border-radius: 10px;
-      border-left: 5px solid #2e7d32;
-      text-align: center;
-    }
-
-    /* Assignments Section */
-    .assignment-section {
-      margin-top: 50px;
-      padding-top: 20px;
-      border-top: 2px solid #2e7d32;
-    }
-
-    textarea, input[type="file"] {
-      width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      padding: 10px;
-      margin-bottom: 15px;
-      font-size: 14px;
-    }
-
-    /* Canvas area */
-    canvas {
-      border: 2px dashed #ccc;
-      display: block;
-      margin: 10px auto;
-      width: 100%;
-      max-width: 700px;
-      height: 300px;
-      background: #fafafa;
-      cursor: crosshair;
-    }
-
-    footer {
-      text-align: center;
-      color: #555;
-      margin: 40px 0 20px;
-      font-size: 13px;
-    }
-
-    .whatsapp-float {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 25px;
-      right: 25px;
-      background-color: #25D366;
-      color: white;
-      border-radius: 50%;
-      text-align: center;
-      font-size: 28px;
-      line-height: 60px;
-      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-      cursor: pointer;
-    }
-    .whatsapp-float:hover { background-color: #20b358; }
-
-  </style>
+<style>
+body { font-family: Arial, sans-serif; background: #f5fff5; margin:0; padding:0; color:#222; }
+header { background:#2e7d32; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; }
+header h1 { margin:0; font-size:22px; }
+.container { max-width:900px; margin:40px auto; background:white; padding:30px; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.1);}
+h2,h3 { color:#2e7d32; text-align:center;}
+p { text-align:center; color:#444;}
+.question { margin-bottom:20px; padding:15px; background:#f3faf3; border-left:5px solid #2e7d32; border-radius:8px;}
+label { display:block; margin:6px 0; cursor:pointer;}
+input[type="radio"] { margin-right:8px; accent-color:#2e7d32;}
+button { background:#2e7d32; color:white; border:none; padding:12px 25px; border-radius:8px; font-weight:bold; cursor:pointer; display:block; margin:25px auto 0;}
+button:hover { background:#1b5e20;}
+.result-box { display:none; margin-top:30px; background:#e8f5e9; padding:20px; border-radius:8px; border-left:5px solid #2e7d32; text-align:center;}
+textarea,input[type="file"] { width:100%; border:1px solid #ccc; border-radius:6px; padding:10px; margin-bottom:15px; font-size:14px; background:#fff;}
+canvas { border:2px dashed #ccc; display:block; margin:10px auto; width:100%; max-width:700px; height:300px; background:#fafafa; cursor:crosshair;}
+footer { text-align:center; color:#555; margin-top:60px; font-size:13px; padding-bottom:30px;}
+.whatsapp-float { position:fixed; width:60px; height:60px; bottom:25px; right:25px; background-color:#25D366; color:white; border-radius:50%; text-align:center; font-size:28px; line-height:60px; box-shadow:2px 2px 10px rgba(0,0,0,0.3); cursor:pointer;}
+.whatsapp-float:hover { background-color:#20b358;}
+</style>
 </head>
 <body>
-  <header>
-    <span class="menu-icon" onclick="window.location.href='dashboard.html'">🏠</span>
-    <h1>TeachThem | Tests & Assignments</h1>
-  </header>
 
-  <div class="container">
-    <h2>Auto-Updating Test (Every 3 Days)</h2>
-    <p>20 randomly generated questions related to AI, ML, and Agriculture.</p>
+<header>
+<h1>Learn AI | Tests & Assignments</h1>
+</header>
 
-    <form id="quizForm"></form>
-    <button type="button" onclick="gradeQuiz()">Submit Answers</button>
+<div class="container">
+<h2>AI Quiz: 10 Questions</h2>
+<p>Select your answers and submit to see your score.</p>
 
-    <div class="result-box" id="resultBox"></div>
+<form id="quizForm"></form>
+<button type="button" onclick="gradeQuiz()">Submit Answers</button>
+<div class="result-box" id="resultBox"></div>
 
-    <!-- Code Editor -->
-    <div class="assignment-section">
-      <h3>🧑‍💻 Write Your Python Solution</h3>
-      <textarea id="codeEditor"># Write your code here (e.g., train a simple model or process data)</textarea>
-      <button type="button" onclick="saveCode()">💾 Save Code</button>
-      <p id="saveMessage" style="text-align:center; color:#1b5e20; display:none;">✅ Code saved locally!</p>
+<!-- Route Coding -->
+<div class="assignment-section">
+<h3>🧑‍💻 Write Your Route Code</h3>
+<textarea id="codeEditor"># Write your Flask/Python route code here</textarea>
+<button type="button" onclick="saveCode()">💾 Save Code</button>
+<p id="saveMessage" style="text-align:center; color:#1b5e20; display:none;">✅ Code saved locally!</p>
+</div>
+
+<!-- Model Drawing -->
+<div class="assignment-section">
+<h3>📈 Draw Your Model Architecture</h3>
+<canvas id="modelCanvas"></canvas>
+<button type="button" onclick="clearCanvas()">🧹 Clear Drawing</button>
+</div>
+
+<!-- Assignment Upload -->
+<div class="assignment-section">
+<h3>📤 Upload Assignment</h3>
+<input type="file" id="assignmentFile" accept=".ipynb,.pdf,.docx,.zip" />
+<textarea id="assignmentComment" rows="3" placeholder="Describe your assignment..."></textarea>
+<button type="button" onclick="uploadAssignment()">Submit Assignment</button>
+<p id="uploadSuccess" style="display:none; color:#1b5e20; text-align:center;">✅ Assignment uploaded successfully!</p>
+</div>
+</div>
+
+<a href="https://wa.me/254707605751" class="whatsapp-float" target="_blank">💬</a>
+<footer>© 2025 LearnAI | Empowering Future Innovators</footer>
+
+<script>
+// Quiz Questions (always updating)
+const questionBank = [
+  {q:"What does AI stand for?", options:["Artificial Intelligence","Automated Internet","Algorithm Interface","Applied Innovation"], ans:"a"},
+  {q:"Which Python library is commonly used for ML?", options:["NumPy","scikit-learn","Pandas","Matplotlib"], ans:"b"},
+  {q:"What is supervised learning?", options:["Learning from labeled data","Learning without labels","Random guessing","Reinforcement only"], ans:"a"},
+  {q:"Name one AI application in agriculture.", options:["Crop disease detection","Weather apps","Manual irrigation","GPS navigation"], ans:"a"},
+  {q:"Which ML algorithm is used for classification?", options:["Linear Regression","Decision Tree","K-Means","PCA"], ans:"b"},
+  {q:"Which library is best for deep learning?", options:["TensorFlow/PyTorch","NumPy","Matplotlib","OpenCV"], ans:"a"},
+  {q:"What is overfitting?", options:["Model memorizes data","Model generalizes","Model ignores data","Random model"], ans:"a"},
+  {q:"What does CNN stand for?", options:["Convolutional Neural Network","Central Neural Node","Compute Neural Net","Classified Network"], ans:"a"},
+  {q:"What is gradient descent?", options:["Optimization algorithm","Data storage method","Sorting algorithm","Loss function type"], ans:"a"},
+  {q:"What is transfer learning?", options:["Using pre-trained models","Training from scratch only","Random initialization","Data augmentation only"], ans:"a"}
+];
+
+// Display questions
+function generateQuestions(){
+  const form = document.getElementById("quizForm");
+  form.innerHTML = questionBank.map((q,i)=>`
+    <div class='question'>
+      <h4>${i+1}. ${q.q}</h4>
+      ${["a","b","c","d"].map((opt,j)=>`
+        <label>
+          <input type="radio" name="q${i}" value="${["a","b","c","d"][j]}">
+          ${["a","b","c","d"][j]}. ${q.options[j]}
+        </label>
+      `).join("")}
     </div>
+  `).join("");
+}
 
-    <!-- Model Drawing -->
-    <div class="assignment-section">
-      <h3>📈 Draw Your Model Architecture</h3>
-      <canvas id="modelCanvas"></canvas>
-      <button type="button" onclick="clearCanvas()">🧹 Clear Drawing</button>
-    </div>
+// Grade Quiz
+function gradeQuiz(){
+  let score=0;
+  questionBank.forEach((q,i)=>{
+    const selected = document.querySelector(`input[name=q${i}]:checked`);
+    if(selected && selected.value===q.ans) score++;
+  });
+  const percent = Math.round((score/questionBank.length)*100);
+  const resultBox=document.getElementById("resultBox");
+  resultBox.style.display="block";
+  resultBox.innerHTML=`<h3>Results</h3><p>Score: ${score}/${questionBank.length} (${percent}%)</p>`;
+}
 
-    <!-- Assignment Upload -->
-    <div class="assignment-section">
-      <h3>📤 Upload Assignment File</h3>
-      <input type="file" id="assignmentFile" accept=".ipynb,.pdf,.docx,.zip" />
-      <textarea id="assignmentComment" rows="3" placeholder="Describe your assignment..."></textarea>
-      <button type="button" onclick="uploadAssignment()">Submit Assignment</button>
-      <p id="uploadSuccess" style="display:none; color:#1b5e20; text-align:center;">✅ Assignment uploaded successfully!</p>
-    </div>
-  </div>
+// CODE EDITOR
+const editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), { lineNumbers:true, mode:"python", theme:"default"});
+function saveCode(){ localStorage.setItem("studentCode", editor.getValue()); document.getElementById("saveMessage").style.display="block"; setTimeout(()=>document.getElementById("saveMessage").style.display="none",2000); }
 
-  <a href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20TeachThem%20AI%20program." target="_blank" class="whatsapp-float">💬</a>
+// CANVAS
+const canvas=document.getElementById("modelCanvas"); const ctx=canvas.getContext("2d"); let drawing=false;
+canvas.addEventListener("mousedown",()=>drawing=true); canvas.addEventListener("mouseup",()=>drawing=false);
+canvas.addEventListener("mousemove", e=>{ if(!drawing) return; const rect=canvas.getBoundingClientRect(); ctx.fillStyle="#2e7d32"; ctx.beginPath(); ctx.arc(e.clientX-rect.left,e.clientY-rect.top,3,0,Math.PI*2); ctx.fill(); });
+function clearCanvas(){ ctx.clearRect(0,0,canvas.width,canvas.height); }
 
-  <footer>© 2025 TeachThem | Empowering Agricultural Innovators</footer>
+// Assignment upload
+function uploadAssignment(){
+  const file=document.getElementById("assignmentFile").files[0];
+  if(!file) return alert("Please select a file to upload.");
+  document.getElementById("uploadSuccess").style.display="block";
+  document.getElementById("uploadSuccess").innerHTML=`✅ Assignment uploaded successfully!<br>File: <strong>${file.name}</strong>`;
+}
 
-  <script>
-    // ---------------------- QUESTION GENERATOR -----------------------
-    const questionBank = [
-      {q: "What does AI stand for?", a: "Artificial Intelligence"},
-      {q: "Which Python library is commonly used for Machine Learning?", a: "scikit-learn"},
-      {q: "What is supervised learning?", a: "Learning from labeled data"},
-      {q: "Name one AI application in agriculture.", a: "Crop disease detection"},
-      {q: "What is a neural network?", a: "A model inspired by the human brain"},
-      {q: "Which ML algorithm is used for classification?", a: "Decision Tree"},
-      {q: "What is data preprocessing?", a: "Cleaning and preparing data for training"},
-      {q: "What is the output of a sigmoid function?", a: "A value between 0 and 1"},
-      {q: "Which library is best for deep learning?", a: "TensorFlow or PyTorch"},
-      {q: "What does CSV stand for?", a: "Comma Separated Values"},
-      {q: "What is feature scaling?", a: "Normalizing numerical features"},
-      {q: "What is an epoch in ML training?", a: "One complete pass over the dataset"},
-      {q: "What is overfitting?", a: "When a model memorizes instead of learning"},
-      {q: "Which sensor helps measure soil moisture?", a: "Capacitive or resistive sensor"},
-      {q: "What is reinforcement learning?", a: "Learning through trial and reward"},
-      {q: "What is the goal of clustering?", a: "Grouping similar data points"},
-      {q: "What is model evaluation?", a: "Testing model performance"},
-      {q: "What is a confusion matrix?", a: "A summary of prediction results"},
-      {q: "Which file format is used for model weights?", a: ".h5 or .pth"},
-      {q: "What is a dataset split ratio for training/testing?", a: "Usually 80/20"},
-      {q: "Name an optimization algorithm in deep learning.", a: "Adam or SGD"},
-      {q: "What is gradient descent?", a: "Optimization algorithm to minimize loss"},
-      {q: "What is image augmentation?", a: "Transforming images to boost data"},
-      {q: "What does CNN stand for?", a: "Convolutional Neural Network"},
-      {q: "What is backpropagation?", a: "Algorithm to adjust model weights"},
-      {q: "Name one cloud platform for AI models.", a: "Google Cloud or AWS"},
-      {q: "What is IoT in agriculture?", a: "Internet of Things for smart farming"},
-      {q: "What does NLP stand for?", a: "Natural Language Processing"},
-      {q: "What is data labeling?", a: "Annotating data for supervised learning"},
-      {q: "Which metric measures accuracy?", a: "Accuracy = correct predictions / total"},
-      {q: "What is AI bias?", a: "Unfair behavior learned from biased data"},
-      {q: "What does API mean?", a: "Application Programming Interface"},
-      {q: "What is an activation function?", a: "Defines output of a neuron"},
-      {q: "What is model inference?", a: "Making predictions with a trained model"},
-      {q: "What is K-Means used for?", a: "Clustering"},
-      {q: "What is Tensor?", a: "A multi-dimensional array"},
-      {q: "Name one agricultural AI startup.", a: "e.g., PEAT (Plantix)"},
-      {q: "What is transfer learning?", a: "Using pre-trained models"},
-      {q: "What is a dataset imbalance?", a: "Unequal number of class samples"},
-      {q: "What is a pipeline in ML?", a: "A series of processing steps"},
-      {q: "What is feature extraction?", a: "Selecting key attributes"},
-      {q: "What is regularization?", a: "Technique to reduce overfitting"},
-      {q: "What is recall in ML?", a: "True positive rate"},
-      {q: "What is precision?", a: "Ratio of true positives to all positives"},
-      {q: "What is ROC curve?", a: "Performance curve for binary classifiers"},
-      {q: "What is an AI model?", a: "Mathematical representation of learning"},
-      {q: "What is a GPU used for?", a: "Accelerating computation"},
-      {q: "What is loss function?", a: "Measures model error"},
-      {q: "What is hyperparameter tuning?", a: "Optimizing model settings"},
-      {q: "What is dataset augmentation?", a: "Expanding data artificially"}
-    ];
-
-    function generateQuestions() {
-      const now = new Date();
-      const lastGenerated = localStorage.getItem("lastGenerated");
-      const form = document.getElementById("quizForm");
-
-      // Check if 3 days have passed
-      if (!lastGenerated || (now - new Date(lastGenerated)) / (1000*60*60*24) >= 3) {
-        const selected = questionBank.sort(() => 0.5 - Math.random()).slice(0, 20);
-        localStorage.setItem("questions", JSON.stringify(selected));
-        localStorage.setItem("lastGenerated", now);
-      }
-
-      const questions = JSON.parse(localStorage.getItem("questions"));
-      form.innerHTML = questions.map((q, i) => `
-        <div class='question'>
-          <h4>${i+1}. ${q.q}</h4>
-          <input type='text' name='q${i}' placeholder='Your answer...' style='width:100%;padding:8px;border-radius:6px;border:1px solid #ccc;'>
-        </div>
-      `).join("");
-    }
-
-    function gradeQuiz() {
-      const inputs = document.querySelectorAll("#quizForm input[type='text']");
-      let score = 0;
-      const questions = JSON.parse(localStorage.getItem("questions"));
-
-      inputs.forEach((input, i) => {
-        if (input.value.trim().toLowerCase() === questions[i].a.toLowerCase()) score++;
-      });
-
-      const percent = Math.round((score / questions.length) * 100);
-      const resultBox = document.getElementById("resultBox");
-      resultBox.style.display = "block";
-      resultBox.innerHTML = `<h3>Results</h3><p>Score: ${score}/20 (${percent}%)</p>`;
-    }
-
-    // ---------------------- CODE EDITOR -----------------------
-    const editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
-      lineNumbers: true,
-      mode: "python",
-      theme: "default"
-    });
-
-    function saveCode() {
-      localStorage.setItem("studentCode", editor.getValue());
-      document.getElementById("saveMessage").style.display = "block";
-      setTimeout(() => document.getElementById("saveMessage").style.display = "none", 2000);
-    }
-
-    // ---------------------- CANVAS -----------------------
-    const canvas = document.getElementById("modelCanvas");
-    const ctx = canvas.getContext("2d");
-    let drawing = false;
-
-    canvas.addEventListener("mousedown", () => drawing = true);
-    canvas.addEventListener("mouseup", () => drawing = false);
-    canvas.addEventListener("mousemove", draw);
-
-    function draw(e) {
-      if (!drawing) return;
-      const rect = canvas.getBoundingClientRect();
-      ctx.fillStyle = "#2e7d32";
-      ctx.beginPath();
-      ctx.arc(e.clientX - rect.left, e.clientY - rect.top, 3, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-
-    // ---------------------- ASSIGNMENT -----------------------
-    function uploadAssignment() {
-      const file = document.getElementById("assignmentFile").files[0];
-      if (!file) return alert("Please select a file to upload.");
-      document.getElementById("uploadSuccess").style.display = "block";
-    }
-
-    // Init
-    generateQuestions();
-  </script>
+// Initialize
+generateQuestions();
+</script>
 </body>
 </html>
