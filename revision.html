@@ -3,199 +3,192 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Learn AI | Tests & Assignments</title>
+<title>Learn AI | Machine Learning Quiz</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
 
 <style>
-/* ---------------------------------- */
-/* 1. Global & Base Styles */
-/* ---------------------------------- */
 body { font-family: Arial, sans-serif; background: #f5fff5; margin:0; padding:0; color:#222; }
+header { background:#2e7d32; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; }
+header h1 { margin:0; font-size:22px; }
+.container { max-width:900px; margin:40px auto; background:white; padding:30px; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.1);}
 h2,h3 { color:#2e7d32; text-align:center;}
 p { text-align:center; color:#444;}
-footer { text-align:center; color:#555; margin-top:60px; font-size:13px; padding-bottom:30px;}
-
-/* ---------------------------------- */
-/* 2. Header & Navigation (Sidebar) */
-/* ---------------------------------- */
-header { background:#2e7d32; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; position: sticky; top: 0; z-index: 100;}
-header h1 { margin:0; font-size:22px; }
-
-.menu-icon { font-size:26px; cursor:pointer;}
-
-/* Sidebar Styles */
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #1b5e20;
-  overflow-x: hidden;
-  transition: 0.4s;
-  padding-top: 60px;
-  z-index: 2000;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-}
-
-.sidebar a {
-  padding: 12px 25px;
-  text-decoration: none;
-  font-size: 18px;
-  color: #f5fff5;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidebar a:hover {
-  background-color: #388e3c;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 15px;
-  right: 25px;
-  font-size: 30px;
-  cursor: pointer;
-  color: white;
-}
-
-/* Floating WhatsApp Button */
-.whatsapp-float { position:fixed; width:60px; height:60px; bottom:25px; right:25px; background-color:#25D366; color:white; border-radius:50%; text-align:center; font-size:28px; line-height:60px; box-shadow:2px 2px 10px rgba(0,0,0,0.3); cursor:pointer;}
-.whatsapp-float:hover { background-color:#20b358;}
-
-/* ---------------------------------- */
-/* 3. Content & Assignment Components */
-/* ---------------------------------- */
-.container { max-width:900px; margin:40px auto; background:white; padding:30px; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.1);}
 .question { margin-bottom:20px; padding:15px; background:#f3faf3; border-left:5px solid #2e7d32; border-radius:8px;}
 label { display:block; margin:6px 0; cursor:pointer;}
 input[type="radio"] { margin-right:8px; accent-color:#2e7d32;}
-button { background:#2e7d32; color:white; border:none; padding:12px 25px; border-radius:8px; font-weight:bold; cursor:pointer; display:block; margin:25px auto 0; transition: background 0.3s;}
+button { background:#2e7d32; color:white; border:none; padding:12px 25px; border-radius:8px; font-weight:bold; cursor:pointer; display:block; margin:25px auto 0;}
 button:hover { background:#1b5e20;}
-.result-box { display:none; margin-top:30px; background:#e8f5e9; padding:20px; border-radius:8px; border-left:5px solid #2e7d32; text-align:center;}
+.result-box { display:none; margin-top:30px; background:#e8f5e9; padding:20px; border-radius:8px; border-left:5px solid #2e7d32; text-align:left;}
+.result-box h3, .result-box p { text-align:center; }
+.feedback { margin-top:15px; padding:10px; border-top:1px solid #ccc; text-align:center; font-style:italic;}
+.correct { background-color:#e6ffe6; padding:8px; margin-bottom:10px; border-radius:4px; border-left:3px solid #00c853; }
+.incorrect { background-color:#ffe6e6; padding:8px; margin-bottom:10px; border-radius:4px; border-left:3px solid #d50000; }
 textarea,input[type="file"] { width:100%; border:1px solid #ccc; border-radius:6px; padding:10px; margin-bottom:15px; font-size:14px; background:#fff;}
 canvas { border:2px dashed #ccc; display:block; margin:10px auto; width:100%; max-width:700px; height:300px; background:#fafafa; cursor:crosshair;}
-
-/* CodeMirror specific styling to fit content */
-.CodeMirror {
-    height: 250px; /* Fixed height for the editor */
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
+footer { text-align:center; color:#555; margin-top:60px; font-size:13px; padding-bottom:30px;}
+.whatsapp-float { position:fixed; width:60px; height:60px; bottom:25px; right:25px; background-color:#25D366; color:white; border-radius:50%; text-align:center; font-size:28px; line-height:60px; box-shadow:2px 2px 10px rgba(0,0,0,0.3); cursor:pointer;}
+.whatsapp-float:hover { background-color:#20b358;}
 </style>
 </head>
 <body>
 
 <header>
-    <span class="menu-icon" onclick="openNav()">&#9776;</span>
-    <h1>Learn AI | Tests & Assignments</h1>
+<h1>Learn AI | Tests & Assignments</h1>
 </header>
 
-<div id="mySidebar" class="sidebar">
-    <span class="closebtn" onclick="closeNav()">&times;</span>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="notes.html">Notes</a>
-    <a href="join_meet.html">Join Meet</a>
-    <a href="about.html">About</a>
-    <a href="revision.html">Revision & Assignments</a>
-    <a href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20TeachThem%20AI/ML%20program." target="_blank">WhatsApp Me</a>
+<div class="container">
+<h2>Machine Learning Quiz: 10 Questions</h2>
+<p>Select your answers and submit to see your score and personalized advice.</p>
+
+<form id="quizForm"></form>
+<button type="button" onclick="gradeQuiz()">Submit Answers</button>
+<div class="result-box" id="resultBox"></div>
+
+<div class="assignment-section">
+<h3>🧑‍💻 Write Your Route Code</h3>
+<textarea id="codeEditor"># Write your Flask/Python route code here</textarea>
+<button type="button" onclick="saveCode()">💾 Save Code</button>
+<p id="saveMessage" style="text-align:center; color:#1b5e20; display:none;">✅ Code saved locally!</p>
 </div>
 
-<div class="container">
-    <h2>AI Quiz: 10 Questions 📝</h2>
-    <p>Select your answers and submit to see your score. Test your Module 1 knowledge!</p>
+<div class="assignment-section">
+<h3>📈 Draw Your Model Architecture</h3>
+<canvas id="modelCanvas"></canvas>
+<button type="button" onclick="clearCanvas()">🧹 Clear Drawing</button>
+</div>
 
-    <form id="quizForm"></form>
-    <button type="button" onclick="gradeQuiz()">Submit Answers</button>
-    <div class="result-box" id="resultBox"></div>
-
-    <hr style="margin:40px 0; border:1px solid #e0e0e0;">
-
-    <div class="assignment-section">
-        <h3>🧑‍💻 Write Your Route Code (Flask Example)</h3>
-        <p>Complete the Python function to process an incoming HTTP request.</p>
-        <textarea id="codeEditor"># Write your Flask/Python route code here
-# Example:
-# @app.route('/predict', methods=['POST'])
-# def predict():
-#    data = request.get_json()
-#    # Your ML model prediction logic goes here
-#    return jsonify({'result': 'prediction_value'})
-        </textarea>
-        <button type="button" onclick="saveCode()">💾 Save Code Locally</button>
-        <p id="saveMessage" style="text-align:center; color:#1b5e20; display:none;">✅ Code saved locally to your browser! (View in DevTools: localStorage)</p>
-    </div>
-    
-    <hr style="margin:40px 0; border:1px solid #e0e0e0;">
-
-    <div class="assignment-section">
-        <h3>📈 Draw Your Model Architecture (CNN)</h3>
-        <p>Use the canvas below to sketch the layers of a Convolutional Neural Network (CNN) for crop image analysis.</p>
-        <canvas id="modelCanvas"></canvas>
-        <button type="button" onclick="clearCanvas()">🧹 Clear Drawing</button>
-    </div>
-
-    <hr style="margin:40px 0; border:1px solid #e0e0e0;">
-
-    <div class="assignment-section">
-        <h3>📤 Upload Final Assignment</h3>
-        <p>Submit your finished Jupyter Notebook (`.ipynb`) or report (`.pdf`).</p>
-        <input type="file" id="assignmentFile" accept=".ipynb,.pdf,.docx,.zip" />
-        <textarea id="assignmentComment" rows="3" placeholder="Describe your assignment and mention the module it addresses (e.g., 'Module 3 Crop Health Project')..."></textarea>
-        <button type="button" onclick="uploadAssignment()">Submit Assignment</button>
-        <p id="uploadSuccess" style="display:none; color:#1b5e20; text-align:center;">✅ Assignment uploaded successfully!</p>
-    </div>
+<div class="assignment-section">
+<h3>📤 Upload Assignment</h3>
+<input type="file" id="assignmentFile" accept=".ipynb,.pdf,.docx,.zip" />
+<textarea id="assignmentComment" rows="3" placeholder="Describe your assignment..."></textarea>
+<button type="button" onclick="uploadAssignment()">Submit Assignment</button>
+<p id="uploadSuccess" style="display:none; color:#1b5e20; text-align:center;">✅ Assignment uploaded successfully!</p>
+</div>
 </div>
 
 <a href="https://wa.me/254707605751" class="whatsapp-float" target="_blank">💬</a>
 <footer>© 2025 LearnAI | Empowering Future Innovators</footer>
 
 <script>
-// Quiz Questions (always updating)
+// Quiz Questions (Modified for Machine Learning)
 const questionBank = [
-  {q:"What does AI stand for?", options:["Artificial Intelligence","Automated Internet","Algorithm Interface","Applied Innovation"], ans:"a"},
-  {q:"Which Python library is commonly used for ML?", options:["NumPy","scikit-learn","Pandas","Matplotlib"], ans:"b"},
-  {q:"What is supervised learning?", options:["Learning from labeled data","Learning without labels","Random guessing","Reinforcement only"], ans:"a"},
-  {q:"Name one AI application in agriculture.", options:["Crop disease detection","Weather apps","Manual irrigation","GPS navigation"], ans:"a"},
-  {q:"Which ML algorithm is used for classification?", options:["Linear Regression","Decision Tree","K-Means","PCA"], ans:"b"},
-  {q:"Which library is best for deep learning?", options:["TensorFlow/PyTorch","NumPy","Matplotlib","OpenCV"], ans:"a"},
-  {q:"What is overfitting?", options:["Model memorizes data","Model generalizes","Model ignores data","Random model"], ans:"a"},
-  {q:"What does CNN stand for?", options:["Convolutional Neural Network","Central Neural Node","Compute Neural Net","Classified Network"], ans:"a"},
-  {q:"What is gradient descent?", options:["Optimization algorithm","Data storage method","Sorting algorithm","Loss function type"], ans:"a"},
-  {q:"What is transfer learning?", options:["Using pre-trained models","Training from scratch only","Random initialization","Data augmentation only"], ans:"a"}
+    {q:"What is the primary goal of an Unsupervised Learning algorithm?", options:["Predicting a continuous output","Classifying data into predefined labels","Discovering hidden patterns and structures in unlabeled data","Training a model with labeled data only"], ans:"c"},
+    {q:"Which of the following is an example of a Supervised Learning task?", options:["Clustering customer demographics","Anomaly detection in network traffic","Predicting house prices","Reducing the dimensionality of a dataset"], ans:"c"},
+    {q:"What does the 'K' represent in the K-Nearest Neighbors (KNN) algorithm?", options:["The number of features","The number of classes","The number of neighbors to consider","The number of training samples"], ans:"c"},
+    {q:"In Machine Learning, what is the 'Loss Function' used for?", options:["To speed up the training process","To measure the difference between the predicted and actual values","To visualize the dataset distribution","To generate new synthetic data"], ans:"b"},
+    {q:"What technique is used to prevent **overfitting** in a Neural Network?", options:["Increasing the number of layers","Decreasing the size of the dataset","Using a high learning rate","**Dropout**"], ans:"d"},
+    {q:"Which term describes the process of converting categorical data into numerical data for an ML model?", options:["Normalization","Standardization","**One-Hot Encoding**","Feature Scaling"], ans:"c"},
+    {q:"What is a **Hyperparameter**?", options:["A parameter learned by the model during training","A data point with extreme values","A parameter whose value is set before the learning process begins","The final output of a prediction model"], ans:"c"},
+    {q:"Which metric is most suitable for evaluating a model on an imbalanced classification dataset?", options:["Accuracy","**F1-Score**","Mean Squared Error (MSE)","R-squared"], ans:"b"},
+    {q:"The acronym **RNN** stands for what type of Neural Network, typically used for sequential data?", options:["Random Neural Network","Residual Nodal Network","**Recurrent Neural Network**","Replicated Normal Network"], ans:"c"},
+    {q:"In Linear Regression, what is the primary purpose of the **Gradient Descent** algorithm?", options:["To initialize the model's weights randomly","To calculate the prediction error","To find the minimum of the cost function","To visualize the linear relationship"], ans:"c"}
 ];
+
+// Utility to get the option text from its value (a, b, c, d)
+function getOptionText(qIndex, ansValue) {
+    const q = questionBank[qIndex];
+    const index = ["a", "b", "c", "d"].indexOf(ansValue);
+    return q.options[index];
+}
 
 // Display questions
 function generateQuestions(){
-  const form = document.getElementById("quizForm");
-  form.innerHTML = questionBank.map((q,i)=>`
-    <div class='question'>
-      <h4>${i+1}. ${q.q}</h4>
-      ${["a","b","c","d"].map((opt,j)=>`
-        <label>
-          <input type="radio" name="q${i}" value="${["a","b","c","d"][j]}">
-          ${["a","b","c","d"][j]}. ${q.options[j]}
-        </label>
-      `).join("")}
-    </div>
-  `).join("");
+    const form = document.getElementById("quizForm");
+    form.innerHTML = questionBank.map((q,i)=>`
+        <div class='question' id='q-box-${i}'>
+            <h4>${i+1}. ${q.q}</h4>
+            ${["a","b","c","d"].map((opt,j)=>`
+                <label>
+                    <input type="radio" name="q${i}" value="${["a","b","c","d"][j]}">
+                    ${["a","b","c","d"][j]}. ${q.options[j]}
+                </label>
+            `).join("")}
+        </div>
+    `).join("");
 }
 
-// Grade Quiz
+// Speak Function (Web Speech API)
+function speakAdvice(text) {
+    if (!('speechSynthesis' in window)) {
+        console.warn("Speech Synthesis API not supported.");
+        return;
+    }
+    
+    // Stop any current speech
+    window.speechSynthesis.cancel(); 
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Try to find a female voice
+    const voices = window.speechSynthesis.getVoices();
+    let ladyVoice = voices.find(voice => voice.name.includes('Google US English') || voice.lang.includes('en-US') && (voice.name.includes('Female') || voice.name.includes('Lady')));
+    
+    // Fallback to a default voice if a specific lady voice isn't found
+    if (!ladyVoice) {
+        ladyVoice = voices.find(voice => voice.default);
+    }
+    
+    if (ladyVoice) {
+        utterance.voice = ladyVoice;
+    }
+    
+    // Set parameters
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+
+    window.speechSynthesis.speak(utterance);
+}
+
+// Grade Quiz - MODIFIED to show correct/incorrect and provide advice
 function gradeQuiz(){
-  let score=0;
-  questionBank.forEach((q,i)=>{
-    const selected = document.querySelector(`input[name=q${i}]:checked`);
-    if(selected && selected.value===q.ans) score++;
-  });
-  const percent = Math.round((score/questionBank.length)*100);
-  const resultBox=document.getElementById("resultBox");
-  resultBox.style.display="block";
-  resultBox.innerHTML=`<h3>Results</h3><p>Score: ${score}/${questionBank.length} (${percent}%)</p>`;
+    let score = 0;
+    let resultsHTML = "<h3>Results</h3>";
+    const totalQuestions = questionBank.length;
+    let adviceText = "";
+
+    questionBank.forEach((q, i) => {
+        const selectedRadio = document.querySelector(`input[name=q${i}]:checked`);
+        const selectedValue = selectedRadio ? selectedRadio.value : null;
+        const correctAnsText = getOptionText(i, q.ans);
+        
+        const isCorrect = selectedValue === q.ans;
+        
+        if (isCorrect) {
+            score++;
+            resultsHTML += `<div class="correct">✅ **Correct!** (${i+1}) ${q.q}<br>Your Answer: ${correctAnsText}</div>`;
+        } else {
+            const userAnsText = selectedValue ? getOptionText(i, selectedValue) : "No Answer Selected";
+            resultsHTML += `<div class="incorrect">❌ **Incorrect!** (${i+1}) ${q.q}<br>Your Answer: ${userAnsText}<br>Correct Answer: **${q.ans}. ${correctAnsText}**</div>`;
+        }
+
+        // Disable all radio buttons after submission
+        document.querySelectorAll(`input[name=q${i}]`).forEach(radio => radio.disabled = true);
+    });
+
+    const percent = Math.round((score / totalQuestions) * 100);
+    const resultBox = document.getElementById("resultBox");
+    
+    // Determine advice
+    if (percent >= 80) {
+        adviceText = `Congratulations! You scored ${percent} percent. That's an excellent result! Keep reinforcing your knowledge, and consider tackling more advanced topics like Deep Learning architectures and M.L. Ops.`;
+    } else if (percent >= 50) {
+        adviceText = `Well done! You scored ${percent} percent. That's a good foundation! To improve, focus on the core concepts you missed, especially the differences between supervised and unsupervised learning, and the purpose of various metrics.`;
+    } else {
+        adviceText = `Your score is ${percent} percent. Don't be discouraged! Machine Learning has a steep learning curve. Review the basics of algorithms like K-N N, Decision Trees, and the fundamentals of Neural Networks. Practice with hands-on projects to solidify your understanding. You've got this!`;
+    }
+    
+    // Update the result box with score and advice
+    resultsHTML = `<h3>Results</h3><p>Score: **${score}/${totalQuestions}** (**${percent}**%)</p>` + resultsHTML;
+    resultsHTML += `<div class="feedback">${adviceText}</div>`;
+    
+    resultBox.innerHTML = resultsHTML;
+    resultBox.style.display = "block";
+
+    // Speak the advice automatically
+    speakAdvice(adviceText);
 }
 
 // CODE EDITOR
@@ -203,39 +196,27 @@ const editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), { 
 function saveCode(){ localStorage.setItem("studentCode", editor.getValue()); document.getElementById("saveMessage").style.display="block"; setTimeout(()=>document.getElementById("saveMessage").style.display="none",2000); }
 
 // CANVAS
-const canvas=document.getElementById("modelCanvas"); const ctx=canvas.getContext("2d"); 
-// Set canvas size for proper drawing area (CodeMirror size is 900px max-width)
-canvas.width = 900; 
-canvas.height = 300; 
-
-let drawing=false;
-canvas.addEventListener("mousedown",()=>drawing=true); 
-canvas.addEventListener("mouseup",()=>drawing=false);
-canvas.addEventListener("mousemove", e=>{ 
-    if(!drawing) return; 
-    const rect=canvas.getBoundingClientRect(); 
-    // Scale mouse coordinates to match canvas drawing size
-    const x = (e.clientX - rect.left) * (canvas.width / rect.width);
-    const y = (e.clientY - rect.top) * (canvas.height / rect.height);
-    
-    ctx.fillStyle="#2e7d32"; 
-    ctx.beginPath(); 
-    ctx.arc(x,y,3,0,Math.PI*2); 
-    ctx.fill(); 
-});
+const canvas=document.getElementById("modelCanvas"); const ctx=canvas.getContext("2d"); let drawing=false;
+canvas.addEventListener("mousedown",()=>drawing=true); canvas.addEventListener("mouseup",()=>drawing=false);
+canvas.addEventListener("mousemove", e=>{ if(!drawing) return; const rect=canvas.getBoundingClientRect(); ctx.fillStyle="#2e7d32"; ctx.beginPath(); ctx.arc(e.clientX-rect.left,e.clientY-rect.top,3,0,Math.PI*2); ctx.fill(); });
 function clearCanvas(){ ctx.clearRect(0,0,canvas.width,canvas.height); }
 
 // Assignment upload
 function uploadAssignment(){
-  const file=document.getElementById("assignmentFile").files[0];
-  if(!file) return alert("Please select a file to upload.");
-  document.getElementById("uploadSuccess").style.display="block";
-  document.getElementById("uploadSuccess").innerHTML=`✅ Assignment uploaded successfully!<br>File: <strong>${file.name}</strong>`;
-  // NOTE: A real implementation would involve sending this file to a server via AJAX.
+    const file=document.getElementById("assignmentFile").files[0];
+    if(!file) return alert("Please select a file to upload.");
+    document.getElementById("uploadSuccess").style.display="block";
+    document.getElementById("uploadSuccess").innerHTML=`✅ Assignment uploaded successfully!<br>File: <strong>${file.name}</strong>`;
 }
 
 // Initialize
-generateQuestions();
+// Wait for voices to be loaded before calling generateQuestions, just in case
+window.speechSynthesis.onvoiceschanged = () => {
+    generateQuestions();
+};
+if (window.speechSynthesis.getVoices().length > 0) {
+    generateQuestions();
+}
 </script>
 </body>
 </html>
