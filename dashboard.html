@@ -1,581 +1,639 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>LEARN AI: Agri-Tech Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>LEARN AI: Student Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    /* Global Styles */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f5fff5;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5fff5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
 
-    /* ---------------------------------- */
-    /* 1. Header & Navigation */
-    /* ---------------------------------- */
+        /* ---------------------------------- */
+        /* 1. Header & Navigation */
+        /* ---------------------------------- */
 
-    header {
-      background-color: #2e7d32; /* Primary Green */
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
+        header {
+            background-color: #2e7d32; /* Primary Green */
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 22px;
-    }
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: bold;
+        }
 
-    .menu-icon {
-      font-size: 26px;
-      cursor: pointer;
-    }
+        .menu-icon {
+            font-size: 26px;
+            cursor: pointer;
+            margin-right: 15px;
+        }
 
-    /* Sidebar Styles */
-    .sidebar {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      top: 0;
-      left: 0;
-      background-color: #1b5e20;
-      overflow-x: hidden;
-      transition: 0.4s;
-      padding-top: 60px;
-      z-index: 2000;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-    }
+        /* Sidebar Styles */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #1b5e20;
+            overflow-x: hidden;
+            transition: 0.4s;
+            padding-top: 60px;
+            z-index: 2000;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+        }
 
-    .sidebar a {
-      padding: 12px 25px;
-      text-decoration: none;
-      font-size: 18px;
-      color: #f5fff5;
-      display: block;
-      transition: 0.3s;
-    }
+        .sidebar a {
+            padding: 12px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #f5fff5;
+            display: block;
+            transition: 0.3s;
+        }
 
-    .sidebar a:hover {
-      background-color: #388e3c;
-    }
+        .sidebar a:hover {
+            background-color: #388e3c;
+        }
 
-    .sidebar .closebtn {
-      position: absolute;
-      top: 15px;
-      right: 25px;
-      font-size: 30px;
-      cursor: pointer;
-      color: white;
-    }
-    
-    /* ---------------------------------- */
-    /* 2. Content & Sections */
-    /* ---------------------------------- */
-    .container {
-      max-width: 1000px;
-      margin: 30px auto;
-      padding: 0 15px;
-    }
+        .sidebar .closebtn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+        }
+        
+        /* ---------------------------------- */
+        /* 2. Content & Sections (Updated Structure) */
+        /* ---------------------------------- */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
 
-    h2 {
-      color: #1b5e20;
-      font-size: 22px;
-      margin-bottom: 15px;
-    }
+        .hero-section {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
 
-    h3 {
-      color: #2e7d32;
-    }
-    
-    .content {
-      padding: 20px 0;
-    }
+        .hero-section h1 {
+            color: #1b5e20;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
 
-    /* Timetable Table Styling */
-    #syllabus-summary table {
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-    #syllabus-summary th, #syllabus-summary td {
-      border: 1px solid #a5d6a7;
-      padding: 8px;
-      text-align: left;
-    }
-    #syllabus-summary th {
-      background-color: #c8e6c9;
-    }
+        h2 {
+            color: #1b5e20;
+            font-size: 26px;
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #a5d6a7;
+            padding-bottom: 10px;
+        }
 
-    /* PDF Viewer iframe */
-    .assignment-section iframe {
-      border: 1px solid #2e7d32;
-      border-radius: 8px;
-      width: 100%;
-      height: 500px;
-    }
+        h3 {
+            color: #2e7d32;
+        }
+        
+        .content-block {
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+        }
 
-    /* Video Sections */
-    .video-section {
-      margin-bottom: 40px;
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
+        /* Timetable Table Styling */
+        #syllabus-summary table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 15px;
+        }
+        #syllabus-summary th, #syllabus-summary td {
+            border: 1px solid #a5d6a7;
+            padding: 10px;
+            text-align: left;
+        }
+        #syllabus-summary th {
+            background-color: #c8e6c9;
+            color: #1b5e20;
+            font-weight: bold;
+        }
 
-    .video-section:hover {
-        transform: translateY(-5px); /* Subtle lift */
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    }
+        /* PDF Viewer iframe */
+        .pdf-viewer iframe {
+            border: 1px solid #2e7d32;
+            border-radius: 8px;
+            width: 100%;
+            height: 500px;
+            margin-top: 15px;
+        }
 
-    .video-section iframe {
-      width: 100%;
-      height: 315px;
-      border-radius: 8px;
-      border: none;
-    }
+        /* Video Sections - Grid Layout for better structure */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .video-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+            margin-bottom: 0 !important; /* Override original margin */
+        }
 
-    /* ---------------------------------- */
-    /* 3. Buttons & Floating Actions */
-    /* ---------------------------------- */
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      font-size: 16px;
-      color: white;
-      background-color: #1b5e20;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      margin-top: 15px;
-      transition: background-color 0.3s;
-    }
+        .video-section:hover {
+            transform: translateY(-5px); /* Subtle lift */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
 
-    .btn:hover {
-        background-color: #388e3c;
-    }
+        .video-section h2, .video-section h3 {
+            padding: 15px;
+            margin: 0;
+            font-size: 1.1em;
+            background-color: #f3faf3;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
 
-    .download-link {
-       color: white; 
-       font-weight:bold; 
-       text-decoration:none; 
-       display:inline-block; 
-       margin-top:10px; 
-       padding: 10px 20px; 
-       background-color: #2e7d32; 
-       border-radius: 5px;
-    }
-    
-    .whatsapp-float {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 25px;
-      right: 25px;
-      background-color: #25D366;
-      color: white;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 60px;
-      font-size: 14px;
-      font-weight: bold;
-      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-      z-index: 1000;
-      cursor: pointer;
-      text-decoration: none;
-    }
+        .video-section iframe {
+            width: 100%;
+            height: 200px; /* Standardized height for grid */
+            display: block;
+            border: none;
+            border-radius: 0;
+        }
 
-    .whatsapp-float:hover {
-      background-color: #20b358;
-    }
-    
-    .stars {
-        color: orange;
-        font-size: 1.1em;
-        margin-right: 5px;
-    }
-    
-  </style>
+        /* ---------------------------------- */
+        /* 3. Buttons & Floating Actions */
+        /* ---------------------------------- */
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 16px;
+            color: white;
+            background-color: #1b5e20;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #388e3c;
+        }
+
+        .download-link {
+            display: inline-block; 
+            margin-top: 15px; 
+            padding: 10px 20px; 
+            background-color: #2e7d32; 
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .download-link:hover {
+            background-color: #1b5e20;
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            font-size: 28px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #20b358;
+        }
+        
+        .stars {
+            color: orange;
+            font-size: 1.1em;
+            margin-right: 5px;
+        }
+        
+    </style>
 </head>
 
-<body>
+<body onload="speakWelcome()">
 
 <header>
-  <span class="menu-icon" onclick="openNav()">&#9776;</span>
-  <h1>TeachThem Dashboard</h1>
+    <div style="display: flex; align-items: center;">
+        <span class="menu-icon" onclick="openNav()">&#9776;</span>
+        <h1> LEARN AI Dashboard</h1>
+    </div>
+    <div id="welcome-message" style="font-size: 14px; font-style: italic;">
+        Welcome to the Dashboard!
+    </div>
 </header>
 
-<!-- Sidebar Navigation -->
 <div id="mySidebar" class="sidebar">
-  <span class="closebtn" onclick="closeNav()">&times;</span>
-  <a href="dashboard.html"> Dashboard</a>
-  <a href="notes.html">Notes</a>
-  <a href="join_meet.html">Join Meet</a>
-  <a href="about.html">About</a>
-  <a href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20TeachThem%20AI/ML%20program." target="_blank">WhatsApp Me</a>
+    <span class="closebtn" onclick="closeNav()">&times;</span>
+    <a href="#welcome-section">🚀 Dashboard</a>
+    <a href="#syllabus-section">📅 Syllabus & Plan</a>
+    <a href="#video-section">🎥 Video Lessons</a>
+    <a href="notes.html">📝 Notes</a>
+    <a href="join_meet.html">🌐 Join Meet</a>
+    <a href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20TeachThem%20AI/ML%20program." target="_blank">💬 WhatsApp Support</a>
 </div>
 
-<!-- Page Content -->
-<div class="content">
-  <h2>Welcome to LEARN AI/ML</h2>
-  <p>Use the sidebar menu to navigate between your learning resources and notes.</p>
-</div>
 
 <div class="container content">
-  <div id="welcome">
-    <h1>LEARN:DASHBOARD</h1>
-    <H2>Empowering Agricultural Students with AI/ML Skills: Conducted Volunteer Training by Delstarford Isaiah</H2>
-    <p style="text-align:center;">Learn Artificial Intelligence, Machine Learning & Deep Learning for Agriculture — completely free for students.</p>
-    
-    <h3>Course Modules Include:</h3>
-    <ul>
-      <li>Introduction to Machine Learning in Agriculture</li>
-      <li>Deep Learning for Pest & Disease Detection</li>
-      <li>AI for Climate Smart Farming</li>
-      <li>Data Analysis with Python and Pandas</li>
-    </ul>
-   
-    <a href="join_meet.html" class="btn">Join Daily Google Meet</a>
-  </div>
-  <div class="assignment-section">
-  <div class="assignment-section">
-  <h3>📄 Learn AI Resources</h3>
-  <p>View or download the PDF document below:</p>
-
-  <!-- PDF Viewer -->
-  <div style="text-align:center; margin-bottom:20px;">
-    <iframe src="LEARN AI SYLLABUS AND TIMETABLE.pdf" 
-            width="100%" 
-            height="500px" 
-            style="border:1px solid #2e7d32; border-radius:8px;">
-    </iframe>
-  </div>
-
-  <!-- Download Link -->
-  <a href="LEARN AI SYLLABUS AND TIMETABLE.pdf" 
-     download="AI_Resource.pdf" 
-     target="_blank" 
-     style="color:#2e7d32; font-weight:bold; text-decoration:underline; display:inline-block; margin-top:10px;">
-    📥 Download Learn AI Syllabus and Timetable
-  </a>
-</div>
-
-</div>
-
-  <div class="assignment-section" style="margin-top: 40px;">
-    <h3>📄 Learn AI Resources & Detailed Weekly Plan</h3>
-    
-    <div id="syllabus-summary" style="background-color: #e8f5e9; padding: 20px; border-radius: 10px; margin-bottom: 25px; border-left: 5px solid #ffc107;">
-      
-      <h4 style="color: #1b5e20; border-bottom: 2px solid #c8e6c9; padding-bottom: 10px; margin-top: 0;">
-        LEARN AI SYLLABUS & TIMETABLE STRUCTURE
-      </h4>
-      
-      <table style="width: 100%;">
-        <thead>
-          <tr>
-            <th>Day</th>
-            <th>Focus</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="font-weight: bold;">MON</td>
-            <td>Folder Structure and Organisation</td>
-          </tr>
-          <tr>
-            <td style="font-weight: bold;">TUE</td>
-            <td>Basics of AI and the Subsets of AI</td>
-          </tr>
-          <tr>
-            <td style="font-weight: bold;">WED</td>
-            <td>Algorithms and Pretrained Model</td>
-          </tr>
-          <tr>
-            <td style="font-weight: bold;">THUR</td>
-            <td>Application in Agriculture</td>
-          </tr>
-          <tr>
-            <td style="font-weight: bold;">FRI</td>
-            <td>Code Writing of the AI Models Creation / Exercise</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p style="font-size: 0.95em; margin-bottom: 15px;">
-        This curriculum blends practical skills with domain-specific applications, ideal for professionals like you working at the intersection of AI, agriculture, and innovation.
-      </p>
-      
-      <h5 style="margin-top: 15px; color: #1b5e20;">Module Summary (Complexity Rating):</h5>
-      <ul style="list-style-type: disc; padding-left: 20px; font-size: 0.9em;">
-        <li><span class="stars">⭐</span> **Module 1 (Weeks 1–4):** AI Fundamentals & Agricultural Challenges.</li>
-        <li><span class="stars">⭐⭐</span> **Module 2 (Weeks 5–10):** Core ML Techniques (Data Handling, Supervised/Unsupervised Learning).</li>
-        <li><span class="stars">⭐⭐⭐</span> **Module 3 (Weeks 11–15):** Computer Vision (CNNs for Disease Detection, Image Analysis).</li>
-        <li><span class="stars">⭐⭐</span> **Module 4 (Weeks 16–18):** NLP for Agri-Intelligence (Text Mining, Chatbots).</li>
-        <li><span class="stars">⭐⭐⭐</span> **Module 5 (Weeks 19–21):** Robotics & IoT Integration (Sensors, Autonomous Farming).</li>
-        <li><span class="stars">⭐⭐⭐⭐</span> **Module 6 (Weeks 22–24):** Advanced AI Techniques & Capstone Project.</li>
-      </ul>
-      <p style="font-size: 0.8em; text-align: right; margin-top: 15px;">*Created by Delstarford*</p>
-
-    </div>
-    <p>View the PDF document and download it below:</p>
-
-    <div style="text-align:center; margin-bottom:20px;">
-      <iframe src="LEARN AI SYLLABUS AND TIMETABLE.pdf" allowfullscreen></iframe>
+    <div id="welcome-section" class="hero-section">
+        <h1>Welcome to LEARN AI! 💡</h1>
+        <h2>Empowering Agricultural Professionals with AI/ML Skills</h2>
+        <p>This volunteer training, led by Delstarford Isaiah, provides completely free resources for students and innovators passionate about integrating **Artificial Intelligence, Machine Learning, and Deep Learning** into Agriculture.</p>
+        
+        <a href="join_meet.html" class="btn">🚀 Join Daily Google Meet Session</a>
     </div>
 
-    <a href="LEARN AI SYLLABUS AND TIMETABLE.pdf" 
-       download="AI_Resource.pdf" 
-       target="_blank" 
-       class="download-link">
-      📥 Download Full Syllabus & Timetable (PDF)
-    </a>
-  </div>
+    <hr>
 
-  <div style="margin-top: 40px;">
-    <h3 style="text-align:center;">About Delstarford Isaiah</h3> 
-    <a href="https://delstarford-personal-portofolio.vercel.app" target="_blank" style="display:block; text-align:center; margin-bottom:30px; color:#2e7d32; text-decoration: underline;">
-      Personal Portfolio
-    </a>
-  </div>
+    <div id="syllabus-section" class="content-block">
+        <h2>📅 Course Structure & Weekly Plan</h2>
+        
+        <div id="syllabus-summary">
+            <h3 style="text-align: center;">Weekly Study Focus (Example Week)</h3>
+            
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Focus Area</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: bold;">MON</td>
+                        <td>Folder Structure and Organisation</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">TUE</td>
+                        <td>Basics of AI and the Subsets of AI</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">WED</td>
+                        <td>Algorithms and Pretrained Model</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">THUR</td>
+                        <td>Application in Agriculture</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">FRI</td>
+                        <td>Code Writing of the AI Models Creation / Exercise</td>
+                    </tr>
+                </tbody>
+            </table>
 
-  <hr>
+            <p style="font-size: 0.95em; margin-top: 20px;">
+                This curriculum blends practical skills with domain-specific applications, ideal for professionals like you working at the intersection of AI, agriculture, and innovation.
+            </p>
+            
+            <h3 style="margin-top: 25px; text-align: center;">Module Summary (Complexity Rating):</h3>
+            <ul style="list-style-type: disc; padding-left: 30px; font-size: 0.9em;">
+                <li><span class="stars">⭐</span> **Module 1 (Weeks 1–4):** AI Fundamentals & Agricultural Challenges.</li>
+                <li><span class="stars">⭐⭐</span> **Module 2 (Weeks 5–10):** Core ML Techniques (Data Handling, Supervised/Unsupervised Learning).</li>
+                <li><span class="stars">⭐⭐⭐</span> **Module 3 (Weeks 11–15):** Computer Vision (CNNs for Disease Detection, Image Analysis).</li>
+                <li><span class="stars">⭐⭐</span> **Module 4 (Weeks 16–18):** NLP for Agri-Intelligence (Text Mining, Chatbots).</li>
+                <li><span class="stars">⭐⭐⭐</span> **Module 5 (Weeks 19–21):** Robotics & IoT Integration (Sensors, Autonomous Farming).</li>
+                <li><span class="stars">⭐⭐⭐⭐</span> **Module 6 (Weeks 22–24):** Advanced AI Techniques & Capstone Project.</li>
+            </ul>
+        </div>
+        
+        <h3 style="margin-top: 30px;">Download Full Resources</h3>
+        <p>View the PDF document and download it below:</p>
 
-<h2 style="text-align:center; margin-top:50px;">🎥 Curated Video Resources</h2>
+        <div class="pdf-viewer">
+            <iframe src="LEARN AI SYLLABUS AND TIMETABLE.pdf" allowfullscreen></iframe>
+        </div>
 
-<!-- About Delstarford Isaiah Section (Styled Like Videos) -->
-<div class="video-section">
-  <h2>About Delstarford Isaiah</h2>
-  <iframe src="https://delstarford-personal-portofolio.vercel.app" allowfullscreen></iframe>
-</div>
+        <div style="text-align:center; margin-top:20px;">
+            <a href="LEARN AI SYLLABUS AND TIMETABLE.pdf" 
+                download="AI_Syllabus_Timetable.pdf" 
+                target="_blank" 
+                class="download-link">
+                📥 Download Full Syllabus & Timetable (PDF)
+            </a>
+        </div>
+    </div>
+    
+    <hr>
 
-<!-- 1 to 40 Video Sections -->
-<div class="video-section">
-  <h2>1. Introduction to Artificial Intelligence</h2>
-  <iframe src="https://www.youtube.com/embed/JMUxmLyrhSk" allowfullscreen></iframe>
-</div>
+    <div id="video-section">
+        <h2>🎥 Curated Video Resources (40+ Lessons)</h2>
+        <p style="text-align: center; margin-bottom: 30px;">Your dedicated playlist for foundational and advanced AI/ML topics in agriculture.</p>
 
-<div class="video-section">
-  <h2>2. What is Machine Learning?</h2>
-  <iframe src="https://www.youtube.com/embed/GwIo3gDZCVQ" allowfullscreen></iframe>
-</div>
+        <div class="video-grid">
+            
+            <div class="video-section">
+                <h2>About Delstarford Isaiah (Instructor)</h2>
+                <iframe src="https://delstarford-personal-portofolio.vercel.app" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>3. Understanding Deep Learning</h2>
-  <iframe src="https://www.youtube.com/embed/tPYj3fFJGjk" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>1. Introduction to Artificial Intelligence</h2>
+                <iframe src="https://www.youtube.com/embed/JMUxmLyrhSk" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>4. Python for Data Science</h2>
-  <iframe src="https://www.youtube.com/embed/rfscVS0vtbw" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>2. What is Machine Learning?</h2>
+                <iframe src="https://www.youtube.com/embed/GwIo3gDZCVQ" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>5. Introduction to Neural Networks</h2>
-  <iframe src="https://www.youtube.com/embed/aircAruvnKk" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>3. Understanding Deep Learning</h2>
+                <iframe src="https://www.youtube.com/embed/tPYj3fFJGjk" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>6. Supervised vs Unsupervised Learning</h2>
-  <iframe src="https://www.youtube.com/embed/xCGidAeyS4M" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>4. Python for Data Science</h2>
+                <iframe src="https://www.youtube.com/embed/rfscVS0vtbw" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>7. Regression and Classification Explained</h2>
-  <iframe src="https://www.youtube.com/embed/PaFPbb66DxQ" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>5. Introduction to Neural Networks</h2>
+                <iframe src="https://www.youtube.com/embed/aircAruvnKk" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>8. Data Preprocessing with Pandas</h2>
-  <iframe src="https://www.youtube.com/embed/zmdjNSmRXF4" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>6. Supervised vs Unsupervised Learning</h2>
+                <iframe src="https://www.youtube.com/embed/xCGidAeyS4M" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>9. Feature Engineering and Scaling</h2>
-  <iframe src="https://www.youtube.com/embed/pqNCD_5r0IU" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>7. Regression and Classification Explained</h2>
+                <iframe src="https://www.youtube.com/embed/PaFPbb66DxQ" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>10. Model Evaluation and Accuracy</h2>
-  <iframe src="https://www.youtube.com/embed/85dtiMz9tSo" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>8. Data Preprocessing with Pandas</h2>
+                <iframe src="https://www.youtube.com/embed/zmdjNSmRXF4" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>11. Introduction to TensorFlow</h2>
-  <iframe src="https://www.youtube.com/embed/tPYj3fFJGjk" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>9. Feature Engineering and Scaling</h2>
+                <iframe src="https://www.youtube.com/embed/pqNCD_5r0IU" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>12. Introduction to PyTorch</h2>
-  <iframe src="https://www.youtube.com/embed/EMXfZB8FVUA" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>10. Model Evaluation and Accuracy</h2>
+                <iframe src="https://www.youtube.com/embed/85dtiMz9tSo" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>13. Building Your First Neural Network in PyTorch</h2>
-  <iframe src="https://www.youtube.com/embed/vo_fUOk-IKk" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>11. Introduction to TensorFlow</h2>
+                <iframe src="https://www.youtube.com/embed/tPYj3fFJGjk" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>14. CNNs Explained Visually</h2>
-  <iframe src="https://www.youtube.com/embed/YRhxdVk_sIs" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>12. Introduction to PyTorch</h2>
+                <iframe src="https://www.youtube.com/embed/EMXfZB8FVUA" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>15. RNNs and LSTMs Made Simple</h2>
-  <iframe src="https://www.youtube.com/embed/UNmqTiOnRfg" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>13. Building Your First Neural Network in PyTorch</h2>
+                <iframe src="https://www.youtube.com/embed/vo_fUOk-IKk" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>16. Transfer Learning Concepts</h2>
-  <iframe src="https://www.youtube.com/embed/MQkVIYzpK-Y" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>14. CNNs Explained Visually</h2>
+                <iframe src="https://www.youtube.com/embed/YRhxdVk_sIs" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>17. AI in Agriculture: Overview</h2>
-  <iframe src="https://www.youtube.com/embed/_tijHjup-gM" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>15. RNNs and LSTMs Made Simple</h2>
+                <iframe src="https://www.youtube.com/embed/UNmqTiOnRfg" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>18. Using ML for Crop Disease Detection</h2>
-  <iframe src="https://www.youtube.com/embed/zcq5aw9t-Ds" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>16. Transfer Learning Concepts</h2>
+                <iframe src="https://www.youtube.com/embed/MQkVIYzpK-Y" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>19. Precision Farming with AI</h2>
-  <iframe src="https://www.youtube.com/embed/EyNLQgJopvU" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>17. AI in Agriculture: Overview</h2>
+                <iframe src="https://www.youtube.com/embed/_tijHjup-gM" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>20. The Future of AI & Deep Learning</h2>
-  <iframe src="https://www.youtube.com/embed/-sB12gk9ESA" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>18. Using ML for Crop Disease Detection</h2>
+                <iframe src="https://www.youtube.com/embed/zcq5aw9t-Ds" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>21. AI in Livestock Monitoring</h2>
-  <iframe src="https://www.youtube.com/embed/2sKdVg9cyBo" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>19. Precision Farming with AI</h2>
+                <iframe src="https://www.youtube.com/embed/EyNLQgJopvU" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>22. AI for Climate Prediction</h2>
-  <iframe src="https://www.youtube.com/embed/RNhbqQefPSg" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>20. The Future of AI & Deep Learning</h2>
+                <iframe src="https://www.youtube.com/embed/-sB12gk9ESA" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>23. IoT and Smart Agriculture</h2>
-  <iframe src="https://www.youtube.com/embed/hXC7vCcg2xo" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>21. AI in Livestock Monitoring</h2>
+                <iframe src="https://www.youtube.com/embed/2sKdVg9cyBo" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>24. Drones in Agriculture</h2>
-  <iframe src="https://www.youtube.com/embed/ubANrz13Ysg" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>22. AI for Climate Prediction</h2>
+                <iframe src="https://www.youtube.com/embed/RNhbqQefPSg" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>25. AI for Soil Health Monitoring</h2>
-  <iframe src="https://www.youtube.com/embed/CmP0fYdL4Fw" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>23. IoT and Smart Agriculture</h2>
+                <iframe src="https://www.youtube.com/embed/hXC7vCcg2xo" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>26. Deep Learning for Weed Detection</h2>
-  <iframe src="https://www.youtube.com/embed/lk8H7xD9W7M" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>24. Drones in Agriculture</h2>
+                <iframe src="https://www.youtube.com/embed/ubANrz13Ysg" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>27. Computer Vision for Agriculture</h2>
-  <iframe src="https://www.youtube.com/embed/bG4UOd9M-mQ" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>25. AI for Soil Health Monitoring</h2>
+                <iframe src="https://www.youtube.com/embed/CmP0fYdL4Fw" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>28. AI for Irrigation Management</h2>
-  <iframe src="https://www.youtube.com/embed/UsaFzP2j2hQ" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>26. Deep Learning for Weed Detection</h2>
+                <iframe src="https://www.youtube.com/embed/lk8H7xD9W7M" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>29. Data Collection Techniques for Agri-ML</h2>
-  <iframe src="https://www.youtube.com/embed/1kCw0bX7tYo" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>27. Computer Vision for Agriculture</h2>
+                <iframe src="https://www.youtube.com/embed/bG4UOd9M-mQ" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>30. AI-Based Yield Prediction</h2>
-  <iframe src="https://www.youtube.com/embed/ZFkXz0Ska1U" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>28. AI for Irrigation Management</h2>
+                <iframe src="https://www.youtube.com/embed/UsaFzP2j2hQ" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>31. Satellite Imaging and AI for Farms</h2>
-  <iframe src="https://www.youtube.com/embed/GBn7kB7FZqk" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>29. Data Collection Techniques for Agri-ML</h2>
+                <iframe src="https://www.youtube.com/embed/1kCw0bX7tYo" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>32. Deep Reinforcement Learning Basics</h2>
-  <iframe src="https://www.youtube.com/embed/Mut_u40Sqz4" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>30. AI-Based Yield Prediction</h2>
+                <iframe src="https://www.youtube.com/embed/ZFkXz0Ska1U" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>33. Object Detection with YOLO</h2>
-  <iframe src="https://www.youtube.com/embed/MMOaZ1C4Bkk" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>31. Satellite Imaging and AI for Farms</h2>
+                <iframe src="https://www.youtube.com/embed/GBn7kB7FZqk" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>34. AI Chatbots for Agriculture</h2>
-  <iframe src="https://www.youtube.com/embed/CjsHtAiXlA8" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>32. Deep Reinforcement Learning Basics</h2>
+                <iframe src="https://www.youtube.com/embed/Mut_u40Sqz4" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>35. Building AI APIs with Flask</h2>
-  <iframe src="https://www.youtube.com/embed/xjVZ0vD6RHE" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>33. Object Detection with YOLO</h2>
+                <iframe src="https://www.youtube.com/embed/MMOaZ1C4Bkk" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>36. Deploying AI Models</h2>
-  <iframe src="https://www.youtube.com/embed/KnGzJsl8n1s" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>34. AI Chatbots for Agriculture</h2>
+                <iframe src="https://www.youtube.com/embed/CjsHtAiXlA8" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>37. Edge AI for Smart Farms</h2>
-  <iframe src="https://www.youtube.com/embed/x_iJZ6mGxzM" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>35. Building AI APIs with Flask</h2>
+                <iframe src="https://www.youtube.com/embed/xjVZ0vD6RHE" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>38. AI for Greenhouse Automation</h2>
-  <iframe src="https://www.youtube.com/embed/xh07GO_qQj0" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>36. Deploying AI Models</h2>
+                <iframe src="https://www.youtube.com/embed/KnGzJsl8n1s" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>39. Robotics in Agriculture</h2>
-  <iframe src="https://www.youtube.com/embed/3dB-bZjH1Pc" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>37. Edge AI for Smart Farms</h2>
+                <iframe src="https://www.youtube.com/embed/x_iJZ6mGxzM" allowfullscreen></iframe>
+            </div>
 
-<div class="video-section">
-  <h2>40. Building Your AI Career in Agriculture</h2>
-  <iframe src="https://www.youtube.com/embed/SzJ46YA_RaA" allowfullscreen></iframe>
-</div>
+            <div class="video-section">
+                <h2>38. AI for Greenhouse Automation</h2>
+                <iframe src="https://www.youtube.com/embed/xh07GO_qQj0" allowfullscreen></iframe>
+            </div>
 
+            <div class="video-section">
+                <h2>39. Robotics in Agriculture</h2>
+                <iframe src="https://www.youtube.com/embed/3dB-bZjH1Pc" allowfullscreen></iframe>
+            </div>
 
-     
-</div> <a href="https://wa.me/254707605751?text=Hello!%20I%27m%20interested%20in%20the%20TeachThem%20AI/ML%20program." class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
-  WhatsApp Me
+            <div class="video-section">
+                <h2>40. Building Your AI Career in Agriculture</h2>
+                <iframe src="https://www.youtube.com/embed/SzJ46YA_RaA" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content-block" style="text-align: center; margin-top: 40px; border-left: 5px solid #ffc107;">
+        <h3>About the Instructor: Delstarford Isaiah</h3> 
+        <p>A passionate innovator dedicated to empowering students at the intersection of AI and Agriculture.</p>
+        <a href="https://delstarford-personal-portofolio.vercel.app" target="_blank" style="color:#2e7d32; font-weight: bold; text-decoration: underline;">
+            View Personal Portfolio
+        </a>
+    </div>
+
+</div> 
+
+<a href="https://wa.me/254707605751?text=Hello!%20I%27m%20interested%20in%20the%20TeachThem%20AI/ML%20program." class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    💬
 </a>
 
 <script>
+// --- Navigation Functions ---
 function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("mySidebar").style.width = "250px";
 }
 
 function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("mySidebar").style.width = "0";
 }
+
+// --- Voice Function (Web Speech API) ---
+function speakWelcome() {
+    // Check for browser support
+    if (!('speechSynthesis' in window)) {
+        document.getElementById("welcome-message").innerText = "Welcome! (Voice not supported)";
+        return;
+    }
+    
+    const welcomeMessage = "Hello, and welcome to the LEARN AI Dashboard! This page contains all the resources for your AI in Agriculture course. To get started, use the menu icon in the top left corner to navigate to the Syllabus or Notes. You can scroll down to find the weekly plan and a full list of video lessons. Always remember to check the Join Meet link for our daily sessions. Good luck with your learning journey!";
+    
+    // Stop any current speech
+    window.speechSynthesis.cancel(); 
+    
+    const utterance = new SpeechSynthesisUtterance(welcomeMessage);
+    
+    // Try to find a female voice
+    const voices = window.speechSynthesis.getVoices();
+    let ladyVoice = voices.find(voice => voice.name.includes('Google US English') || voice.lang.includes('en-US') && (voice.name.includes('Female') || voice.name.includes('Lady')));
+    
+    if (ladyVoice) {
+        // Set the found voice
+        utterance.voice = ladyVoice;
+    } else {
+        // Default settings
+        utterance.pitch = 1.0;
+        utterance.rate = 1.0;
+    }
+
+    // Start speaking
+    window.speechSynthesis.speak(utterance);
+}
+
+// NOTE: speakWelcome() is called automatically via the onload attribute in the <body> tag.
 </script>
 
 </body>
