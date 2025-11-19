@@ -1,862 +1,482 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Student Notes — Dashboard</title>
+    <title>Student Notes — LEARN AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-      /* ---------------------------------- */
-      /* 1. Variables & Global Styles */
-      /* ---------------------------------- */
-      :root {
-        --accent: #2f8f4a; /* Primary Green */
-        --muted: #6b7280;
-        --card: #ffffff;
-        --bg: #f5fff5;
-        --glass: rgba(255, 255, 255, 0.7);
-        --radius: 12px;
-        --max-width: 1200px;
-      }
-      html,
-      body {
-        height: 100%;
-      }
-      body {
-        font-family: Arial, sans-serif;
-        background-color: var(--bg);
-        margin: 0;
-        padding: 0;
-        color: #111827;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      .app {
-        max-width: var(--max-width);
-        margin: 28px auto;
-        padding: 24px;
-      }
-
-      /* ---------------------------------- */
-      /* 2. Layout & Components */
-      /* ---------------------------------- */
-      header {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 18px;
-      }
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-      .logo {
-        width: 56px;
-        height: 56px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, var(--accent), #46b86b);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: 700;
-        font-size: 18px;
-        box-shadow: 0 6px 18px rgba(47, 143, 74, 0.12);
-      }
-      h1 {
-        font-size: 20px;
-        margin: 0;
-      }
-      p.lead {
-        margin: 0;
-        color: var(--muted);
-        font-size: 14px;
-      }
-      .actions {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-      }
-
-      .search {
-        display: flex;
-        align-items: center;
-        background: var(--card);
-        padding: 8px 12px;
-        border-radius: 999px;
-        box-shadow: 0 1px 4px rgba(16, 24, 40, 0.04);
-        transition: box-shadow 0.2s;
-      }
-      .search:focus-within {
-        box-shadow: 0 0 0 2px var(--accent), 0 1px 4px rgba(16, 24, 40, 0.08);
-      } /* Focus glow */
-      .search input {
-        border: 0;
-        outline: none;
-        background: transparent;
-        font-size: 14px;
-      }
-
-      .btn {
-        background: var(--accent);
-        color: white;
-        padding: 10px 14px;
-        border-radius: 8px;
-        border: 0;
-        font-weight: 600;
-        cursor: pointer;
-        transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-      }
-      .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(47, 143, 74, 0.2);
-      } /* Lift on hover */
-      .btn.secondary {
-        background: transparent;
-        color: var(--accent);
-        border: 1px solid rgba(47, 143, 74, 0.14);
-      }
-      .btn.secondary:hover {
-        background: rgba(47, 143, 74, 0.05);
-        transform: translateY(0);
-        box-shadow: none;
-      }
-
-      .layout {
-        display: grid;
-        grid-template-columns: 260px 1fr;
-        gap: 20px;
-      }
-      aside {
-        background: var(--card);
-        padding: 18px;
-        border-radius: 12px;
-        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
-      }
-      .side-title {
-        font-weight: 700;
-        margin-bottom: 8px;
-      }
-      .categories {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-      .category {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-      .category:hover {
-        background: var(--glass);
-      }
-
-      main {
-        min-height: 60vh;
-      }
-      .upload-area {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px;
-        border-radius: 12px;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.7),
-          rgba(255, 255, 255, 0.85)
-        );
-        border: 1px solid rgba(15, 23, 42, 0.03);
-      }
-      .upload-left {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-      }
-      .upload-drop {
-        padding: 12px;
-        border-radius: 10px;
-        border: 2px dashed rgba(47, 143, 74, 0.18);
-        min-width: 240px;
-        text-align: center;
-        cursor: pointer;
-        transition: border-color 0.2s, background 0.2s;
-      }
-      .upload-drop:focus,
-      .upload-drop:hover {
-        border-color: var(--accent);
-        background: rgba(47, 143, 74, 0.03);
-      }
-      .muted {
-        color: var(--muted);
-        font-size: 13px;
-      }
-
-      .note-grid {
-        margin-top: 18px;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 12px;
-      }
-
-      .card {
-        background: var(--card);
-        padding: 14px;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        transition: box-shadow 0.3s, transform 0.3s;
-        opacity: 0;
-        animation: fadeInLift 0.4s ease-out forwards;
-      } /* Animation hook */
-      .card:hover {
-        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
-      } /* Deeper shadow on hover */
-      .card .meta {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .card .title {
-        font-weight: 700;
-      }
-      .card .small {
-        font-size: 13px;
-        color: var(--muted);
-      }
-
-      .icon-btn {
-        border: 0;
-        background: transparent;
-        padding: 8px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-      .icon-btn:hover {
-        background: rgba(47, 143, 74, 0.1);
-      } /* Icon hover background */
-
-      /* ---------------------------------- */
-      /* 3. Modal & Footer */
-      /* ---------------------------------- */
-      .modal {
-        position: fixed;
-        inset: 0;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        padding: 24px;
-        background: rgba(2, 6, 23, 0.6);
-        z-index: 60;
-      }
-      .modal.open {
-        display: flex;
-      }
-      .modal .viewer {
-        width: 90%;
-        max-width: 1000px;
-        height: 80%;
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-      }
-      .viewer .toolbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 14px;
-        border-bottom: 1px solid #eef2e9;
-      }
-      .viewer iframe {
-        flex: 1;
-        border: 0;
-      }
-      footer {
-        margin-top: 22px;
-        color: var(--muted);
-        font-size: 13px;
-        text-align: center;
-      }
-
-      /* ---------------------------------- */
-      /* 4. Sidebar & Floating Actions */
-      /* ---------------------------------- */
-      header.topbar {
-        background: #2e7d32;
-        color: #fff;
-        padding: 12px 18px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .menu-icon {
-        font-size: 22px;
-        cursor: pointer;
-      }
-      .sidebar {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background: #1b5e20;
-        overflow-x: hidden;
-        transition: width 0.3s ease-out;
-        padding-top: 60px;
-        z-index: 999;
-      } /* Smooth sidebar transition */
-      .sidebar a {
-        display: block;
-        color: #fff;
-        padding: 12px 22px;
-        text-decoration: none;
-      }
-      .sidebar .closebtn {
-        position: absolute;
-        top: 12px;
-        right: 18px;
-        font-size: 26px;
-        cursor: pointer;
-        color: #fff;
-      }
-
-      .whatsapp-float {
-        position: fixed;
-        width: 60px;
-        height: 60px;
-        bottom: 25px;
-        right: 25px;
-        background: #25d366;
-        color: #fff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-        z-index: 1000;
-        transition: transform 0.2s;
-      }
-      .whatsapp-float:hover {
-        transform: scale(1.1);
-      } /* Pop-out effect */
-
-      /* ---------------------------------- */
-      /* 5. Media Queries */
-      /* ---------------------------------- */
-      @media (max-width: 880px) {
-        .layout {
-          grid-template-columns: 1fr;
+        /* ---------------------------------- */
+        /* 1. Variables & Professional Theme */
+        /* ---------------------------------- */
+        :root {
+            --primary: #1b5e20; /* Official Dark Green */
+            --accent: #2e7d32; /* Lighter Green */
+            --gold: #d4af37; /* Academic Gold */
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --glass: rgba(255, 255, 255, 0.95);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --radius: 12px;
         }
-        aside {
-          order: 2;
-        }
-        .brand .logo {
-          width: 48px;
-          height: 48px;
-        }
-        .app {
-          padding: 12px;
-        }
-      }
 
-      /* ---------------------------------- */
-      /* 6. Motion (Simulated Framer Motion) */
-      /* ---------------------------------- */
-      @keyframes fadeInLift {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            color: var(--text-main);
+            overflow-x: hidden;
+            padding-bottom: 80px; /* Space for footer */
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+
+        /* ---------------------------------- */
+        /* 2. Navigation & Header */
+        /* ---------------------------------- */
+        header.topbar {
+            background: var(--primary);
+            color: white;
+            padding: 0 24px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-      }
-      /* Staggered load for cards (needs JS but this provides the CSS base) */
-      .card:nth-child(1) {
-        animation-delay: 0s;
-      }
-      .card:nth-child(2) {
-        animation-delay: 0.05s;
-      }
-      .card:nth-child(3) {
-        animation-delay: 0.1s;
-      }
-      .card:nth-child(4) {
-        animation-delay: 0.15s;
-      }
-      .card:nth-child(5) {
-        animation-delay: 0.2s;
-      }
-      /* ... and so on for more cards */
+
+        .brand-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-box {
+            width: 45px;
+            height: 45px;
+            background: var(--gold);
+            color: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 15px;
+            font-weight: 500;
+            border: 1px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        /* ---------------------------------- */
+        /* 3. Main Layout */
+        /* ---------------------------------- */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+        }
+
+        /* ---------------------------------- */
+        /* 4. Upload Area */
+        /* ---------------------------------- */
+        .upload-zone {
+            background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+            border: 2px dashed #a7f3d0;
+            border-radius: var(--radius);
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--primary);
+            transform: scale(1.01);
+            box-shadow: 0 10px 25px rgba(27, 94, 32, 0.1);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        /* ---------------------------------- */
+        /* 5. Note Cards & Footer */
+        /* ---------------------------------- */
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .note-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        .note-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--gold);
+        }
+
+        .footer-credit {
+            margin-top: 50px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .heart-beat {
+            color: #e11d48;
+            animation: beat 1s infinite;
+            display: inline-block;
+        }
+
+        /* ---------------------------------- */
+        /* 6. Voice Controls */
+        /* ---------------------------------- */
+        .voice-control-bar {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(27, 94, 32, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 25px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .mic-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: none;
+            color: var(--primary);
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            transition: transform 0.2s;
+        }
+        .mic-btn:active { transform: scale(0.95); }
+
+        .voice-status { color: white; font-size: 15px; font-weight: 500; }
+
+        /* Animations */
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Gemini Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
+
     <header class="topbar">
-      <div style="display: flex; align-items: center; gap: 12px">
-        <span class="menu-icon" onclick="openNav()">☰</span>
-        <div style="display: flex; align-items: center; gap: 12px">
-          <div
-            style="
-              width: 44px;
-              height: 44px;
-              border-radius: 8px;
-              background: linear-gradient(135deg, var(--accent), #46b86b);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              color: #fff;
-              font-weight: 700;
-            "
-          >
-            ST
-          </div>
-          <div>
-            <div style="font-weight: 700">TeachThem</div>
-            <div style="font-size: 12px; color: #e6f4ea">
-              AI/ML for Agriculture
+        <div class="brand-group">
+            <div class="logo-box">ST</div>
+            <div>
+                <div style="font-weight: 800; font-size: 18px; letter-spacing: 0.5px;">LEARN AI</div>
+                <div style="font-size: 11px; opacity: 0.9; font-weight: 300;">Student Dashboard</div>
             </div>
-          </div>
         </div>
-      </div>
-      <div style="display: flex; gap: 12px; align-items: center">
-        <div style="color: #fff; font-weight: 600">Notes</div>
-      </div>
+        <nav style="display: flex; gap: 15px;">
+            <a href="dashboard.html" class="nav-link" onclick="navSpeech('Dashboard')">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="#" class="nav-link" onclick="navSpeech('Notes')" style="background: rgba(255,255,255,0.15);">
+                <i class="fas fa-book"></i> Notes
+            </a>
+            <button class="btn" style="padding: 8px 20px; font-size: 14px; background: white; color: var(--primary);" onclick="giveAdvice()">
+                <i class="fas fa-user-graduate"></i> Advice & Guide
+            </button>
+        </nav>
     </header>
 
-  <div id="mySidebar" class="sidebar" aria-hidden="true">
-    <span class="closebtn" onclick="closeNav()">×</span>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="notes.html">Notes</a>
-    <a href="join_meet.html">Join Meet</a>
-    <a href="about.html">About</a>
-    <a href="https://wa.me/254707605751" target="_blank">WhatsApp</a>
-  </div>
-
-    <div class="app" role="main" aria-live="polite">
-      <header>
-        <div class="brand">
-          <div class="logo">ST</div>
-          <div>
-            <h1>Student Notes</h1>
-            <p class="lead">
-              Upload, preview and organise your course notes (PDF)
-            </p>
-          </div>
-        </div>
-        <div class="actions">
-          <div class="search" title="Search notes">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden
-              style="margin-right: 8px"
-            >
-              <path
-                d="M21 21l-4.35-4.35"
-                stroke="#6b7280"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <input id="search" placeholder="Search title, subject or tag..." />
-          </div>
-          <button class="btn" id="uploadBtn">Upload PDF</button>
-        </div>
-      </header>
-
-      <div class="layout">
+    <div class="container">
         <aside>
-          <div class="side-title">Filters</div>
-          <div class="categories">
-            <div class="category" data-cat="all">
-              <div>All notes</div>
-              <div class="small" id="countAll">0</div>
+            <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid var(--border);">
+                <h3 style="margin-top:0; color: var(--primary);">Quick Filters</h3>
+                <div style="padding: 10px; cursor: pointer; color: var(--primary); font-weight:bold;">All Documents</div>
+                <div style="padding: 10px; cursor: pointer; color: var(--text-muted);">AI Materials</div>
+                <div style="padding: 10px; cursor: pointer; color: var(--text-muted);">Agriculture</div>
+                
+                <hr style="margin: 20px 0; border-color: #eee;">
+                
+                <div style="font-size: 13px; color: #555; line-height: 1.6;">
+                    <strong><i class="fas fa-microphone-alt"></i> Voice Commands:</strong><br>
+                    "Go Home"<br>
+                    "Read Notes"<br>
+                    "Who made this?"
+                </div>
             </div>
-            <div class="category" data-cat="intro">
-              <div>Introduction</div>
-              <div class="small" id="countIntro">0</div>
-            </div>
-            <div class="category" data-cat="intermediate">
-              <div>Intermediate</div>
-              <div class="small" id="countInter">0</div>
-            </div>
-            <div class="category" data-cat="advanced">
-              <div>Advanced</div>
-              <div class="small" id="countAdv">0</div>
-            </div>
-          </div>
-          <hr
-            style="
-              margin: 14px 0;
-              border: none;
-              border-top: 1px solid rgba(15, 23, 42, 0.04);
-            "
-          />
-          <div class="muted">
-            Tip: Drag & drop PDF files onto the dashed area, or click Upload.
-          </div>
         </aside>
 
         <main>
-          <div class="upload-area">
-            <div class="upload-left">
-              <div class="upload-drop" id="dropzone" tabindex="0">
-                Drop PDF here or click to select
-              </div>
-              <div>
-                <div class="small" style="font-weight: 700">
-                  Selected for upload
+            <div class="upload-zone" id="dropzone" onclick="document.getElementById('fileInput').click()">
+                <i class="fas fa-cloud-upload-alt" style="font-size: 50px; color: var(--accent); margin-bottom: 15px;"></i>
+                <h2 style="margin: 0 0 10px 0; color: var(--text-main);">Upload PDF Materials</h2>
+                <p style="color: var(--text-muted); margin-bottom: 0;">Click or drag files to store in Gemini Library.</p>
+                <input type="file" id="fileInput" accept="application/pdf" hidden>
+            </div>
+
+            <div class="notes-grid" id="notesGrid">
+                <div class="note-card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <div style="font-weight: 700; font-size: 16px;">AI in Crop Science.pdf</div>
+                        <i class="fas fa-file-pdf" style="color: #e11d48;"></i>
+                    </div>
+                    <div style="font-size: 12px; color: #888; margin: 8px 0 15px 0;">Added Today • 1.2 MB</div>
+                    <button class="btn" style="width:100%; justify-content: center;" onclick="analyzeWithGemini('AI in Crop Science')">
+                        <i class="fas fa-magic"></i> Analyze with AI
+                    </button>
                 </div>
-                <div id="fileList" class="muted">No files selected</div>
-              </div>
+
+                <div class="note-card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <div style="font-weight: 700; font-size: 16px;">Soil Data Sets.pdf</div>
+                        <i class="fas fa-file-pdf" style="color: #e11d48;"></i>
+                    </div>
+                    <div style="font-size: 12px; color: #888; margin: 8px 0 15px 0;">Added Yesterday • 3.5 MB</div>
+                    <button class="btn" style="width:100%; justify-content: center;" onclick="analyzeWithGemini('Soil Data Sets')">
+                        <i class="fas fa-magic"></i> Analyze with AI
+                    </button>
+                </div>
             </div>
 
-            <div style="display: flex; gap: 10px; align-items: center">
-              <label
-                for="fileInput"
-                class="btn secondary"
-                style="cursor: pointer; padding: 10px 12px"
-                >Choose files</label
-              >
-              <input
-                type="file"
-                id="fileInput"
-                accept="application/pdf"
-                multiple
-                style="display: none"
-              />
-              <button class="btn" id="doUpload">Save to Library</button>
+            <div class="footer-credit">
+                Platform LEARN AI is prepared by <strong>Delstarford</strong> with love 
+                <i class="fas fa-heart heart-beat"></i>
             </div>
-          </div>
-
-          <div class="note-grid" id="notesGrid">Loading notes...</div>
-
-          <footer>Built for students — organised, searchable and fast.</footer>
         </main>
-      </div>
     </div>
 
-    <a
-      class="whatsapp-float"
-      href="https://wa.me/254707605751"
-      target="_blank"
-      title="Chat on WhatsApp"
-      >💬</a
-    >
+    <div class="voice-control-bar">
+        <button class="mic-btn" id="micBtn" onclick="toggleVoice()">
+            <i class="fas fa-microphone"></i>
+        </button>
+        <div class="voice-status" id="voiceStatus">Click mic to speak...</div>
+    </div>
 
-    <div class="modal" id="viewerModal" role="dialog" aria-modal="true">
-      <div class="viewer">
-        <div class="toolbar">
-          <div style="display: flex; gap: 10px; align-items: center">
-            <button id="closeViewer" class="icon-btn" title="Close">✕</button>
-            <div id="viewerTitle" style="font-weight: 700"></div>
-          </div>
-          <div style="display: flex; gap: 8px">
-            <a id="downloadCurrent" class="btn" download>Download</a>
-          </div>
+    <div class="modal" id="geminiModal">
+        <div class="modal-content">
+            <h2 style="color: var(--primary); margin-top: 0;"><i class="fas fa-robot"></i> Gemini Analysis</h2>
+            <div id="geminiContent" style="margin: 20px 0; line-height: 1.6;">Processing...</div>
+            <button class="btn" onclick="closeModal()" style="width:100%; justify-content:center;">Close Analysis</button>
         </div>
-        <iframe id="pdfFrame" title="PDF viewer"></iframe>
-      </div>
     </div>
 
     <script>
-      // Sidebar controls
-      function openNav() {
-        document.getElementById("mySidebar").style.width = "250px";
-      }
-      function closeNav() {
-        document.getElementById("mySidebar").style.width = "0";
-      }
+        // --- 1. Voice Synthesis Setup (Lady Voice) ---
+        function speak(text, priority = false) {
+            if (window.speechSynthesis.speaking && !priority) return;
+            window.speechSynthesis.cancel(); // Stop previous speech for quick nav feedback
 
-      // Elements
-      const fileInput = document.getElementById("fileInput");
-      const dropzone = document.getElementById("dropzone");
-      const fileListEl = document.getElementById("fileList");
-      const notesGrid = document.getElementById("notesGrid");
-      const doUpload = document.getElementById("doUpload");
-      const uploadBtn = document.getElementById("uploadBtn");
-      const searchInput = document.getElementById("search");
-      const viewerModal = document.getElementById("viewerModal");
-      const pdfFrame = document.getElementById("pdfFrame");
-      const viewerTitle = document.getElementById("viewerTitle");
-      const downloadCurrent = document.getElementById("downloadCurrent");
-      const closeViewer = document.getElementById("closeViewer");
-
-      // Staging
-      let stagedFiles = [];
-
-      // Library (will hold server-hosted notes)
-      let library = []; // fetched from /api/list on load
-
-      // Helper
-      function escapeHtml(s) {
-        return String(s || "").replace(
-          /[&<>"']/g,
-          (c) =>
-            ({
-              "&": "&amp;",
-              "<": "&lt;",
-              ">": "&gt;",
-              '"': "&quot;",
-              "'": "&#39;",
-            }[c])
-        );
-      }
-
-      // Fetch published blobs list from server
-      async function fetchPublishedNotes() {
-        notesGrid.innerHTML = "Loading notes...";
-        try {
-          const res = await fetch("/api/list");
-          if (!res.ok) throw new Error("Failed to list notes");
-          const data = await res.json();
-          // data.blobs is expected from Vercel /v2/blobs
-          const blobs = data && data.blobs ? data.blobs : [];
-          library = blobs.map((b) => ({
-            id: b.pathname || b.url,
-            title: b.pathname
-              ? b.pathname.split("/").pop()
-              : b.url || "note.pdf",
-            url: b.url,
-            uploadedAt: b.uploadedAt || b.createdAt || null,
-          }));
-          renderNotes();
-        } catch (err) {
-          console.error(err);
-          notesGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:24px">Unable to load notes.</div>`;
+            const utterance = new SpeechSynthesisUtterance(text);
+            const voices = window.speechSynthesis.getVoices();
+            
+            // Try to find a high-quality female voice
+            const femaleVoice = voices.find(v => 
+                v.name.includes('Google US English') || 
+                v.name.includes('Samantha') || 
+                v.name.includes('Zira') || 
+                v.name.includes('Female')
+            );
+            
+            if (femaleVoice) utterance.voice = femaleVoice;
+            
+            utterance.pitch = 1.1; // Slightly higher pitch for a friendly tone
+            utterance.rate = 1.0;  // Normal speed
+            
+            window.speechSynthesis.speak(utterance);
         }
-      }
 
-      function renderNotes() {
-        if (!library || library.length === 0) {
-          notesGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px">No notes uploaded yet.</div>`;
-          return;
+        // --- 2. Navigation Feedback ---
+        function navSpeech(destination) {
+            speak(`Navigating to ${destination}. Please wait.`);
         }
-        notesGrid.innerHTML = "";
-        library.forEach((item, index) => {
-          const card = document.createElement("article");
-          card.className = "card";
-          // Apply staggered animation delay using index
-          card.style.animationDelay = `${index * 0.05}s`;
-          card.innerHTML = `
-          <div class="meta">
-            <div>
-              <div class="title">${escapeHtml(item.title)}</div>
-              <div class="small">${
-                item.uploadedAt
-                  ? new Date(item.uploadedAt).toLocaleString()
-                  : ""
-              }</div>
-            </div>
-            <div class="controls">
-              <button class="icon-btn" data-url="${
-                item.url
-              }" title="View">👁️</button>
-              <a class="icon-btn" href="${item.url}" download="${escapeHtml(
-            item.title
-          )}" title="Download">⬇️</a>
-            </div>
-          </div>
-        `;
-          notesGrid.appendChild(card);
-          card.querySelector("[data-url]")?.addEventListener("click", (e) => {
-            openViewer(e.currentTarget.getAttribute("data-url"), item.title);
-          });
-        });
-      }
 
-      // Viewer
-      function openViewer(url, title = "Document") {
-        viewerTitle.textContent = title;
-        pdfFrame.src = url;
-        downloadCurrent.href = url;
-        downloadCurrent.download = title;
-        viewerModal.classList.add("open");
-      }
-      closeViewer.addEventListener("click", () => {
-        viewerModal.classList.remove("open");
-        pdfFrame.src = "";
-      });
-      viewerModal.addEventListener("click", (e) => {
-        if (e.target === viewerModal) {
-          viewerModal.classList.remove("open");
-          pdfFrame.src = "";
+        // --- 3. Advice & Guide Function ---
+        function giveAdvice() {
+            const advice = "Welcome to Learn AI. Here is some advice for you: To improve your score, try uploading more practice datasets and analyzing them. Remember, this platform is prepared by Delstarford with love, specifically to help you master A.I. in agriculture.";
+            speak(advice, true);
         }
-      });
 
-      // Drag & drop + file select
-      dropzone.addEventListener("click", () => fileInput.click());
-      dropzone.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dropzone.style.borderColor = "rgba(47,143,74,0.5)";
-      });
-      dropzone.addEventListener("dragleave", (e) => {
-        e.preventDefault();
-        dropzone.style.borderColor = "rgba(47,143,74,0.18)";
-      });
-      dropzone.addEventListener("drop", (e) => {
-        e.preventDefault();
-        dropzone.style.borderColor = "rgba(47,143,74,0.18)";
-        handleFiles(Array.from(e.dataTransfer.files));
-      });
-      fileInput.addEventListener("change", (e) =>
-        handleFiles(Array.from(e.target.files))
-      );
+        // --- 4. Voice Recognition (Speech to Text) ---
+        const micBtn = document.getElementById('micBtn');
+        const voiceStatus = document.getElementById('voiceStatus');
+        let isListening = false;
+        let recognition;
 
-      function handleFiles(files) {
-        const pdfs = files.filter((f) => f.type === "application/pdf");
-        if (pdfs.length === 0) {
-          alert("Only PDF files are supported.");
-          return;
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function() {
+                isListening = true;
+                micBtn.style.background = '#ef4444';
+                voiceStatus.textContent = "Listening...";
+            };
+
+            recognition.onend = function() {
+                isListening = false;
+                micBtn.style.background = '#d4af37'; // Return to Gold
+                voiceStatus.textContent = "Click mic to speak...";
+            };
+          
+            recognition.onresult = function(event) {
+                const command = event.results[0][0].transcript.toLowerCase();
+                voiceStatus.textContent = `Heard: "${command}"`;
+                handleCommand(command);
+            };
         }
-        stagedFiles = stagedFiles.concat(
-          pdfs.map((f) => ({ file: f, title: f.name.replace(/\.pdf$/i, "") }))
-        );
-        renderStaged();
-      }
-
-      function renderStaged() {
-        if (stagedFiles.length === 0) {
-          fileListEl.textContent = "No files selected";
-          return;
-        }
-        fileListEl.innerHTML = stagedFiles
-          .map(
-            (s) =>
-              `<div>${escapeHtml(
-                s.title
-              )} <span style="color:var(--muted);font-size:13px">(${(
-                s.file.size /
-                1024 /
-                1024
-              ).toFixed(2)} MB)</span></div>`
-          )
-          .join("");
-      }
-
-      // Upload staged files to /api/upload
-      async function uploadStaged() {
-        if (stagedFiles.length === 0)
-          return alert("Choose at least one PDF to upload.");
-        doUpload.disabled = true;
-        doUpload.textContent = "Uploading...";
-        try {
-          for (const entry of stagedFiles) {
-            const file = entry.file;
-            // POST the file bytes to /api/upload
-            const resp = await fetch("/api/upload", {
-              method: "POST",
-              headers: {
-                "Content-Type": file.type,
-                "x-filename": file.name,
-              },
-              body: file,
-            });
-            if (!resp.ok) {
-              const err = await resp.json().catch(() => ({}));
-              throw new Error(err.error || "Upload failed");
+      
+        function toggleVoice() {
+            if (!recognition) {
+                alert("Voice control is not supported in this browser. Try Chrome.");
+                return;
             }
-            await resp.json();
-          }
-          // clear staged and refresh published list
-          stagedFiles = [];
-          renderStaged();
-          await fetchPublishedNotes();
-          alert("Upload complete — files are now available to everyone.");
-        } catch (err) {
-          console.error(err);
-          alert("Upload error: " + err.message);
-        } finally {
-          doUpload.disabled = false;
-          doUpload.textContent = "Save to Library";
+            if (isListening) recognition.stop();
+            else recognition.start();
         }
-      }
-
-      doUpload.addEventListener("click", uploadStaged);
-      uploadBtn.addEventListener("click", () => fileInput.click());
-
-      // Search & filters (simple)
-      // NOTE: Filter functionality needs server-side metadata to be fully useful.
-      // The client-side search logic below is maintained for title search.
-
-      document.querySelectorAll(".category").forEach((el) => {
-        el.addEventListener("click", () => {
-          // Simple UI hover/active state change
-          document
-            .querySelectorAll(".category")
-            .forEach((c) => (c.style.background = "transparent"));
-          el.style.background = "var(--glass)";
-          // For server-backed data, this would trigger a new fetch/filter call
-        });
-      });
-
-      searchInput.addEventListener("input", () => {
-        const term = searchInput.value.trim().toLowerCase();
-
-        // Clear grid to prevent duplicated event listeners during re-render
-        notesGrid.innerHTML = "";
-
-        const filtered = library.filter((i) =>
-          i.title.toLowerCase().includes(term)
-        );
-
-        if (filtered.length === 0 && term) {
-          notesGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px">No notes found matching "${escapeHtml(
-            term
-          )}".</div>`;
-          return;
+      
+        function handleCommand(cmd) {
+            if (cmd.includes('home') || cmd.includes('dashboard')) {
+                speak("Taking you to the dashboard.");
+                setTimeout(() => window.location.href = 'dashboard.html', 1500);
+            } 
+            else if (cmd.includes('advice') || cmd.includes('help') || cmd.includes('guide')) {
+                giveAdvice();
+            }
+            else if (cmd.includes('who made this') || cmd.includes('creator')) {
+                speak("This platform is prepared by Delstarford with love.");
+            }
+            else if (cmd.includes('upload')) {
+                speak("Opening file selector.");
+                document.getElementById('fileInput').click();
+            }
+            else {
+                speak("I didn't catch that. Try saying 'Give Advice' or 'Go Home'.");
+            }
         }
 
-        filtered.forEach((item, index) => {
-          const card = document.createElement("article");
-          card.className = "card";
-          // Apply staggered animation delay using index
-          card.style.animationDelay = `${index * 0.05}s`;
-          card.innerHTML = `
-          <div class="meta">
-            <div>
-              <div class="title">${escapeHtml(item.title)}</div>
-              <div class="small">${
-                item.uploadedAt
-                  ? new Date(item.uploadedAt).toLocaleString()
-                  : ""
-              }</div>
-            </div>
-            <div class="controls">
-              <button class="icon-btn" data-url="${
-                item.url
-              }" title="View">👁️</button>
-              <a class="icon-btn" href="${item.url}" download="${escapeHtml(
-            item.title
-          )}" title="Download">⬇️</a>
-            </div>
-          </div>
-        `;
-          notesGrid.appendChild(card);
-          card.querySelector("[data-url]")?.addEventListener("click", (e) => {
-            openViewer(e.currentTarget.getAttribute("data-url"), item.title);
-          });
-        });
-      });
+        // --- 5. Gemini Simulation ---
+        function analyzeWithGemini(docName) {
+            speak(`Analyzing ${docName} using Gemini. Please wait a moment.`);
+            const modal = document.getElementById('geminiModal');
+            const content = document.getElementById('geminiContent');
+            
+            modal.classList.add('active');
+            content.innerHTML = '<div style="text-align:center"><i class="fas fa-spinner fa-spin fa-2x"></i><br><br>Extracting key insights...</div>';
+            
+            setTimeout(() => {
+                content.innerHTML = `
+                    <strong style="color:#1b5e20">Key Insights for ${docName}:</strong><br>
+                    1. <strong>Relevance:</strong> High relevance to Sustainable Agriculture.<br>
+                    2. <strong>Summary:</strong> The document discusses using Neural Networks to predict soil moisture levels.<br>
+                    3. <strong>Recommendation:</strong> Focus on Chapter 3 regarding "Data Preprocessing".
+                    <br><br>
+                    <em>Remember, Learn AI is prepared by Delstarford with love to help you succeed.</em>
+                `;
+                speak(`Analysis complete. I have found high relevance to Sustainable Agriculture.`);
+            }, 3000);
+        }
 
-      // init
-      fetchPublishedNotes();
+        function closeModal() {
+            document.getElementById('geminiModal').classList.remove('active');
+        }
+
+        // Pre-load voices
+        window.speechSynthesis.getVoices();
     </script>
-  </body>
+</body>
 </html>
-
