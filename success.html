@@ -4,397 +4,386 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Registration Success | TeachThem</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <meta name="color-scheme" content="light dark">
   <style>
     :root{
-      --bg1: #eaf9ef;
-      --bg2: #ffffff;
-      --accent: #2e8b57;
-      --gold: #d4af37;
-      --muted: #6b7280;
+      --bg-gradient: radial-gradient(circle at 10% 10%, #f0fff4 0%, #e6f7ff 40%, #ffffff 100%);
+      --text-main: #0f1724;
+      --text-muted: #52525b;
+      --accent: #15803d; /* Professional Green */
+      --accent-light: #dcfce7;
+      --gold: #d97706; /* Darker gold for text contrast */
+      --gold-bg: #fcd34d;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --card-border: rgba(255, 255, 255, 0.6);
     }
 
     html,body{
       height:100%;
       margin:0;
-      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(1200px 600px at 10% 10%, #f0fff4 0%, rgba(224,255,230,0.6) 20%, var(--bg1) 45%, var(--bg2) 100%);
-      color: #0f1724;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:32px;
+      padding:20px;
       box-sizing:border-box;
+      overflow: hidden; /* Prevent scroll on redirect page */
     }
 
     .card {
       width:100%;
-      max-width:980px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.95));
-      border-radius:18px;
-      padding:30px;
-      box-shadow: 0 10px 30px rgba(19, 38, 19, 0.08), 0 2px 6px rgba(10,10,10,0.04);
+      max-width: 900px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 
+        0 20px 25px -5px rgba(0, 0, 0, 0.05), 
+        0 8px 10px -6px rgba(0, 0, 0, 0.01);
       position:relative;
-      overflow:hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    .top {
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Header Section */
+    .header-row {
       display:flex;
-      gap:24px;
-      align-items:center;
       justify-content:space-between;
-      margin-bottom:10px;
+      align-items: flex-start;
+      gap: 20px;
     }
 
-    .status {
-      display:flex;
-      gap:14px;
-      align-items:center;
-    }
-
-    .badge {
-      background: linear-gradient(90deg, var(--gold), #f1c232);
-      color:#000;
-      padding:10px 14px;
-      border-radius:12px;
-      font-weight:700;
-      box-shadow:0 6px 18px rgba(212,175,55,0.15);
-    }
-
-    .heading {
-      flex:1;
-      text-align:left;
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ecfdf5;
+      color: var(--accent);
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid #a7f3d0;
+      margin-bottom: 16px;
     }
 
     h1 {
       margin:0;
-      color:var(--accent);
-      font-size:22px;
-      letter-spacing:0.2px;
+      color: var(--text-main);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
     }
 
     p.lead {
-      margin:6px 0 0 0;
-      color:var(--muted);
-      font-size:14px;
+      margin: 12px 0 0 0;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.5;
+      max-width: 600px;
     }
 
-    /* Animated Hero area */
-    .hero {
-      display:flex;
-      gap:24px;
-      align-items:center;
-      justify-content:center;
-      padding:18px 6px 0 6px;
+    /* Timer styling */
+    .timer-badge {
+      background: #f4f4f5;
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .timer-bar {
+      width: 40px;
+      height: 4px;
+      background: #e4e4e7;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .timer-fill {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      animation: fillBar 8s linear forwards;
+    }
+    @keyframes fillBar { to { width: 100%; } }
+
+    /* Split Layout */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 40px;
+      align-items: center;
     }
 
-    .svg-wrap {
-      width:520px;
-      max-width:52%;
-      min-width:320px;
+    /* Text & Slogan Area */
+    .text-side {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
 
-    .text-wrap {
-      width:42%;
-      min-width:220px;
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-      align-items:flex-start;
-      justify-content:center;
+    .slogan-box {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text-main);
     }
 
-    .animated-slogan {
-      font-size:20px;
-      font-weight:700;
-      color:var(--accent);
-      line-height:1.05;
-      margin:0;
-      overflow:hidden;
+    .highlight-word {
+      color: var(--accent);
+      display: inline-block;
+    }
+    
+    .highlight-future {
+      background: linear-gradient(120deg, #2563eb, #9333ea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .animated-slogan .word {
-      display:inline-block;
-      transform-origin:center;
-      opacity:0;
-      animation: wordEntrance 2.5s ease forwards;
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    .animated-slogan .word.w1 { animation-delay: 0.1s; }
-    .animated-slogan .word.w2 { animation-delay: 0.8s; }
-    .animated-slogan .word.w3 { animation-delay: 1.5s; color: #0f1724; }
-    .animated-slogan .word.w4 { animation-delay: 2.1s; color: #2563eb; }
-
-    @keyframes wordEntrance {
-      0% { transform: translateY(18px) rotate(-6deg) scale(0.95); opacity:0; filter: blur(4px); }
-      60% { transform: translateY(-6px) rotate(2deg) scale(1.02); opacity:1; filter: blur(0); }
-      100% { transform: translateY(0) rotate(0) scale(1); opacity:1; }
+    .btn-primary {
+      background: var(--text-main);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -10px rgba(0,0,0,0.3);
     }
 
-    .sub {
-      color:var(--muted);
-      font-size:14px;
+    .btn-audio {
+      background: #fff;
+      border: 1px solid #e4e4e7;
+      color: var(--text-main);
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 1.1rem;
+    }
+    .btn-audio:hover { background: #f4f4f5; }
+    .audio-active { color: var(--accent); border-color: var(--accent); background: #ecfdf5; }
+
+    /* Illustration Area */
+    .illustration-side {
+      position: relative;
+    }
+    svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.05)); }
+
+    /* SVG Animations */
+    .arm-swing { animation: swing 3s ease-in-out infinite; transform-origin: 70px 115px; }
+    @keyframes swing { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-10deg); } }
+    
+    .robot-hover { animation: hover 4s ease-in-out infinite; }
+    @keyframes hover { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    .water-drop { opacity: 0; animation: fall 2s linear infinite; }
+    .d1 { animation-delay: 0.2s; } .d2 { animation-delay: 0.6s; } .d3 { animation-delay: 1.0s; }
+    @keyframes fall {
+      0% { transform: translateY(0); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(40px); opacity: 0; }
     }
 
-    .cta {
-      margin-top:10px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
+    .plant-grow { transform-origin: bottom center; animation: growUp 1.5s ease-out forwards; opacity: 0; animation-delay: 0.5s; }
+    @keyframes growUp { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-    .btn {
-      background: linear-gradient(90deg,var(--gold), #f1c232);
-      padding:10px 14px;
-      border-radius:10px;
-      color:#000;
-      font-weight:700;
-      text-decoration:none;
-      box-shadow:0 8px 22px rgba(212,175,55,0.12);
-      transition: transform .18s ease, box-shadow .18s ease;
-    }
-    .btn:hover { transform: translateY(-4px); box-shadow:0 14px 30px rgba(212,175,55,0.18); }
-
-    .muted-note {
-      color:var(--muted);
-      font-size:13px;
-    }
-
-    /* SVG details & animation */
-    svg { width:100%; height:auto; display:block; }
-
-    /* Farmer & robot arm swing */
-    .arm-f { transform-origin: 140px 220px; animation: armSwing 3.2s ease-in-out infinite; }
-    .can-f { transform-origin: 156px 242px; animation: canTilt 3.2s ease-in-out infinite; }
-    .arm-r { transform-origin: 370px 220px; animation: armSwingReverse 3.2s ease-in-out infinite; }
-    .can-r { transform-origin: 384px 242px; animation: canTiltReverse 3.2s ease-in-out infinite; }
-
-    @keyframes armSwing {
-      0% { transform: rotate(0deg); }
-      30% { transform: rotate(-18deg); }
-      60% { transform: rotate(0deg); }
-      100% { transform: rotate(0deg); }
-    }
-    @keyframes canTilt {
-      0% { transform: rotate(0deg); }
-      30% { transform: rotate(-28deg); }
-      60% { transform: rotate(-10deg); }
-      100% { transform: rotate(0deg); }
-    }
-    @keyframes armSwingReverse {
-      0% { transform: rotate(0deg); }
-      30% { transform: rotate(18deg); }
-      60% { transform: rotate(0deg); }
-      100% { transform: rotate(0deg); }
-    }
-    @keyframes canTiltReverse {
-      0% { transform: rotate(0deg); }
-      30% { transform: rotate(28deg); }
-      60% { transform: rotate(10deg); }
-      100% { transform: rotate(0deg); }
-    }
-
-    /* Water streams animation */
-    .drop { opacity:0; animation: dropFall 3.2s linear infinite; }
-    .drop.d1 { animation-delay: .12s; }
-    .drop.d2 { animation-delay: .24s; }
-    .drop.d3 { animation-delay: .36s; }
-    .drop.d4 { animation-delay: .48s; }
-
-    @keyframes dropFall {
-      0% { transform: translateY(-6px) scaleY(.6); opacity: 0; }
-      10% { opacity: 1; }
-      60% { transform: translateY(36px) scaleY(1.0); opacity: 1; }
-      90% { opacity: 0.25; }
-      100% { opacity: 0; transform: translateY(56px) scaleY(1.2); }
-    }
-
-    /* Plant growth animation */
-    .plant-sprout { transform-origin: 50% 100%; animation: grow 3.6s ease-in-out forwards; }
-    @keyframes grow {
-      0% { transform: scaleY(0.05) scaleX(0.9) translateY(18px); opacity:0.0; }
-      40% { transform: scaleY(0.7) scaleX(0.98) translateY(8px); opacity:1; }
-      70% { transform: scaleY(1.05) scaleX(1.0) translateY(0); }
-      100% { transform: scaleY(1) scaleX(1) translateY(0); }
-    }
-
-    /* Robot eye blink & antenna */
-    .robot-eye { animation: blink 4s steps(1) infinite; transform-origin:center; }
-    @keyframes blink {
-      0%, 89% { transform: scaleY(1); }
-      90% { transform: scaleY(.1); }
-      100% { transform: scaleY(1); }
-    }
-    .antenna { animation: antennaWiggle 3.5s ease-in-out infinite; transform-origin:center bottom; }
-    @keyframes antennaWiggle {
-      0% { transform: translateY(0) rotate(-2deg); }
-      50% { transform: translateY(-2px) rotate(6deg); }
-      100% { transform: translateY(0) rotate(-2deg); }
-    }
-
-    /* small responsive tweaks */
-    @media (max-width:880px) {
-      .hero { flex-direction:column; gap:18px; align-items:center; }
-      .svg-wrap, .text-wrap { width:100%; min-width:unset; max-width:unset; }
-      .card { padding:20px; border-radius:14px; }
-      .animated-slogan { font-size:18px; text-align:center; }
-      .badge { display:none; }
+    @media (max-width: 800px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .illustration-side { order: -1; max-width: 400px; margin: 0 auto; }
+      .header-row { flex-direction: column; gap: 10px; }
+      .card { padding: 24px; }
     }
   </style>
-
-  <script>
-    // Redirect automatically to dashboard after 8 sec
-    setTimeout(() => { window.location.href = "dashboard.html"; }, 8000);
-  </script>
 </head>
 <body>
-  <div class="card" role="main" aria-labelledby="successTitle">
-    <div class="top">
-      <div class="status" aria-hidden="true">
-        <div class="badge">TeachThem</div>
-      </div>
 
-      <div class="heading">
-        <h1 id="successTitle">Registration Success — Welcome aboard</h1>
-        <p class="lead">Your registration email has been opened. Please send it to complete onboarding. You will be redirected to your dashboard shortly.</p>
+  <div class="card">
+    <!-- Top Row: Status & Timer -->
+    <div class="header-row">
+      <div>
+        <div class="brand-badge"><i class="fas fa-check-circle"></i> Registration Successful</div>
+        <h1>Welcome to Learn AI</h1>
+        <p class="lead">We've prepared your registration email. Please send it to finalize your onboarding. Redirecting you to the dashboard shortly.</p>
       </div>
-
-      <div style="min-width:120px; text-align:right">
-        <div class="muted-note">Redirecting in <strong id="countdown">8</strong>s</div>
+      
+      <div class="timer-badge">
+        <span>Redirecting...</span>
+        <div class="timer-bar"><div class="timer-fill"></div></div>
       </div>
     </div>
 
-    <div class="hero" aria-hidden="false">
-      <!-- SVG Scene: farmer (left) + plant (center) + robot (right) -->
-      <div class="svg-wrap" aria-hidden="false">
-        <svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cartoon farmer and robot watering a plant">
-          <!-- Ground -->
-          <rect x="0" y="250" width="560" height="30" rx="6" fill="#dff3e6"></rect>
+    <!-- Main Content -->
+    <div class="content-grid">
+      
+      <!-- Left: Text & Actions -->
+      <div class="text-side">
+        <div class="slogan-box">
+          <div>THANK YOU!</div>
+          <div class="highlight-word">WELCOME</div> TO THE
+          <div class="highlight-future">FUTURE OF AGRICULTURE</div>
+        </div>
 
-          <!-- Plant (center) -->
-          <g transform="translate(260,170)">
-            <!-- soil mound -->
-            <ellipse cx="0" cy="60" rx="42" ry="12" fill="#8b6b45" opacity="0.95"></ellipse>
+        <div class="cta-group">
+          <a href="dashboard.html" class="btn-primary">
+            Go to Dashboard <i class="fas fa-arrow-right"></i>
+          </a>
+          <button id="replay-audio" class="btn-audio" title="Replay Message">
+            <i class="fas fa-volume-up"></i>
+          </button>
+        </div>
+      </div>
 
-            <!-- sprout group -->
-            <g class="plant-sprout" transform="translate(-10,0)">
-              <path d="M12 60 q-2 -26 12 -46 q14 14 10 30 q-8 -8 -22 16" fill="none" stroke="#2e8b57" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
-              <path d="M8 54 c-6 -10 -2 -22 8 -26" fill="#3cb371" stroke="#2e8b57" stroke-width="0.6" opacity="0.95"></path>
-              <path d="M34 36 c6 -6 20 -4 26 6" fill="#3cb371" stroke="#2e8b57" stroke-width="0.6" opacity="0.95"></path>
-              <!-- small leaves -->
-              <ellipse cx="-6" cy="40" rx="8" ry="5" fill="#4cd67a" transform="rotate(-20)"></ellipse>
-              <ellipse cx="34" cy="36" rx="10" ry="6" fill="#49c36a" transform="rotate(18)"></ellipse>
-            </g>
-          </g>
+      <!-- Right: Illustration -->
+      <div class="illustration-side">
+        <svg viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+           <!-- Ground -->
+           <path d="M20 260H480C491 260 500 269 500 280V290H0V280C0 269 9 260 20 260Z" fill="#ecfdf5"/>
+           
+           <!-- Plant -->
+           <g class="plant-grow" transform="translate(250, 260)">
+             <path d="M0 0V-60" stroke="#15803d" stroke-width="4" stroke-linecap="round"/>
+             <path d="M0 -40C-15 -50 -20 -70 -10 -80C0 -70 0 -40 0 -40Z" fill="#22c55e"/>
+             <path d="M0 -50C15 -60 20 -80 10 -90C0 -80 0 -50 0 -50Z" fill="#4ade80"/>
+           </g>
 
-          <!-- Farmer (left) -->
-          <g transform="translate(80,50)" aria-label="Farmer">
-            <!-- body -->
-            <rect x="20" y="110" width="54" height="60" rx="12" fill="#f3c27b" stroke="#e6a55a" stroke-width="1"></rect>
-            <!-- legs -->
-            <rect x="26" y="166" width="16" height="22" rx="6" fill="#3b3b3b"></rect>
-            <rect x="54" y="166" width="16" height="22" rx="6" fill="#3b3b3b"></rect>
-            <!-- head -->
-            <circle cx="47" cy="82" r="20" fill="#ffd9b3" stroke="#f0b07a" stroke-width="1"></circle>
-            <!-- hat -->
-            <path d="M30 68 q18 -18 34 0 q-18 8 -34 0" fill="#7c4b20"></path>
-            <!-- smile -->
-            <path d="M40 88 q8 8 16 0" stroke="#6b3a1f" stroke-width="2" fill="none" stroke-linecap="round"></path>
+           <!-- Farmer -->
+           <g transform="translate(50, 80)">
+             <rect x="30" y="120" width="40" height="60" rx="8" fill="#fbbf24"/> <!-- Body -->
+             <circle cx="50" cy="100" r="20" fill="#fde68a"/> <!-- Head -->
+             <path d="M20 90H80L70 70H30L20 90Z" fill="#92400e"/> <!-- Hat -->
+             <!-- Arm -->
+             <g class="arm-swing">
+               <rect x="0" y="0" width="10" height="40" rx="5" fill="#fcd34d" transform="rotate(20)"/>
+               <path d="M-10 35H20V55H-10V35Z" fill="#3b82f6"/> <!-- Can -->
+               <!-- Water -->
+               <g transform="translate(0, 55)">
+                 <circle class="water-drop d1" cx="0" cy="0" r="3" fill="#60a5fa"/>
+                 <circle class="water-drop d2" cx="10" cy="0" r="3" fill="#60a5fa"/>
+               </g>
+             </g>
+           </g>
 
-            <!-- arm holding can -->
-            <g class="arm-f" transform="translate(0,0)">
-              <rect x="64" y="110" width="10" height="8" rx="3" fill="#ffd9b3" transform="rotate(8 69 114)"></rect>
-              <g class="can-f" transform="translate(0,0)">
-                <rect x="70" y="118" width="22" height="12" rx="3" fill="#b0d6ff" stroke="#79a9d9"></rect>
-                <path d="M92 122 q12 6 18 6" stroke="#79a9d9" stroke-width="4" fill="none" stroke-linecap="round"></path>
-              </g>
-
-              <!-- water drops from farmer can -->
-              <g transform="translate(84,136)" fill="#9fe0ff">
-                <circle class="drop d1" cx="2" cy="-6" r="3"></circle>
-                <circle class="drop d2" cx="8" cy="-10" r="3"></circle>
-                <circle class="drop d3" cx="-2" cy="-8" r="3"></circle>
-              </g>
-            </g>
-          </g>
-
-          <!-- Robot (right) -->
-          <g transform="translate(360,40)" aria-label="AI robot">
-            <!-- body -->
-            <rect x="26" y="86" width="86" height="64" rx="8" fill="#e7f3ff" stroke="#bcd8ff" stroke-width="1.2"></rect>
-            <!-- eye -->
-            <rect x="56" y="100" width="18" height="12" rx="4" fill="#083358"></rect>
-            <rect class="robot-eye" x="64" y="102" width="2" height="8" rx="1" fill="#fff"></rect>
-            <!-- antenna -->
-            <g transform="translate(68,78)" class="antenna">
-              <rect x="-2" y="-12" width="4" height="12" rx="2" fill="#bcd8ff"></rect>
-              <circle cx="0" cy="-14" r="5" fill="#ffd966"></circle>
-            </g>
-            <!-- wheels -->
-            <rect x="34" y="150" width="24" height="6" rx="3" fill="#d1e7ff"></rect>
-            <rect x="80" y="150" width="24" height="6" rx="3" fill="#d1e7ff"></rect>
-
-            <!-- robot arm holding can -->
-            <g class="arm-r" transform="translate(0,0)">
-              <rect x="84" y="106" width="8" height="48" rx="4" fill="#cfe9ff" transform="rotate(-6 88 110)"></rect>
-              <g class="can-r" transform="translate(0,0)">
-                <rect x="86" y="152" width="26" height="12" rx="3" fill="#c1f0d0" stroke="#86c38e"></rect>
-                <path d="M112 156 q12 6 18 6" stroke="#86c38e" stroke-width="4" fill="none" stroke-linecap="round"></path>
-              </g>
-
-              <!-- water drops from robot -->
-              <g transform="translate(112,168)" fill="#9fe0ff">
-                <circle class="drop d4" cx="3" cy="-8" r="3"></circle>
-                <circle class="drop d2" cx="-2" cy="-10" r="3"></circle>
-                <circle class="drop d3" cx="8" cy="-6" r="3"></circle>
-              </g>
-            </g>
-
-            <!-- robot smile -->
-            <path d="M50 118 q8 6 16 0" stroke="#79a9d9" stroke-width="2" fill="none" stroke-linecap="round"></path>
-          </g>
+           <!-- Robot -->
+           <g class="robot-hover" transform="translate(350, 70)">
+             <rect x="20" y="120" width="60" height="50" rx="10" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2"/>
+             <rect x="30" y="130" width="40" height="15" rx="4" fill="#0f172a"/> <!-- Visor -->
+             <circle cx="40" cy="137" r="3" fill="#ef4444"/> <!-- Eye -->
+             <rect x="45" y="110" width="10" height="10" fill="#cbd5e1"/> <!-- Neck -->
+             <path d="M30 170H70" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/> <!-- Wheel Axle -->
+             <!-- Robotic Arm -->
+             <path d="M10 140H-20V160" stroke="#94a3b8" stroke-width="6" stroke-linecap="round" fill="none"/>
+             <path d="M-25 160H-15V175H-25V160Z" fill="#22c55e"/> <!-- Green Can -->
+             <g transform="translate(-20, 175)">
+                <circle class="water-drop d3" cx="0" cy="0" r="3" fill="#60a5fa"/>
+             </g>
+           </g>
         </svg>
       </div>
-
-      <div class="text-wrap" aria-hidden="false">
-        <div>
-          <p class="animated-slogan" aria-live="polite">
-            <span class="word w1">🌾 THANK YOU!</span>
-            &nbsp;
-            <span class="word w2">WELCOME</span>
-            &nbsp;
-            <span class="word w3">TO THE FUTURE</span>
-            &nbsp;
-            <span class="word w4">OF AGRICULTURE</span>
-          </p>
-          <p class="sub">Your message prompt is open — please send the registration email to complete onboarding. You will be taken to your dashboard automatically.</p>
-        </div>
-
-        <div class="cta" role="region" aria-label="Actions">
-          <a class="btn" href="dashboard.html">Go to Dashboard</a>
-          <div class="muted-note">If you don't get redirected automatically, click <strong>Go to Dashboard</strong>.</div>
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-top:16px; text-align:center;">
-      <p style="color:#6b7280; margin:0; font-size:13px;">TeachThem • Empowering Agricultural Students with AI & ML</p>
     </div>
   </div>
 
   <script>
-    // countdown visual (8s)
-    (function(){
-      const el = document.getElementById('countdown');
-      let n = 8;
-      const t = setInterval(() => {
-        n--; if(n<=0){ clearInterval(t); el.textContent = 0; return; }
-        el.textContent = n;
-      }, 1000);
-    })();
+    // 1. Redirect Logic
+    setTimeout(() => {
+      try {
+          window.location.href = "dashboard.html";
+      } catch (e) {
+          console.warn("Redirect blocked in this environment: " + e.message);
+      }
+    }, 8000);
+
+    // 2. Audio Logic
+    const textToSpeak = "Registration successful. Welcome to Learn AI. You have taken a great step into the future of agriculture. Please open the email we prepared to complete your registration. We are now redirecting you to the dashboard.";
+    
+    const btnAudio = document.getElementById('replay-audio');
+    let synth = window.speechSynthesis;
+    
+    function speak() {
+      if (synth.speaking) {
+        console.log('Already speaking');
+        return;
+      }
+      if (textToSpeak !== '') {
+        const utterThis = new SpeechSynthesisUtterance(textToSpeak);
+        utterThis.onend = function (event) {
+          btnAudio.classList.remove('audio-active');
+        };
+        utterThis.onstart = function(event) {
+          btnAudio.classList.add('audio-active');
+        }
+        
+        // Voice selection preference (Female/Google US English)
+        const voices = synth.getVoices();
+        const preferredVoice = voices.find(voice => voice.name.includes('Google US English') || voice.name.includes('Female'));
+        if(preferredVoice) utterThis.voice = preferredVoice;
+        
+        utterThis.pitch = 1;
+        utterThis.rate = 0.95;
+        synth.speak(utterThis);
+      }
+    }
+
+    // 3. Attempt Autoplay
+    // Note: Modern browsers block autoplay. We attempt it, but if it fails, the user can click the button.
+    // We try hooking into the 'load' event, but if the user came from a click on the previous page, it might allow it.
+    window.addEventListener('load', () => {
+       // Small timeout to ensure voices are loaded
+       setTimeout(() => {
+         speak();
+       }, 500);
+    });
+
+    // 4. Manual Replay
+    btnAudio.addEventListener('click', () => {
+      if(synth.speaking) {
+        synth.cancel();
+        btnAudio.classList.remove('audio-active');
+      } else {
+        speak();
+      }
+    });
+
+    // Ensure voices are loaded (Safari/Chrome quirk)
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+      speechSynthesis.onvoiceschanged = () => {};
+    }
   </script>
 </body>
 </html>

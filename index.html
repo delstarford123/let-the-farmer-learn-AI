@@ -1,318 +1,642 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LEARN AI Registration</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-      padding: 40px;
-      color: #f5f5f5;
-      margin: 0;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LEARN AI Registration</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 20px;
+            color: #f5f5f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
 
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: #111;
-      border: 1px solid #d4af37;
-      padding: 30px 35px;
-      border-radius: 12px;
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
-    }
+        .container {
+            width: 100%;
+            max-width: 700px;
+            margin: 20px auto;
+            background: #111;
+            border: 1px solid #d4af37;
+            padding: 30px 35px;
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+            transition: all 0.5s ease-in-out;
+        }
 
-    h2 {
-      text-align: center;
-      color: #d4af37;
-      font-size: 26px;
-      margin-bottom: 10px;
-    }
+        h2 {
+            text-align: center;
+            color: #d4af37;
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
 
-    p {
-      text-align: center;
-      color: #ccc;
-      font-size: 14px;
-      margin-bottom: 25px;
-    }
+        p {
+            text-align: center;
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
 
-    label {
-      display: block;
-      margin-top: 15px;
-      color: #e8c95a;
-      font-weight: 500;
-    }
+        label {
+            display: block;
+            margin-top: 15px;
+            color: #e8c95a;
+            font-weight: 500;
+        }
 
-    input, select, textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #d4af37;
-      border-radius: 6px;
-      background: #222;
-      color: #fff;
-      font-size: 15px;
-      transition: all 0.3s ease;
-    }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d4af37;
+            border-radius: 6px;
+            background: #222;
+            color: #fff;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
 
-    input:focus, select:focus, textarea:focus {
-      border-color: #ffd700;
-      box-shadow: 0 0 8px #d4af37;
-      outline: none;
-      background: #2b2b2b;
-    }
+        input:focus, select:focus, textarea:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 8px #d4af37;
+            outline: none;
+            background: #2b2b2b;
+        }
 
-    textarea {
-      resize: vertical;
-    }
+        textarea {
+            resize: vertical;
+        }
 
-    button {
-      margin-top: 25px;
-      width: 100%;
-      background: linear-gradient(90deg, #d4af37, #f1c232);
-      color: #000;
-      border: none;
-      padding: 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 17px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
+        /* General Button Style */
+        .btn {
+            margin-top: 25px;
+            width: 100%;
+            background: linear-gradient(90deg, #d4af37, #f1c232);
+            color: #000;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    button:hover {
-      background: linear-gradient(90deg, #f1c232, #ffe97f);
-      transform: translateY(-2px);
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
-    }
+        .btn:hover {
+            background: linear-gradient(90deg, #f1c232, #ffe97f);
+            transform: translateY(-2px);
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+        }
 
-    .footer {
-      text-align: center;
-      margin-top: 25px;
-      font-size: 13px;
-      color: #b5b5b5;
-    }
+        .btn i {
+            margin-right: 8px;
+        }
 
-    /* Floating Dashboard Button */
-    .dashboard-float {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 30px;
-      right: 30px;
-      background-color: #d4af37;
-      color: #000;
-      border-radius: 50%;
-      text-align: center;
-      font-size: 26px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
-      cursor: pointer;
-      z-index: 1000;
-      animation: floatUpDown 3s ease-in-out infinite;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
+        /* Choice Screen Styles */
+        .choice-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            flex-direction: column; /* Stacked on mobile */
+        }
+        @media (min-width: 600px) {
+            .choice-buttons {
+                flex-direction: row;
+            }
+        }
+        .choice-buttons .btn {
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
 
-    .dashboard-float i {
-      line-height: 60px;
-    }
+        /* Voice Registration Styles */
+        #voice-reg-screen .voice-status {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 15px;
+            color: #ccc;
+        }
 
-    .dashboard-float:hover {
-      background-color: #ffe97f;
-      transform: scale(1.1);
-    }
+        .record-button-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
 
-    /* Tooltip */
-    .dashboard-float::after {
-      content: "Go to Dashboard if already registered";
-      position: absolute;
-      bottom: 70px;
-      right: 50%;
-      transform: translateX(50%);
-      background-color: #000;
-      color: #fff;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 13px;
-      opacity: 0;
-      white-space: nowrap;
-      transition: opacity 0.3s ease, bottom 0.3s ease;
-      pointer-events: none;
-    }
+        #record-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #f04d4d;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, transform 0.1s;
+        }
 
-    .dashboard-float:hover::after {
-      opacity: 1;
-      bottom: 80px;
-    }
+        #record-btn:hover {
+            background-color: #ff6e6e;
+            transform: scale(1.05);
+        }
 
-    @keyframes floatUpDown {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
-    }
-  </style>
+        /* Pulsing animation for recording */
+        .recording {
+            animation: pulse-red 1.5s infinite;
+        }
 
-  <script>
-    function handleSubmit(event) {
-      event.preventDefault();
-      const form = event.target;
+        @keyframes pulse-red {
+            0% {
+                box-shadow: 0 0 0 0 rgba(240, 77, 77, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 25px rgba(240, 77, 77, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(240, 77, 77, 0);
+            }
+        }
 
-      const data = {
-        name: form.name.value,
-        email: form.email.value,
-        phone: form.phone.value,
-        school: form.school.value,
-        reg_no: form.reg_no.value,
-        course: form.course.value,
-        reason: form.reason.value,
-        ai_in_agriculture: form.ai_in_agriculture.value,
-        coding_experience: form.coding_experience.value,
-        languages: form.languages.value,
-        ml_tools: form.ml_tools.value,
-        understanding_level: form.understanding_level.value,
-        agriculture_field: form.agriculture_field.value,
-        agricultural_problem: form.agricultural_problem.value,
-        has_computer: form.has_computer.value,
-        internet_access: form.internet_access.value,
-        willing: form.willing.value,
-        source: form.source.value,
-        comments: form.comments.value
-      };
+        /* Success Screen Styles */
+        #success-screen h3 {
+            color: #f1c232;
+            margin-top: 0;
+            font-size: 20px;
+        }
+        .success-card {
+            background: #222; 
+            padding: 25px; 
+            border-radius: 8px; 
+            border: 1px solid #d4af37; 
+            margin: 25px 0;
+            text-align: left;
+        }
+        .sponsor-text {
+            font-size: 16px; 
+            font-weight: bold; 
+            color: #b5b5b5; 
+            margin-top: 30px;
+            letter-spacing: 1px;
+        }
+        .sponsor-highlight {
+            display: block;
+            color: #d4af37; 
+            font-size: 22px; 
+            margin-top: 8px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
 
-      const subject = encodeURIComponent("LEARN AI Registration - " + data.name);
-      const body = encodeURIComponent(
-        `Full Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nSchool: ${data.school}\nRegistration Number: ${data.reg_no}\nCourse: ${data.course}\n\nWhy AI/ML: ${data.reason}\nAI in Agriculture: ${data.ai_in_agriculture}\n\nCoding Experience: ${data.coding_experience}\nLanguages: ${data.languages}\nUsed ML Tools: ${data.ml_tools}\nUnderstanding Level: ${data.understanding_level}\n\nAgriculture Field: ${data.agriculture_field}\nProblem to Solve: ${data.agricultural_problem}\nComputer Access: ${data.has_computer}\nInternet Access: ${data.internet_access}\nWilling to Commit: ${data.willing}\nSource: ${data.source}\n\nAdditional Comments: ${data.comments}`
-      );
+        /* General Utility Styles */
+        .hidden {
+            display: none !important;
+        }
 
-      window.location.href = `mailto:delstarfordisaiah@gmail.com?subject=${subject}&body=${body}`;
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #b5b5b5;
+        }
 
-      setTimeout(() => {
-        window.location.href = "success.html";
-      }, 4000);
-    }
-  </script>
+        .back-btn {
+            margin-top: 20px;
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #d4af37;
+            padding: 10px;
+            font-size: 15px;
+        }
+        .back-btn:hover {
+            background-color: #555;
+            transform: none;
+            box-shadow: none;
+        }
+    </style>
 </head>
 
 <body>
-  <div class="container">
-    <h2>Learn AI Registration Form</h2>
-    <p>For Agricultural Students Interested in Machine Learning & AI</p>
+    <div class="container">
+        <h2 id="main-header">Learn AI Registration</h2>
+        <p id="sub-header">Select your preferred registration method for the program.</p>
 
-    <form onsubmit="handleSubmit(event)">
-      <label>Full Name:</label>
-      <input type="text" name="name" required>
+        <!-- Step 1: Registration Method Choice -->
+        <div id="choice-screen">
+            <div class="choice-buttons">
+                <button class="btn" id="text-choice-btn">
+                    <i class="fas fa-keyboard"></i>Standard Registration (Text Form)
+                </button>
+                <button class="btn" id="voice-choice-btn">
+                    <i class="fas fa-microphone"></i>Voice Sample Registration
+                </button>
+            </div>
+            <div class="voice-status" style="margin-top: 40px; color: #d4af37;">
+                Voice Sample Registration is an optional method for initial screening.
+            </div>
+        </div>
 
-      <label>Email Address:</label>
-      <input type="email" name="email" required>
+        <!-- Step 2a: Standard Text Form -->
+        <div id="text-form-screen" class="hidden">
+            <p>Please fill out the complete form below.</p>
+            <form id="text-form">
+                <label>Full Name:</label>
+                <input type="text" name="name" required>
 
-      <label>Phone Number:</label>
-      <input type="tel" name="phone" required>
+                <label>Email Address:</label>
+                <input type="email" name="email" required>
 
-      <label>School / Institution:</label>
-      <input type="text" name="school" required>
+                <label>Phone Number:</label>
+                <input type="tel" name="phone" required>
 
-      <label>Registration Number:</label>
-      <input type="text" name="reg_no" required>
+                <label>School / Institution:</label>
+                <input type="text" name="school" required>
 
-      <label>Course / Program:</label>
-      <input type="text" name="course" required>
+                <label>Registration Number:</label>
+                <input type="text" name="reg_no" required>
 
-      <label>Why do you want to venture into AI/ML?</label>
-      <textarea name="reason" rows="4" required></textarea>
+                <label>Course / Program:</label>
+                <input type="text" name="course" required>
 
-      <label>How do you think AI/ML can transform agriculture?</label>
-      <textarea name="ai_in_agriculture" rows="4" required></textarea>
+                <label>Why do you want to venture into AI/ML?</label>
+                <textarea name="reason" rows="4" required></textarea>
 
-      <label>Have you ever worked with any programming language?</label>
-      <select name="coding_experience" required>
-        <option value="" disabled selected>Select an option</option>
-        <option>Yes</option>
-        <option>No</option>
-      </select>
+                <label>How do you think AI/ML can transform agriculture?</label>
+                <textarea name="ai_in_agriculture" rows="4" required></textarea>
 
-      <label>If yes, which programming languages?</label>
-      <input type="text" name="languages" placeholder="e.g., Python, R, C++">
+                <label>Have you ever worked with any programming language?</label>
+                <select name="coding_experience" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                </select>
 
-      <label>Have you used ML tools like TensorFlow or PyTorch?</label>
-      <select name="ml_tools" required>
-        <option value="" disabled selected>Select an option</option>
-        <option>Yes</option>
-        <option>No</option>
-      </select>
+                <label>If yes, which programming languages?</label>
+                <input type="text" name="languages" placeholder="e.g., Python, R, C++">
 
-      <label>Rate your understanding of AI/ML:</label>
-      <select name="understanding_level" required>
-        <option value="" disabled selected>Select your level</option>
-        <option>1 - Beginner</option>
-        <option>2 - Basic</option>
-        <option>3 - Intermediate</option>
-        <option>4 - Experienced</option>
-        <option>5 - Advanced</option>
-      </select>
+                <label>Have you used ML tools like TensorFlow or PyTorch?</label>
+                <select name="ml_tools" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                </select>
 
-      <label>What agricultural field are you interested in?</label>
-      <select name="agriculture_field" required>
-        <option value="" disabled selected>Select your field</option>
-        <option>Crop Science</option>
-        <option>Animal Science / Livestock</option>
-        <option>Soil Science</option>
-        <option>Agro-economics</option>
-        <option>Agroforestry</option>
-        <option>Agri-Business / Management</option>
-        <option>Other</option>
-      </select>
+                <label>Rate your understanding of AI/ML:</label>
+                <select name="understanding_level" required>
+                    <option value="" disabled selected>Select your level</option>
+                    <option>1 - Beginner</option>
+                    <option>2 - Basic</option>
+                    <option>3 - Intermediate</option>
+                    <option>4 - Experienced</option>
+                    <option>5 - Advanced</option>
+                </select>
 
-      <label>What agricultural challenge would you like to solve?</label>
-      <textarea name="agricultural_problem" rows="4" required></textarea>
+                <label>What agricultural field are you interested in?</label>
+                <select name="agriculture_field" required>
+                    <option value="" disabled selected>Select your field</option>
+                    <option>Crop Science</option>
+                    <option>Animal Science / Livestock</option>
+                    <option>Soil Science</option>
+                    <option>Agro-economics</option>
+                    <option>Agroforestry</option>
+                    <option>Agri-Business / Management</option>
+                    <option>Other</option>
+                </select>
 
-      <label>Do you have access to a computer?</label>
-      <select name="has_computer" required>
-        <option value="" disabled selected>Select an option</option>
-        <option>Yes</option>
-        <option>No</option>
-      </select>
+                <label>What agricultural challenge would you like to solve?</label>
+                <textarea name="agricultural_problem" rows="4" required></textarea>
 
-      <label>Internet access level:</label>
-      <select name="internet_access" required>
-        <option value="" disabled selected>Select</option>
-        <option>Strong (Daily Access)</option>
-        <option>Moderate (Sometimes)</option>
-        <option>Limited (Rarely)</option>
-      </select>
+                <label>Do you have access to a computer?</label>
+                <select name="has_computer" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                </select>
 
-      <label>Willing to dedicate 1 hour daily?</label>
-      <select name="willing" required>
-        <option value="" disabled selected>Select an option</option>
-        <option>Yes</option>
-        <option>No</option>
-      </select>
+                <label>Internet access level:</label>
+                <select name="internet_access" required>
+                    <option value="" disabled selected>Select</option>
+                    <option>Strong (Daily Access)</option>
+                    <option>Moderate (Sometimes)</option>
+                    <option>Limited (Rarely)</option>
+                </select>
 
-      <label>How did you hear about TeachThem?</label>
-      <select name="source" required>
-        <option value="" disabled selected>Select</option>
-        <option>Friend / Classmate</option>
-        <option>Lecturer</option>
-        <option>Social Media</option>
-        <option>School Noticeboard</option>
-        <option>Other</option>
-      </select>
+                <label>Willing to dedicate 1 hour daily?</label>
+                <select name="willing" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                </select>
 
-      <label>Additional comments:</label>
-      <textarea name="comments" rows="3"></textarea>
+                <label>How did you hear about TeachThem?</label>
+                <select name="source" required>
+                    <option value="" disabled selected>Select</option>
+                    <option>Friend / Classmate</option>
+                    <option>Lecturer</option>
+                    <option>Social Media</option>
+                    <option>School Noticeboard</option>
+                    <option>Other</option>
+                </select>
 
-      <button type="submit">Submit Registration</button>
-    </form>
+                <label>Additional comments:</label>
+                <textarea name="comments" rows="3"></textarea>
 
-    <div class="footer">
-      © 2025 Learn AI Learning Platform. All rights reserved.
+                <button type="submit" class="btn">Submit Registration</button>
+                <button type="button" class="btn back-btn" id="back-text-btn">
+                    <i class="fas fa-chevron-left"></i>Back to Method Selection
+                </button>
+            </form>
+        </div>
+
+        <!-- Step 2b: Voice Registration Screen -->
+        <div id="voice-reg-screen" class="hidden">
+            <p>Record a short sample (max 30 seconds) stating your name and why you are interested in AI/ML.</p>
+            <form id="voice-form">
+                <label for="voice-name">Full Name:</label>
+                <input type="text" id="voice-name" required>
+
+                <label for="voice-email">Email Address:</label>
+                <input type="email" id="voice-email" required>
+
+                <div class="voice-status" id="voice-status">Press the button to start recording.</div>
+
+                <div class="record-button-container">
+                    <button type="button" id="record-btn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+
+                <audio id="audio-playback" controls class="hidden" style="width: 100%; margin-top: 20px;"></audio>
+
+                <button type="submit" class="btn" id="voice-submit-btn" disabled>
+                    <i class="fas fa-upload"></i>Submit Voice Registration
+                </button>
+                <button type="button" class="btn back-btn" id="back-voice-btn">
+                    <i class="fas fa-chevron-left"></i>Back to Method Selection
+                </button>
+            </form>
+        </div>
+
+        <!-- Step 3: Success / Welcome Screen -->
+        <div id="success-screen" class="hidden">
+            <div style="text-align: center;">
+                <i class="fas fa-check-circle" style="font-size: 70px; color: #28a745; margin-bottom: 20px; margin-top: 20px;"></i>
+                <h2 style="color: #d4af37; font-size: 32px; margin-bottom: 10px;">Welcome to LEARN AI!</h2>
+                <p style="font-size: 16px; color: #eee;">Your registration has been successfully received.</p>
+                
+                <div class="success-card">
+                    <h3><i class="fas fa-users"></i> Importance of this Study Group</h3>
+                    <p style="color: #ddd; line-height: 1.6;">
+                        By joining LEARN AI, you are entering a community dedicated to solving real-world agricultural problems through technology.
+                        This study group fosters peer-to-peer learning, hands-on projects, and mentorship, ensuring you gain the practical skills needed to revolutionize the industry.
+                    </p>
+                </div>
+
+                <p class="sponsor-text">
+                    PROUDLY SPONSORED BY
+                    <span class="sponsor-highlight">MMUST INNOVATION ACADEMY</span>
+                </p>
+
+                <button class="btn" id="reload-btn" style="margin-top: 40px;">
+                    <i class="fas fa-home"></i> Return to Home
+                </button>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2025 Learn AI Learning Platform. All rights reserved.
+        </div>
     </div>
-  </div>
 
-  <!-- Floating Dashboard Button -->
-  <a href="dashboard.html" class="dashboard-float" title="Go to Dashboard">
-    <i>🏠</i>
-  </a>
+    <script type="module">
+        // --- Firebase/Firestore Setup ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, setDoc, doc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db = null;
+        let auth = null;
+        let userId = null;
+        let isAuthReady = false;
+
+        setLogLevel('Debug');
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+
+            onAuthStateChanged(auth, (user) => {
+                userId = user ? user.uid : null;
+                isAuthReady = true;
+            });
+
+            if (initialAuthToken) {
+                signInWithCustomToken(auth, initialAuthToken).catch(console.error);
+            } else {
+                signInAnonymously(auth).catch(console.error);
+            }
+        } catch (error) {
+            console.error("Firebase initialization failed:", error);
+        }
+
+        const saveVoiceRegistration = async (data) => {
+            if (!db || !isAuthReady || !userId) {
+                // Use mock ID if DB fails/offline
+                return "MOCK-ID-" + Date.now();
+            }
+            try {
+                const collectionPath = `artifacts/${appId}/public/data/voice_registrations`;
+                const newDocRef = doc(collection(db, collectionPath));
+                await setDoc(newDocRef, { ...data, userId: userId, timestamp: new Date().toISOString() });
+                return newDocRef.id;
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                return null;
+            }
+        };
+
+        // --- Voice Recording Logic ---
+        let mediaRecorder;
+        let audioChunks = [];
+        let finalAudioBlob = null;
+        const recordBtn = document.getElementById('record-btn');
+        const voiceStatus = document.getElementById('voice-status');
+        const audioPlayback = document.getElementById('audio-playback');
+        const voiceSubmitBtn = document.getElementById('voice-submit-btn');
+
+        const MAX_RECORDING_TIME = 30000;
+
+        function showCustomMessage(message, color) {
+            const msgBox = document.createElement('div');
+            msgBox.style.cssText = `
+                position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+                padding: 15px 25px; background-color: ${color}; color: white;
+                border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 10000; opacity: 0; transition: opacity 0.3s ease;
+                max-width: 90%; text-align: center;
+            `;
+            msgBox.textContent = message;
+            document.body.appendChild(msgBox);
+            setTimeout(() => { msgBox.style.opacity = '1'; }, 50);
+            setTimeout(() => { 
+                msgBox.style.opacity = '0'; 
+                setTimeout(() => msgBox.remove(), 300); 
+            }, 5000);
+        }
+
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+                finalAudioBlob = null;
+                audioPlayback.classList.add('hidden');
+                voiceSubmitBtn.disabled = true;
+
+                mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+                mediaRecorder.onstop = () => {
+                    finalAudioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    audioPlayback.src = URL.createObjectURL(finalAudioBlob);
+                    audioPlayback.classList.remove('hidden');
+                    voiceStatus.textContent = `Recording stopped.`;
+                    recordBtn.innerHTML = '<i class="fas fa-redo"></i>';
+                    voiceSubmitBtn.disabled = false;
+                    recordBtn.classList.remove('recording');
+                    stream.getTracks().forEach(track => track.stop());
+                };
+
+                mediaRecorder.start();
+                voiceStatus.textContent = 'Recording... Speak clearly.';
+                recordBtn.innerHTML = '<i class="fas fa-stop"></i>';
+                recordBtn.classList.add('recording');
+
+                setTimeout(() => {
+                    if (mediaRecorder && mediaRecorder.state === 'recording') {
+                        stopRecording();
+                    }
+                }, MAX_RECORDING_TIME);
+            } catch (err) {
+                showCustomMessage("Microphone access failed.", '#dc3545');
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop();
+        }
+
+        recordBtn.addEventListener('click', () => {
+            if (mediaRecorder && mediaRecorder.state === 'recording') stopRecording();
+            else startRecording();
+        });
+
+        // Voice Form Submission
+        document.getElementById('voice-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!finalAudioBlob) {
+                showCustomMessage("Please record a voice sample first.", '#d4af37');
+                return;
+            }
+            
+            voiceSubmitBtn.disabled = true;
+            voiceSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+            const docId = await saveVoiceRegistration({
+                name: document.getElementById('voice-name').value,
+                email: document.getElementById('voice-email').value,
+                submissionType: "Voice Sample Registration"
+            });
+
+            if (docId) {
+                showScreen('success');
+            } else {
+                voiceSubmitBtn.innerHTML = '<i class="fas fa-upload"></i>Submit Voice Registration';
+                voiceSubmitBtn.disabled = false;
+                showCustomMessage("Error submitting. Please try again.", '#dc3545');
+            }
+        });
+
+
+        // --- Screen Switching Logic ---
+        function showScreen(screenType) {
+            const screens = ['choice-screen', 'text-form-screen', 'voice-reg-screen', 'success-screen'];
+            screens.forEach(id => document.getElementById(id).classList.add('hidden'));
+            
+            const header = document.getElementById('main-header');
+            const subHeader = document.getElementById('sub-header');
+            header.style.display = 'block';
+            subHeader.style.display = 'block';
+
+            if (screenType === 'text') {
+                document.getElementById('text-form-screen').classList.remove('hidden');
+                subHeader.textContent = "Standard Registration: Complete the form below.";
+            } else if (screenType === 'voice') {
+                document.getElementById('voice-reg-screen').classList.remove('hidden');
+                subHeader.textContent = "Voice Registration: Record your sample and details.";
+            } else if (screenType === 'choice') {
+                document.getElementById('choice-screen').classList.remove('hidden');
+                subHeader.textContent = "Select your preferred registration method for the program.";
+            } else if (screenType === 'success') {
+                document.getElementById('success-screen').classList.remove('hidden');
+                header.style.display = 'none'; // Hide standard header for clean success screen
+                subHeader.style.display = 'none';
+            }
+        }
+
+        // --- Text Form Submission Logic ---
+        document.getElementById('text-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const form = event.target;
+            
+            // 1. Prepare Data
+            const data = {
+                name: form.name.value,
+                email: form.email.value,
+                // ... rest of the data ...
+            };
+
+            // 2. Trigger Mailto (optional fallback)
+            const subject = encodeURIComponent("LEARN AI Registration - " + data.name);
+            const body = encodeURIComponent(`Registration for ${data.name} (${data.email})`);
+            
+            // We wrap this in a timeout so it doesn't block the UI update
+            setTimeout(() => {
+                window.location.href = `mailto:delstarfordisaiah@gmail.com?subject=${subject}&body=${body}`;
+            }, 1000);
+
+            // 3. Show Welcome Screen
+            showScreen('success');
+        });
+
+        // --- Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('text-choice-btn')?.addEventListener('click', () => showScreen('text'));
+            document.getElementById('voice-choice-btn')?.addEventListener('click', () => showScreen('voice'));
+            document.getElementById('back-text-btn')?.addEventListener('click', () => showScreen('choice'));
+            document.getElementById('back-voice-btn')?.addEventListener('click', () => showScreen('choice'));
+            document.getElementById('reload-btn')?.addEventListener('click', () => window.location.reload());
+
+            showScreen('choice');
+        });
+
+    </script>
 </body>
 </html>

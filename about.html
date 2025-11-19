@@ -1,296 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About | LEARN AI/ML</title>
+    <title>About | LEARN AI/ML Platform</title>
     <style>
-      /* ---------------------------------- */
-      /* 1. Global & Base Styles */
-      /* ---------------------------------- */
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f5fff5;
-        margin: 0;
-        padding: 0;
-        color: #222;
-      }
-
-      /* ---------------------------------- */
-      /* 2. Header & Navigation */
-      /* ---------------------------------- */
-      header {
-        background-color: #2e7d32;
-        color: white;
-        padding: 15px 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      }
-
-      header h1 {
-        margin: 0;
-        font-size: 22px;
-      }
-
-      .menu-icon {
-        font-size: 26px;
-        cursor: pointer;
-      }
-
-      /* Sidebar Styles */
-      .sidebar {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background-color: #1b5e20;
-        overflow-x: hidden;
-        transition: 0.4s;
-        padding-top: 60px;
-        z-index: 2000;
-        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-      }
-
-      .sidebar a {
-        padding: 12px 25px;
-        text-decoration: none;
-        font-size: 18px;
-        color: #f5fff5;
-        display: block;
-        transition: 0.3s;
-      }
-
-      .sidebar a:hover {
-        background-color: #388e3c;
-      }
-
-      .sidebar .closebtn {
-        position: absolute;
-        top: 15px;
-        right: 25px;
-        font-size: 30px;
-        cursor: pointer;
-        color: white;
-      }
-
-      /* ---------------------------------- */
-      /* 3. Main Content Area */
-      /* ---------------------------------- */
-      .content {
-        padding: 30px;
-        max-width: 800px;
-        margin: 40px auto;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        animation: fadeIn 0.6s ease-out; /* Subtle motion effect */
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
+        /* ---------------------------------- */
+        /* 1. Global & Base Styles */
+        /* ---------------------------------- */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5fff5;
+            margin: 0;
+            padding: 0;
+            color: #222;
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+
+        /* ---------------------------------- */
+        /* 2. Header & Navigation */
+        /* ---------------------------------- */
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
-      }
 
-      h2 {
-        color: #2e7d32;
-        font-size: 26px;
-        margin-top: 0;
-        border-bottom: 2px solid #e0e0e0;
-        padding-bottom: 10px;
-        margin-bottom: 25px;
-      }
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+        }
 
-      h3 {
-        color: #1b5e20;
-        margin-top: 30px;
-      }
+        .menu-icon {
+            font-size: 26px;
+            cursor: pointer;
+            margin-right: 15px;
+        }
 
-      p {
-        font-size: 16px;
-        line-height: 1.6;
-        margin-bottom: 20px;
-      }
+        /* Sidebar Styles */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #1b5e20;
+            overflow-x: hidden;
+            transition: 0.4s;
+            padding-top: 60px;
+            z-index: 2000;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+        }
 
-      ul {
-        margin-left: 20px;
-        list-style-type: "🌿 "; /* Custom bullet point for theme */
-      }
+        .sidebar a {
+            padding: 12px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #f5fff5;
+            display: block;
+            transition: 0.3s;
+        }
 
-      .content ul a {
-        color: #2e7d32;
-        font-weight: bold;
-      }
-      .content ul a:hover {
-        color: #1b5e20;
-      }
+        .sidebar a:hover {
+            background-color: #388e3c;
+        }
 
-      /* ---------------------------------- */
-      /* 4. Floating WhatsApp Button */
-      /* ---------------------------------- */
-      .whatsapp-float {
-        position: fixed;
-        width: 60px;
-        height: 60px;
-        bottom: 25px;
-        right: 25px;
-        background-color: #25d366;
-        color: white;
-        border-radius: 50%;
-        text-align: center;
-        line-height: 60px; /* Center icon */
-        font-size: 24px;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-        z-index: 1000;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s;
-      }
+        .sidebar .closebtn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+        }
 
-      .whatsapp-float:hover {
-        background-color: #20b358;
-        transform: scale(1.1);
-      }
+        /* ---------------------------------- */
+        /* 3. Main Content Area */
+        /* ---------------------------------- */
+        .content {
+            padding: 30px;
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
 
-<<<<<<< HEAD
-  <!-- Sidebar -->
-  <div id="mySidebar" class="sidebar">
-    <span class="closebtn" onclick="closeNav()">&times;</span>
-    <a href="dashboard.html"> Dashboard</a>
-    <a href="notes.html">Notes</a>
-    <a href="join_meet.html">Join Meet</a>
-    <a href="about.html">About</a>
-    <a href="about.html">Revision&Asignments</a>
-    <a href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20TeachThem%20AI/ML%20program." target="_blank">💬 WhatsApp Me</a>
-  </div>
-=======
-      /* ---------------------------------- */
-      /* 5. Footer */
-      /* ---------------------------------- */
-      footer {
-        text-align: center;
-        padding: 20px;
-        color: #555;
-        font-size: 14px;
-        margin-top: 40px;
-      }
+        h2 {
+            color: #2e7d32;
+            font-size: 26px;
+            margin-top: 0;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            color: #1b5e20;
+            margin-top: 30px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            margin-left: 20px;
+            list-style-type: "🌿 "; /* Custom bullet point for theme */
+        }
+
+        .content ul a {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        .content ul a:hover {
+            color: #1b5e20;
+        }
+        
+        .section-box {
+            border-left: 5px solid #a5d6a7;
+            padding: 15px;
+            background-color: #f9fff9;
+            margin-bottom: 30px;
+        }
+
+        /* ---------------------------------- */
+        /* 4. Floating WhatsApp Button */
+        /* ---------------------------------- */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px; 
+            font-size: 24px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #20b358;
+            transform: scale(1.1);
+        }
+
+        /* ---------------------------------- */
+        /* 5. Footer */
+        /* ---------------------------------- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #555;
+            font-size: 14px;
+            margin-top: 40px;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body onload="speakWelcome()">
     <header>
-      <span class="menu-icon" onclick="openNav()">&#9776;</span>
-      <h1>About LEARN AI</h1>
+        <div class="header-content">
+            <span class="menu-icon" onclick="openNav()">&#9776;</span>
+            <h1>About LEARN AI</h1>
+        </div>
+        <div id="welcome-message" style="font-size: 14px; font-style: italic;">
+            About the Platform
+        </div>
     </header>
->>>>>>> 6ab6276dd4a10c17a3aa88d9651d6019e228ae50
 
     <div id="mySidebar" class="sidebar">
-      <span class="closebtn" onclick="closeNav()">&times;</span>
-      <a href="dashboard.html"> Dashboard</a>
-      <a href="notes.html">Notes</a>
-      <a href="join_meet.html">Join Meet</a>
-      <a href="about.html">About</a>
-      <a href="revision.html">Revision & Assignments</a>
-      <a
-        href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20TeachThem%20AI/ML%20program."
-        target="_blank"
-        >💬 WhatsApp Me</a
-      >
+        <span class="closebtn" onclick="closeNav()">&times;</span>
+        <a href="dashboard.html"> Dashboard</a>
+        <a href="notes.html">Notes</a>
+        <a href="join_meet.html">Join Meet</a>
+        <a href="about.html">About</a>
+        <a href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20TeachThem%20AI/ML%20program." target="_blank">💬 WhatsApp Support</a>
     </div>
 
     <div class="content">
-      <h2>About LEARN AI: Empowering the Future</h2>
-      <p>
-        <strong>LEARN AI</strong> is an interactive learning platform focused on
-        empowering students with **Artificial Intelligence (AI), Machine
-        Learning (ML), and Deep Learning (DL)** knowledge—from beginner to
-        advanced levels.
-      </p>
+        <h2>About LEARN AI: Empowering the Future 💡</h2>
+        
+        <div class="section-box">
+            <h3>Our Mission and Vision 🌍</h3>
+            <p>
+                <strong>LEARN AI</strong> is an interactive platform dedicated to providing **free, high-quality** education in **Artificial Intelligence (AI), Machine Learning (ML), and Deep Learning (DL)**. We focus on bridging the gap between theoretical knowledge and **hands-on application**, particularly in crucial domains like Agriculture.
+            </p>
+            <p>
+                Our vision is to cultivate a new generation of problem-solvers who can leverage AI to create **sustainable, impactful solutions** in Africa and beyond, starting with **Climate-Smart Agriculture**.
+            </p>
+        </div>
 
-      <p>
-        Our mission is to make AI education accessible, practical, and enjoyable
-        for everyone through **modern web tools, video tutorials, and structured
-        study notes**. We believe in learning by doing, hence the focus on
-        hands-on application, particularly in the domain of Agriculture.
-      </p>
+        <div class="section-box">
+            <h3>What We Offer 📚</h3>
+            <p>We provide a comprehensive learning experience designed for practical success:</p>
+            <ul>
+                <li>
+                    **Structured Syllabus:** A clear path covering AI fundamentals, ML techniques, and DL architectures.
+                </li>
+                <li>
+                    **Guided video tutorials** on AI, ML, and DL fundamentals and applications.
+                </li>
+                <li>
+                    **Live Google Meet sessions** for interactive Q&A and problem-solving.
+                </li>
+                <li>
+                    **Hands-on projects** and assignments to strengthen practical knowledge.
+                </li>
+                <li>
+                    **Downloadable study notes** (PDF format) and supplementary readings.
+                </li>
+            </ul>
+        </div>
+        
+        <div class="section-box">
+            <h3>Understanding AI's Subsets 🧠</h3>
+            <p>
+                Artificial Intelligence is an umbrella term. Our course focuses heavily on its key subsets: **Machine Learning (ML)** and **Deep Learning (DL)**.
+            </p>
+            <p>
+                **ML** enables computers to learn from data without being explicitly programmed. **DL**, a subset of ML, uses **neural networks** with multiple layers (like the human brain) to handle complex tasks such as image recognition and time-series prediction—perfect for detecting crop diseases or predicting climate patterns. 
 
-      <h3>What We Offer 🌿</h3>
-      <ul>
-        <li>
-          **Guided video tutorials** on AI, ML, and DL fundamentals and
-          applications.
-        </li>
-        <li>
-          **Downloadable study notes** (PDF format) and supplementary readings.
-        </li>
-        <li>
-          **Live Google Meet sessions** for interactive Q&A and problem-solving.
-        </li>
-        <li>
-          **Hands-on projects** and assignments to strengthen practical
-          knowledge.
-        </li>
-      </ul>
+[Image of the relationship between Artificial Intelligence, Machine Learning, and Deep Learning]
 
-      <h3>Our Vision 🌍</h3>
-      <p>
-        To build the next generation of problem-solvers who can leverage
-        Artificial Intelligence to create **sustainable, impactful solutions**
-        in Africa and beyond, starting with **Climate-Smart Agriculture**.
-      </p>
+            </p>
+        </div>
 
-      <h3>Contact Us 📧</h3>
-      <p>
-        If you have questions, feedback, or would like to collaborate, reach out
-        directly via WhatsApp or email:
-      </p>
-      <ul>
-        <li>
-          WhatsApp:
-          <a href="https://wa.me/254707605751" target="_blank"
-            >+254 707 605 751</a
-          >
-        </li>
-        <li>Email: **delstarfordisaiah@gmail.com**</li>
-      </ul>
+        <div class="section-box">
+            <h3>Contact Us 📧</h3>
+            <p>
+                If you have questions, feedback, or would like to collaborate, reach out directly via WhatsApp or email:
+            </p>
+            <ul>
+                <li>
+                    WhatsApp:
+                    <a href="https://wa.me/254707605751" target="_blank"
+                        >+254 707 605 751</a
+                    >
+                </li>
+                <li>Email: <strong>delstarfordisaiah@gmail.com</strong></li>
+            </ul>
+        </div>
     </div>
 
     <a
-      href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20TeachThem%20AI/ML%20program."
-      class="whatsapp-float"
-      target="_blank"
-      title="Chat on WhatsApp"
+        href="https://wa.me/254707605751?text=Hello!%20I'm%20interested%20in%20the%20TeachThem%20AI/ML%20program."
+        class="whatsapp-float"
+        target="_blank"
+        title="Chat on WhatsApp"
     >
-      💬
+        💬
     </a>
 
     <footer>
-      © 2025 LEARN AI Learning Platform. All rights reserved. |
-      <a
-        href="https://delstarford-personal-portofolio.vercel.app"
-        target="_blank"
-        style="color: #2e7d32; text-decoration: none"
-        >Delstarford Isaiah</a
-      >
+        © 2025 LEARN AI Learning Platform. All rights reserved. |
+        <a
+            href="https://delstarford-personal-portofolio.vercel.app"
+            target="_blank"
+            style="color: #2e7d32; text-decoration: none"
+            >Delstarford Isaiah</a
+        >
     </footer>
 
     <script>
-      function openNav() {
-        document.getElementById("mySidebar").style.width = "250px";
-      }
+        // --- Navigation Functions ---
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+        }
 
-      function closeNav() {
-        document.getElementById("mySidebar").style.width = "0";
-      }
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+
+        // --- Voice Function (Web Speech API) ---
+        function speakWelcome() {
+            // Check for browser support
+            if (!('speechSynthesis' in window)) {
+                console.warn("Speech Synthesis API not supported.");
+                return;
+            }
+            
+            const welcomeMessage = "Welcome to the About page! Here you can learn about the mission and vision of LEARN A I. Use the sidebar menu to navigate back to the dashboard, view notes, or join a live session. We are committed to making Artificial Intelligence education accessible and practical for your career in Agriculture.";
+            
+            // Stop any current speech
+            window.speechSynthesis.cancel(); 
+            
+            const utterance = new SpeechSynthesisUtterance(welcomeMessage);
+            
+            // Try to find a female voice
+            const voices = window.speechSynthesis.getVoices();
+            let ladyVoice = voices.find(voice => voice.name.includes('Google US English') || voice.lang.includes('en-US') && (voice.name.includes('Female') || voice.name.includes('Lady')));
+            
+            if (ladyVoice) {
+                // Set the found voice
+                utterance.voice = ladyVoice;
+            } else {
+                // Default settings
+                utterance.pitch = 1.0;
+                utterance.rate = 1.0;
+            }
+
+            // Start speaking
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // NOTE: speakWelcome() is called automatically via the onload attribute in the <body> tag.
     </script>
-  </body>
+</body>
 </html>
