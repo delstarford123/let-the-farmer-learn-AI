@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LEARN AI Registration</title>
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -19,10 +18,67 @@
             min-height: 100vh;
         }
 
+        /* --- NEW DASHBOARD BUTTON STYLES --- */
+        .home-dashboard-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #d4af37, #f1c232);
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            z-index: 9999; /* Ensures it stays on top */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+            animation: float-btn 3s ease-in-out infinite;
+        }
+
+        .home-dashboard-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+            background: #fff;
+            border-color: #d4af37;
+        }
+
+        .home-dashboard-btn i {
+            font-size: 18px;
+        }
+
+        @keyframes float-btn {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Hide text on very small screens to keep it clean */
+        @media (max-width: 500px) {
+            .home-dashboard-btn span {
+                display: none;
+            }
+            .home-dashboard-btn {
+                padding: 12px;
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                justify-content: center;
+            }
+            .home-dashboard-btn i {
+                margin: 0;
+            }
+        }
+        /* ----------------------------------- */
+
         .container {
             width: 100%;
             max-width: 700px;
-            margin: 20px auto;
+            margin: 60px auto 20px auto; /* Increased top margin to clear button on mobile */
             background: #111;
             border: 1px solid #d4af37;
             padding: 30px 35px;
@@ -61,6 +117,7 @@
             color: #fff;
             font-size: 15px;
             transition: all 0.3s ease;
+            box-sizing: border-box; /* Fixes width issues */
         }
 
         input:focus, select:focus, textarea:focus {
@@ -231,11 +288,16 @@
 </head>
 
 <body>
+
+    <a href="dashboard.html" class="home-dashboard-btn">
+        <i class="fas fa-th-large"></i>
+        <span>Dashboard</span>
+    </a>
+
     <div class="container">
         <h2 id="main-header">Learn AI Registration</h2>
         <p id="sub-header">Select your preferred registration method for the program.</p>
 
-        <!-- Step 1: Registration Method Choice -->
         <div id="choice-screen">
             <div class="choice-buttons">
                 <button class="btn" id="text-choice-btn">
@@ -250,7 +312,6 @@
             </div>
         </div>
 
-        <!-- Step 2a: Standard Text Form -->
         <div id="text-form-screen" class="hidden">
             <p>Please fill out the complete form below.</p>
             <form id="text-form">
@@ -362,7 +423,6 @@
             </form>
         </div>
 
-        <!-- Step 2b: Voice Registration Screen -->
         <div id="voice-reg-screen" class="hidden">
             <p>Record a short sample (max 30 seconds) stating your name and why you are interested in AI/ML.</p>
             <form id="voice-form">
@@ -391,7 +451,6 @@
             </form>
         </div>
 
-        <!-- Step 3: Success / Welcome Screen -->
         <div id="success-screen" class="hidden">
             <div style="text-align: center;">
                 <i class="fas fa-check-circle" style="font-size: 70px; color: #28a745; margin-bottom: 20px; margin-top: 20px;"></i>
